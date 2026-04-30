@@ -610,7 +610,7 @@ footer{
 
   /* Hero */
   .hero{padding:48px 0 36px}
-  .hero-logo{max-width:130px;margin:0 auto 24px;border-radius:22px}
+  .hero-logo{max-width:100px;margin:0 auto 24px;border-radius:22px}
   .hero-title{letter-spacing:-0.02em;word-break:break-word}
   .hero-sub{padding:0 4px;font-size:15px}
   .hero-badge{font-size:10.5px;padding:5px 11px}
@@ -713,7 +713,7 @@ footer{
 ══════════════════════════════════════════ */
 @media(max-width:400px){
   .wrap{padding:0 12px}
-  .hero-logo{max-width:110px;margin:0 auto 20px}
+  .hero-logo{max-width:80px;margin:0 auto 20px;border-radius:18px}
   .hero-title{font-size:26px;letter-spacing:-0.015em}
   .hero-badge{font-size:10px;padding:5px 10px}
   .stat-n{font-size:24px}
