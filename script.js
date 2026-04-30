@@ -31,6 +31,21 @@ function initTabIndicator() {
 window.addEventListener('resize', initTabIndicator);
 document.addEventListener('DOMContentLoaded', initTabIndicator);
 
+function initMobileNav() {
+  const nav = document.getElementById('navlinks');
+  if (!nav) return;
+
+  nav.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => nav.classList.remove('open'));
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) nav.classList.remove('open');
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initMobileNav);
+
 // Also re-calculate if the tab container is scrolled (mobile)
 document.addEventListener('DOMContentLoaded', () => {
   const tabContainer = document.querySelector('.shots-tabs');
