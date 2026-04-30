@@ -132,6 +132,12 @@ nav{
   background:radial-gradient(ellipse,rgba(59,130,246,0.1) 0%,transparent 65%);
   pointer-events:none;
 }
+.hero-logo{
+  max-width:160px;height:auto;display:block;
+  margin:0 auto 32px;object-fit:contain;
+  border-radius:32px;
+  animation:fadeup .5s ease both;
+}
 .hero-badge{
   display:inline-flex;align-items:center;gap:8px;
   padding:5px 14px;border:1px solid var(--border2);border-radius:100px;
@@ -468,10 +474,9 @@ nav{
 }
 .author-avatar{
   width:80px;height:80px;border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--green));
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--fd);font-size:30px;font-weight:700;color:#fff;
+  object-fit:cover;
   flex-shrink:0;
+  border:3px solid var(--border);
 }
 .author-name{font-family:var(--fd);font-size:22px;font-weight:600;color:var(--text);letter-spacing:-0.02em;margin-bottom:6px}
 .author-role{font-size:13px;color:var(--text2);margin-bottom:16px}
@@ -605,6 +610,7 @@ footer{
 
   /* Hero */
   .hero{padding:48px 0 36px}
+  .hero-logo{max-width:130px;margin:0 auto 24px;border-radius:22px}
   .hero-title{letter-spacing:-0.02em;word-break:break-word}
   .hero-sub{padding:0 4px;font-size:15px}
   .hero-badge{font-size:10.5px;padding:5px 11px}
@@ -681,7 +687,7 @@ footer{
     text-align:center;gap:20px;padding:28px 20px;
   }
   .author-links{justify-content:center}
-  .author-avatar{width:72px;height:72px;font-size:26px}
+  .author-avatar{width:72px;height:72px}
   .author-name{font-size:20px}
 
   /* CTA */
@@ -707,6 +713,7 @@ footer{
 ══════════════════════════════════════════ */
 @media(max-width:400px){
   .wrap{padding:0 12px}
+  .hero-logo{max-width:110px;margin:0 auto 20px}
   .hero-title{font-size:26px;letter-spacing:-0.015em}
   .hero-badge{font-size:10px;padding:5px 10px}
   .stat-n{font-size:24px}
