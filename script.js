@@ -1,42 +1,27 @@
+function showShot(name, btn) {
+  document.querySelectorAll('.shot-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
+  document.getElementById('shot-' + name).classList.add('active');
+  btn.classList.add('active');
+  moveTabIndicator(btn);
+}
+
+function moveTabIndicator(activeButton) {
+  const indicator = document.querySelector('.tab-indicator');
+  if (!indicator) return;
+  const container = document.querySelector('.shots-tabs');
+  const rect = activeButton.getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
+  indicator.style.width = rect.width + 'px';
+  indicator.style.transform = `translateX(${rect.left - containerRect.left}px)`;
+}
+
+window.addEventListener('resize', () => {
+  const active = document.querySelector('.stab.active');
+  if (active) moveTabIndicator(active);
+});
+
 document.addEventListener('DOMContentLoaded', () => {
-  // Smooth scroll for internal links
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const href = a.getAttribute('href');
-      if (href && href.length > 1) {
-        e.preventDefault();
-        const el = document.querySelector(href);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  });
-
-  // Nav toggle for small screens
-  const toggle = document.getElementById('nav-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  if (toggle && navLinks) {
-    toggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      toggle.classList.toggle('is-open');
-    });
-  }
-
-  // Close mobile nav when a link is clicked
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => {
-      if (navLinks && navLinks.classList.contains('open')) {
-        navLinks.classList.remove('open');
-        if (toggle) toggle.classList.remove('is-open');
-      }
-    });
-  });
-
-  // Make external links open in new tab
-  document.querySelectorAll('a[href^="http"]').forEach(a => {
-    const href = a.getAttribute('href');
-    if (href && !href.includes(location.hostname)) {
-      a.setAttribute('target', '_blank');
-      a.setAttribute('rel', 'noopener noreferrer');
-    }
-  });
+  const active = document.querySelector('.stab.active');
+  if (active) moveTabIndicator(active);
 });
