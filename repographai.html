@@ -14,7 +14,7 @@
 <script src="script.js" defer></script>
 
 <!-- ═══════════════════════ NAV ════════════════════════ -->
-<nav>
+nav>
   <div class="nav-inner">
     <a class="nav-logo" href="#">
       <div class="nav-logo-mark">
@@ -49,7 +49,552 @@
   </div>
 </nav>
 
-<!-- Content truncated for brevity. The full original body was restored here. -->
+<!-- ═══════════════════════ HERO ════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-label">
+      <div class="hero-label-dot"></div>
+      VS Code Extension — Free and Open Source
+    </div>
+
+    <h1 class="hero-title">
+      Understand any<br>
+      codebase <span>in minutes</span>
+    </h1>
+
+    <p class="hero-sub">
+      RepoGraph AI scans your workspace, maps every file relationship, and gives you AI-powered summaries and a live Q&A. All inside VS Code. All on your own API key.
+    </p>
+
+    <div class="hero-actions">
+      <a class="btn-primary" href="https://marketplace.visualstudio.com">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M8 2v9M4 7l4 4 4-4M2 14h12"/>
+        </svg>
+        Install from Marketplace
+      </a>
+      <a class="btn-secondary" href="https://github.com/your-username/repograph-ai">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        View on GitHub
+      </a>
+    </div>
+
+    <div class="hero-terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dot t-red"></div>
+        <div class="terminal-dot t-amber"></div>
+        <div class="terminal-dot t-green"></div>
+        <span class="terminal-title">RepoGraph AI — Analysis Log</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">→ </span><span class="t-cmd">Scanning workspace: my-next-app</span></div>
+        <div><span class="t-out">Found </span><span class="t-accent">142 source files</span><span class="t-out"> across 18 directories</span></div>
+        <div><span class="t-out">Skipped node_modules, dist, .next (auto)</span></div>
+        <div>&nbsp;</div>
+        <div><span class="t-prompt">→ </span><span class="t-cmd">Building dependency graph...</span></div>
+        <div><span class="t-accent">312 import edges</span><span class="t-out"> resolved across all files</span></div>
+        <div><span class="t-out">Top connected: </span><span class="t-green-c">lib/auth.ts</span><span class="t-dim"> (in:18 out:6)</span></div>
+        <div>&nbsp;</div>
+        <div><span class="t-prompt">→ </span><span class="t-cmd">Generating AI summary...</span></div>
+        <div><span class="t-out">Tech stack: </span><span class="t-accent">Next.js, TypeScript, Prisma, Tailwind</span></div>
+        <div><span class="t-out">Architecture: </span><span class="t-green-c">App Router with server components</span></div>
+        <div>&nbsp;</div>
+        <div><span class="t-green-c">Analysis complete.</span><span class="t-dim"> Q&A is ready.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ STATS ═══════════════════════ -->
+<section class="stats">
+  <div class="stats-inner container">
+    <div class="stat-item">
+      <div class="stat-num">12<span>+</span></div>
+      <div class="stat-label">Languages supported</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">5</div>
+      <div class="stat-label">AI providers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Data sent to our servers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">MIT</div>
+      <div class="stat-label">Open source license</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FEATURES ════════════════════ -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="features-header">
+      <div class="section-label">Features</div>
+      <h2 class="section-title">Everything you need to<br>navigate unfamiliar code</h2>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="5" cy="5" r="3"/><circle cx="19" cy="5" r="3"/>
+            <circle cx="12" cy="19" r="3"/><circle cx="5" cy="12" r="2"/>
+            <line x1="5" y1="8" x2="5" y2="10"/><line x1="8" y1="5" x2="16" y2="5"/>
+            <line x1="7" y1="12" x2="10" y2="17"/><line x1="19" y1="8" x2="14" y2="17"/>
+          </svg>
+        </div>
+        <div class="feature-title">Dependency Graph</div>
+        <div class="feature-body">An interactive force-directed graph showing every file and how it connects through imports. Click any node for details. Double-click to open the file.</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <line x1="7" y1="8" x2="17" y2="8"/>
+            <line x1="7" y1="12" x2="14" y2="12"/>
+            <line x1="7" y1="16" x2="11" y2="16"/>
+          </svg>
+        </div>
+        <div class="feature-title">AI File Summaries</div>
+        <div class="feature-body">Every key file gets a plain-English explanation of what it does, what it exports, and what it depends on. No more reading random files to find where things live.</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+        </div>
+        <div class="feature-title">Codebase Q&A</div>
+        <div class="feature-body">Ask anything in plain English. "Where is auth handled?", "Which files talk to the database?" The AI has full repo context and answers with specific file references.</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="feature-title">Multi-Provider AI</div>
+        <div class="feature-body">Works with Groq, Ollama, Gemini, Anthropic, and OpenAI. Use any model. Type a custom model name. Switch providers anytime from the Settings tab.</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="feature-title">Privacy First</div>
+        <div class="feature-body">API keys live in VS Code's encrypted SecretStorage. Your code is only sent to the provider you choose, for analysis only. No backend. No telemetry. No accounts.</div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 3"/>
+          </svg>
+        </div>
+        <div class="feature-title">Analysis History</div>
+        <div class="feature-body">Every analysis is saved locally per workspace. Switch between past analyses, see how the graph looked before a refactor, and delete old records when done.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ HOW IT WORKS ════════════════════ -->
+<section class="how" id="how">
+  <div class="container">
+    <div class="how-grid">
+      <div>
+        <div class="section-label">How it works</div>
+        <h2 class="section-title">Four steps from<br>zero to understanding</h2>
+        <p class="section-body" style="margin-bottom: 40px;">The entire pipeline runs locally. The only external call is to the AI provider you configure.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <div class="step-title">Scan the workspace</div>
+              <div class="step-body">Reads all source files. Automatically skips node_modules, dist, build outputs, lockfiles, minified files, and generated code across all languages.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <div class="step-title">Build the graph</div>
+              <div class="step-body">Extracts every import statement per language, resolves relative and alias paths, and constructs a node-edge dependency map of the full codebase.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <div class="step-title">Generate summaries</div>
+              <div class="step-body">Sends batches of file content to your chosen AI provider. Returns a repo overview, architecture description, tech stack, and per-file explanations.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-content">
+              <div class="step-title">Ask anything</div>
+              <div class="step-body">The Q&A agent has full context of the graph, summaries, and file contents. Multi-turn conversation with history so questions build on each other.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-diagram">
+        <div class="flow-node">
+          <div class="flow-node-dot" style="background:#22c55e"></div>
+          WorkspaceScanner — reads source files
+        </div>
+        <div class="flow-arrow">
+          <svg width="12" height="16" viewBox="0 0 12 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="6" y1="0" x2="6" y2="12"/><path d="M2 8l4 6 4-6"/>
+          </svg>
+        </div>
+        <div class="flow-node">
+          <div class="flow-node-dot" style="background:#2f7fff"></div>
+          GraphBuilder — extracts imports, builds edges
+        </div>
+        <div class="flow-arrow">
+          <svg width="12" height="16" viewBox="0 0 12 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="6" y1="0" x2="6" y2="12"/><path d="M2 8l4 6 4-6"/>
+          </svg>
+        </div>
+        <div class="flow-node">
+          <div class="flow-node-dot" style="background:#ffbd2e"></div>
+          AI Provider — your key, your choice
+        </div>
+        <div class="flow-arrow">
+          <svg width="12" height="16" viewBox="0 0 12 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="6" y1="0" x2="6" y2="12"/><path d="M2 8l4 6 4-6"/>
+          </svg>
+        </div>
+        <div class="flow-node">
+          <div class="flow-node-dot" style="background:#b39dff"></div>
+          RepoSummaryAgent — overview + architecture
+        </div>
+        <div class="flow-arrow">
+          <svg width="12" height="16" viewBox="0 0 12 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="6" y1="0" x2="6" y2="12"/><path d="M2 8l4 6 4-6"/>
+          </svg>
+        </div>
+        <div class="flow-node">
+          <div class="flow-node-dot" style="background:#b39dff"></div>
+          FileSummaryAgent — per-file explanations
+        </div>
+        <div class="flow-arrow">
+          <svg width="12" height="16" viewBox="0 0 12 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="6" y1="0" x2="6" y2="12"/><path d="M2 8l4 6 4-6"/>
+          </svg>
+        </div>
+        <div class="flow-node">
+          <div class="flow-node-dot" style="background:#22c55e"></div>
+          QAAgent — multi-turn codebase Q&A
+        </div>
+        <div class="flow-arrow">
+          <svg width="12" height="16" viewBox="0 0 12 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="6" y1="0" x2="6" y2="12"/><path d="M2 8l4 6 4-6"/>
+          </svg>
+        </div>
+        <div class="flow-node">
+          <div class="flow-node-dot" style="background:#2f7fff"></div>
+          VS Code Sidebar — graph, summary, chat
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PROVIDERS ═══════════════════════ -->
+<section class="providers" id="providers">
+  <div class="container">
+    <div class="providers-header">
+      <div>
+        <div class="section-label">AI Providers</div>
+        <h2 class="section-title">Your key.<br>Your choice.</h2>
+      </div>
+      <p class="section-body" style="max-width: 380px;">We support every major provider. Start free with Groq or run entirely offline with Ollama. Switch anytime without re-analyzing.</p>
+    </div>
+
+    <table class="providers-table">
+      <thead>
+        <tr>
+          <th>Provider</th>
+          <th>Cost</th>
+          <th>Default Model</th>
+          <th>Best for</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="provider-name">Groq</span></td>
+          <td><span class="badge badge-free">Free tier</span></td>
+          <td style="font-family:var(--font-mono);font-size:12px;color:var(--text-3)">llama-3.3-70b-versatile</td>
+          <td>Best starting point. Fast, generous free limits.</td>
+        </tr>
+        <tr>
+          <td><span class="provider-name">Ollama</span></td>
+          <td><span class="badge badge-local">100% Local</span></td>
+          <td style="font-family:var(--font-mono);font-size:12px;color:var(--text-3)">llama3.2</td>
+          <td>Complete privacy. No internet required after setup.</td>
+        </tr>
+        <tr>
+          <td><span class="provider-name">Google Gemini</span></td>
+          <td><span class="badge badge-free">Free tier</span></td>
+          <td style="font-family:var(--font-mono);font-size:12px;color:var(--text-3)">gemini-1.5-flash</td>
+          <td>Good free quota. Flash model is fast and accurate.</td>
+        </tr>
+        <tr>
+          <td><span class="provider-name">Anthropic Claude</span></td>
+          <td><span class="badge badge-paid">Paid</span></td>
+          <td style="font-family:var(--font-mono);font-size:12px;color:var(--text-3)">claude-haiku-4-5</td>
+          <td>Highest quality summaries and Q&A answers.</td>
+        </tr>
+        <tr>
+          <td><span class="provider-name">OpenAI</span></td>
+          <td><span class="badge badge-paid">Paid</span></td>
+          <td style="font-family:var(--font-mono);font-size:12px;color:var(--text-3)">gpt-4o-mini</td>
+          <td>Reliable, widely used, cheap at mini tier.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:13px;color:var(--text-3);margin-top:16px;font-family:var(--font-mono)">
+      All providers support custom model names — type any model string manually.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════ LANGUAGES ═══════════════════════ -->
+<section class="languages">
+  <div class="container">
+    <div class="languages-label">Supported Languages</div>
+    <div class="lang-chips">
+      <div class="lang-chip">TypeScript</div>
+      <div class="lang-chip">JavaScript</div>
+      <div class="lang-chip">Python</div>
+      <div class="lang-chip">Go</div>
+      <div class="lang-chip">Rust</div>
+      <div class="lang-chip">Java</div>
+      <div class="lang-chip">Kotlin</div>
+      <div class="lang-chip">C</div>
+      <div class="lang-chip">C++</div>
+      <div class="lang-chip">C#</div>
+      <div class="lang-chip">Ruby</div>
+      <div class="lang-chip">PHP</div>
+      <div class="lang-chip">Swift</div>
+      <div class="lang-chip">Vue</div>
+      <div class="lang-chip">Svelte</div>
+      <div class="lang-chip">Astro</div>
+      <div class="lang-chip">GraphQL</div>
+      <div class="lang-chip">Prisma</div>
+      <div class="lang-chip">SQL</div>
+      <div class="lang-chip">Shell</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PRIVACY ═════════════════════════ -->
+<section class="privacy" id="privacy">
+  <div class="container">
+    <div class="privacy-grid">
+      <div>
+        <div class="section-label">Privacy</div>
+        <h2 class="section-title">Your code never<br>leaves your machine</h2>
+        <p class="section-body">RepoGraph AI has no backend. There is no server, no account, no database, and no usage tracking. The only network request made is to the AI provider you explicitly configure.</p>
+
+        <div class="privacy-points">
+          <div class="privacy-point">
+            <div class="privacy-point-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+              </svg>
+            </div>
+            <div>
+              <div class="privacy-point-title">Encrypted key storage</div>
+              <div class="privacy-point-body">API keys are stored in VS Code's SecretStorage, which uses the OS keychain. Never written to disk in plaintext.</div>
+            </div>
+          </div>
+          <div class="privacy-point">
+            <div class="privacy-point-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="privacy-point-title">No telemetry</div>
+              <div class="privacy-point-body">Zero usage tracking. No analytics events. No crash reports sent anywhere. The extension is fully offline-capable.</div>
+            </div>
+          </div>
+          <div class="privacy-point">
+            <div class="privacy-point-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <div>
+              <div class="privacy-point-title">Open source and auditable</div>
+              <div class="privacy-point-body">Every line of code is public. Read exactly what the extension does, verify its behavior, and contribute improvements.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="privacy-visual">
+        <div class="privacy-visual-title">Data flow</div>
+
+        <div class="data-flow-row">
+          <div class="data-flow-node dfn-local">Your workspace</div>
+          <div class="dfn-arrow">
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.5">
+              <line x1="0" y1="5" x2="12" y2="5"/><path d="M8 1l4 4-4 4"/>
+            </svg>
+          </div>
+          <div class="data-flow-node dfn-vscode">VS Code only</div>
+        </div>
+
+        <div class="data-flow-row">
+          <div class="data-flow-node dfn-vscode">Graph + summaries</div>
+          <div class="dfn-arrow">
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.5">
+              <line x1="0" y1="5" x2="12" y2="5"/><path d="M8 1l4 4-4 4"/>
+            </svg>
+          </div>
+          <div class="data-flow-node dfn-vscode">Local storage</div>
+        </div>
+
+        <div class="data-flow-row">
+          <div class="data-flow-node dfn-local">File snippets</div>
+          <div class="dfn-arrow">
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.5">
+              <line x1="0" y1="5" x2="12" y2="5"/><path d="M8 1l4 4-4 4"/>
+            </svg>
+          </div>
+          <div class="data-flow-node dfn-provider">AI provider only</div>
+        </div>
+
+        <div style="border-top: 1px solid var(--border); margin: 20px 0;"></div>
+
+        <div class="data-flow-row">
+          <div class="data-flow-node dfn-blocked">Our servers</div>
+          <div class="dfn-arrow" style="color: #ff5f57;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8">
+              <line x1="2" y1="2" x2="12" y2="12"/><line x1="12" y1="2" x2="2" y2="12"/>
+            </svg>
+          </div>
+          <div style="font-size:12px;color:var(--text-3);font-family:var(--font-mono)">do not exist</div>
+        </div>
+
+        <div class="data-flow-row">
+          <div class="data-flow-node dfn-blocked">Analytics</div>
+          <div class="dfn-arrow" style="color: #ff5f57;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8">
+              <line x1="2" y1="2" x2="12" y2="12"/><line x1="12" y1="2" x2="2" y2="12"/>
+            </svg>
+          </div>
+          <div style="font-size:12px;color:var(--text-3);font-family:var(--font-mono)">none</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ INSTALL ═════════════════════════ -->
+<section class="install" id="install">
+  <div class="container">
+    <div class="section-label">Installation</div>
+    <h2 class="section-title">Up and running in<br>three steps</h2>
+
+    <div class="install-steps">
+      <div class="install-step">
+        <div class="install-step-num">STEP 01</div>
+        <div class="install-step-title">Install the extension</div>
+        <div class="install-step-body">Search for RepoGraph AI in the VS Code Extensions panel and click Install. Or install from a .vsix file directly.</div>
+        <div class="code-snippet">ext install repograph.repograph-ai</div>
+      </div>
+
+      <div class="install-step">
+        <div class="install-step-num">STEP 02</div>
+        <div class="install-step-title">Add your API key</div>
+        <div class="install-step-body">Click the RepoGraph icon in the activity bar, open Settings, choose a provider, and paste your key. Start free with Groq.</div>
+        <a class="install-link" href="https://console.groq.com/keys">Get a free Groq key ↗</a>
+      </div>
+
+      <div class="install-step">
+        <div class="install-step-num">STEP 03</div>
+        <div class="install-step-title">Analyze your workspace</div>
+        <div class="install-step-body">Open a project folder, go to the Analyze tab, and click Analyze Workspace. The graph and summaries will be ready in one to two minutes.</div>
+        <div class="code-snippet">Ctrl+Shift+P → RepoGraph AI: Open Panel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CTA ══════════════════════════════ -->
+<section class="cta">
+  <div class="container">
+    <h2 class="cta-title">Stop reading files.<br>Start understanding code.</h2>
+    <p class="cta-sub">Free. Open source. No account required.</p>
+    <div class="cta-actions">
+      <a class="btn-primary" href="https://marketplace.visualstudio.com">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M8 2v9M4 7l4 4 4-4M2 14h12"/>
+        </svg>
+        Install from Marketplace
+      </a>
+      <a class="btn-secondary" href="https://github.com/your-username/repograph-ai">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        Star on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ══════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a class="footer-logo" href="#">
+        <div class="nav-logo-mark">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="4" cy="4" r="2.2" fill="white" opacity="0.95"/>
+            <circle cx="12" cy="4" r="2.2" fill="white" opacity="0.65"/>
+            <circle cx="4" cy="12" r="2.2" fill="white" opacity="0.65"/>
+            <circle cx="8" cy="8" r="1.6" fill="white" opacity="0.8"/>
+            <line x1="4" y1="4" x2="8" y2="8" stroke="white" stroke-width="0.9" opacity="0.5"/>
+            <line x1="12" y1="4" x2="8" y2="8" stroke="white" stroke-width="0.9" opacity="0.5"/>
+            <line x1="4" y1="12" x2="8" y2="8" stroke="white" stroke-width="0.9" opacity="0.5"/>
+          </svg>
+        </div>
+        RepoGraph AI
+      </a>
+
+      <ul class="footer-links">
+        <li><a href="https://github.com/your-username/repograph-ai">GitHub</a></li>
+        <li><a href="https://github.com/your-username/repograph-ai/blob/main/CHANGELOG.md">Changelog</a></li>
+        <li><a href="https://github.com/your-username/repograph-ai/blob/main/CONTRIBUTING.md">Contributing</a></li>
+        <li><a href="https://github.com/your-username/repograph-ai/blob/main/LICENSE">MIT License</a></li>
+        <li><a href="https://marketplace.visualstudio.com">Marketplace</a></li>
+      </ul>
+
+      <div class="footer-copy">MIT License — 2026</div>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>
