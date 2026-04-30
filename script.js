@@ -8,20 +8,36 @@ function showShot(name, btn) {
 
 function moveTabIndicator(activeButton) {
   const indicator = document.querySelector('.tab-indicator');
-  if (!indicator) return;
+  if (!indicator || !activeButton) return;
   const container = document.querySelector('.shots-tabs');
-  const rect = activeButton.getBoundingClientRect();
+  if (!container) return;
+
+  const btnRect = activeButton.getBoundingClientRect();
   const containerRect = container.getBoundingClientRect();
-  indicator.style.width = rect.width + 'px';
-  indicator.style.transform = `translateX(${rect.left - containerRect.left}px)`;
+
+  const scrollLeft = container.scrollLeft || 0;
+  const offsetLeft = btnRect.left - containerRect.left + scrollLeft;
+
+  indicator.style.width = btnRect.width + 'px';
+  indicator.style.left = '6px';
+  indicator.style.transform = `translateX(${offsetLeft}px)`;
 }
 
-window.addEventListener('resize', () => {
+function initTabIndicator() {
   const active = document.querySelector('.stab.active');
   if (active) moveTabIndicator(active);
-});
+}
 
+window.addEventListener('resize', initTabIndicator);
+document.addEventListener('DOMContentLoaded', initTabIndicator);
+
+// Also re-calculate if the tab container is scrolled (mobile)
 document.addEventListener('DOMContentLoaded', () => {
-  const active = document.querySelector('.stab.active');
-  if (active) moveTabIndicator(active);
+  const tabContainer = document.querySelector('.shots-tabs');
+  if (tabContainer) {
+    tabContainer.addEventListener('scroll', () => {
+      const active = document.querySelector('.stab.active');
+      if (active) moveTabIndicator(active);
+    });
+  }
 });
