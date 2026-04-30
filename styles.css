@@ -100,6 +100,21 @@ nav {
   height: 60px;
 }
 
+/* Product top badge */
+.product-top{
+  position:fixed;top:14px;left:14px;z-index:220;display:flex;align-items:center;gap:10px;
+  background:rgba(15,18,25,0.6);padding:8px 12px;border-radius:10px;border:1px solid var(--border);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+}
+.product-top img{width:26px;height:26px;border-radius:6px;object-fit:contain}
+.product-top .product-p{margin-left:8px;color:var(--accent-2);font-size:11px;letter-spacing:0.04em}
+
+/* Hamburger (mobile) */
+.hamburger{display:none;background:none;border:1px solid transparent;border-radius:8px;padding:8px;color:var(--text-2);cursor:pointer}
+.hamburger.is-open{background:var(--bg-3);border-color:var(--border-2)}
+
+.nav-links.open{display:flex;flex-direction:column;position:absolute;top:64px;right:20px;background:var(--bg-2);padding:12px;border-radius:8px;border:1px solid var(--border);gap:10px}
+
 .nav-logo {
   display: flex;
   align-items: center;
@@ -950,6 +965,7 @@ footer {
 @media (max-width: 768px) {
   .container { padding: 0 20px; }
   .nav-links { display: none; }
+  .hamburger{display:inline-flex}
   .stats-inner { grid-template-columns: repeat(2, 1fr); }
   .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
   .features-grid { grid-template-columns: 1fr; }
@@ -957,4 +973,7 @@ footer {
   .privacy-grid { grid-template-columns: 1fr; }
   .install-steps { grid-template-columns: 1fr; }
   .providers-header { flex-direction: column; align-items: flex-start; }
+
+  .screenshots { display:flex;gap:12px;margin-top:20px;overflow:auto }
+  .screenshot-thumb{width:220px;height:140px;border-radius:8px;object-fit:cover;border:1px solid var(--border)}
 }
