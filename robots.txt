@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Block access to any private or dev assets if added later
+Disallow: /admin/
+Disallow: /private/
+
+# Crawl delay (optional — helps with rate limiting on shared hosting)
+Crawl-delay: 5
+
+# Sitemap location
+Sitemap: https://repograph.kaushalendra.me/sitemap.xml
