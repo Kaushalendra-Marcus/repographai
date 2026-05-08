@@ -407,7 +407,68 @@
       </div>
     </div>
   </section>
-
+  <!-- Apple-Style Media Slider - 3 GIFs + 1 WebM -->
+<section class="sec" id="demo-slider">
+  <div class="wrap">
+    <div class="slabel">Live Demo</div>
+    <h2 class="stitle" style="margin-bottom:32px;">See RepoGraph AI in action</h2>
+    
+    <div class="mac-window">
+      <!-- macOS Window Chrome -->
+      <div class="mac-window-bar">
+        <div class="mac-traffic-lights">
+          <div class="mac-btn mac-close"></div>
+          <div class="mac-btn mac-minimize"></div>
+          <div class="mac-btn mac-maximize"></div>
+        </div>
+        <div class="mac-window-title">RepoGraph AI Demo</div>
+        <div class="mac-window-spacer"></div>
+      </div>
+      
+      <!-- Slider Content -->
+      <div class="mac-window-content">
+        <div class="apple-slider-container">
+          <div class="apple-slider" id="appleSlider">
+            <div class="slide-item active" data-type="gif">
+              <img src="assets/1.gif" alt="Dependency graph" class="slide-media-gif">
+            </div>
+            <div class="slide-item" data-type="gif">
+              <img src="assets/2.gif" alt="AI summaries" class="slide-media-gif">
+            </div>
+            <div class="slide-item" data-type="gif">
+              <img src="assets/3.gif" alt="Q&A panel" class="slide-media-gif">
+            </div>
+            <div class="slide-item" data-type="video">
+              <video id="appleSpeedVideo" class="slide-media-vid" muted playsinline autoplay disablePictureInPicture loop>
+                <source src="assets/4.webm" type="video/webm">
+              </video>
+            </div>
+          </div>
+          
+          <!-- Cool Minimal Buttons -->
+          <button class="apple-nav prev" id="applePrev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <button class="apple-nav next" id="appleNext">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+          
+          <!-- Dot Indicators -->
+          <div class="apple-dots" id="appleDots">
+            <span class="apple-dot active"></span>
+            <span class="apple-dot"></span>
+            <span class="apple-dot"></span>
+            <span class="apple-dot"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
   <!-- STATS -->
   <div class="stats" aria-label="Key statistics">
     <div class="stats-grid wrap">
