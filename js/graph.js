@@ -11,6 +11,8 @@ function initHeroCanvas(){
   var mouse = {x:-9999, y:-9999};
   var hovered = -1, dragged = -1, downPos = null, t = 0;
   var N = window.innerWidth < 640 ? 34 : 68;
+  var MOBILE = window.innerWidth < 640 || window.matchMedia('(pointer:coarse)').matches;
+  var SPEED = MOBILE ? 0.35 : 1; // calm the field down on touch screens
   var REST = 115, HOVER_R = 160;
   var DIRS = ['lib','src','api','core','utils','graph','ai','store'];
   var NAMES = ['auth','graph','index','scan','cache','config','parser','query','agent','store','edge','node','prompt','model','router','worker','indexer','report'];
@@ -33,7 +35,7 @@ function initHeroCanvas(){
     nodes = []; links = [];
     for(var i=0;i<N;i++){
       var hub = i % 11 === 0; // a few bigger hub nodes, like god nodes
-      nodes.push({x:Math.random()*W, y:Math.random()*H*0.72, vx:(Math.random()-.5)*0.4, vy:(Math.random()-.5)*0.4, r:(hub?3.6:Math.random()*1.6+1.7), hub:hub, c:Math.random(), pinned:false});
+      nodes.push({x:Math.random()*W, y:Math.random()*H*0.72, vx:(Math.random()-.5)*0.4*SPEED, vy:(Math.random()-.5)*0.4*SPEED, r:(hub?3.6:Math.random()*1.6+1.7), hub:hub, c:Math.random(), pinned:false});
     }
     // fixed link set so hover-highlighting shows a stable neighbourhood
     for(var a=0;a<N;a++){
@@ -104,11 +106,11 @@ function initHeroCanvas(){
     }
   }, {passive:true});
   function release(e){
-    if(dragged >= 0 && downPos && e && e.clientX !== undefined){
+      if(dragged >= 0 && downPos && e && e.clientX !== undefined){
       var r = canvas.getBoundingClientRect();
       var moved = Math.hypot(e.clientX-r.left-downPos[0], e.clientY-r.top-downPos[1]);
       if(moved < 6) nodes[dragged].pinned = !nodes[dragged].pinned; // tap toggles pin
-      else { nodes[dragged].vx = (Math.random()-.5)*0.5; nodes[dragged].vy = (Math.random()-.5)*0.5; }
+      else { nodes[dragged].vx = (Math.random()-.5)*0.5*SPEED; nodes[dragged].vy = (Math.random()-.5)*0.5*SPEED; }
     }
     dragged = -1; downPos = null;
     canvas.classList.remove('dragging');
@@ -153,7 +155,7 @@ function initHeroCanvas(){
       if(i!==dragged && !n.pinned){
         n.vx*=0.92; n.vy*=0.92;
         n.x += n.vx; n.y += n.vy;
-        n.vx+=(Math.random()-.5)*0.02; n.vy+=(Math.random()-.5)*0.02; // never freezes
+        n.vx+=(Math.random()-.5)*0.02*SPEED; n.vy+=(Math.random()-.5)*0.02*SPEED; // never freezes
         if(n.x<0||n.x>W){ n.vx*=-1; n.x=Math.max(0,Math.min(W,n.x)); }
         if(n.y<0||n.y>H){ n.vy*=-1; n.y=Math.max(0,Math.min(H,n.y)); }
         // hover repulsion — nodes move away as you approach
