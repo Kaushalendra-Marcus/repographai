@@ -5,7 +5,7 @@ Allow: /
 Disallow: /admin/
 Disallow: /private/
 
-# Crawl delay (optional — helps with rate limiting on shared hosting)
+# Crawl delay (optional - helps with rate limiting on shared hosting)
 Crawl-delay: 5
 
 # Sitemap location

@@ -1,4 +1,4 @@
-/* RepoGraph AI — hero graph module: graphify-style force layout.
+/* RepoGraph AI - hero graph module: graphify-style force layout.
    Springs, hover tooltip, drag + tap-to-pin. */
 (function(){
 "use strict";
@@ -73,7 +73,7 @@ function initHeroCanvas(){
   function interactiveTarget(t){
     return !!(t && t.closest && t.closest('a,button,input,textarea,select,video,.faq-q,.apple-nav'));
   }
-  // Window-level listeners so EVERY node is draggable — even ones behind text
+  // Window-level listeners so EVERY node is draggable - even ones behind text
   // and panels (the content layer sits above the canvas and would eat the events).
   // Links and buttons are excluded so they keep working normally.
   window.addEventListener('pointerdown', function(e){
@@ -158,7 +158,7 @@ function initHeroCanvas(){
         n.vx+=(Math.random()-.5)*0.02*SPEED; n.vy+=(Math.random()-.5)*0.02*SPEED; // never freezes
         if(n.x<0||n.x>W){ n.vx*=-1; n.x=Math.max(0,Math.min(W,n.x)); }
         if(n.y<0||n.y>H){ n.vy*=-1; n.y=Math.max(0,Math.min(H,n.y)); }
-        // hover repulsion — nodes move away as you approach
+        // hover repulsion - nodes move away as you approach
         var dx=n.x-mouse.x, dy=n.y-mouse.y, dd=Math.sqrt(dx*dx+dy*dy);
         if(dd<HOVER_R && dd>1){ var f=(1-dd/HOVER_R)*1.6; n.x+=dx/dd*f; n.y+=dy/dd*f; }
       }

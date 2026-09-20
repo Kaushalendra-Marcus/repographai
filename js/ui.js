@@ -1,4 +1,4 @@
-/* RepoGraph AI — UI module: tabs, nav, reveal, counters, copy, FAQ, steps, slider, stars. */
+/* RepoGraph AI - UI module: tabs, nav, reveal, counters, copy, FAQ, steps, slider, stars. */
 (function(){
 "use strict";
 
@@ -43,7 +43,7 @@ function initNav(){
     nav.querySelectorAll('a').forEach(function(l){ l.addEventListener('click', function(){ nav.classList.remove('open'); }); });
     window.addEventListener('resize', function(){ if(window.innerWidth > 900) nav.classList.remove('open'); });
   }
-  // solidify after hero — the pill stays visible at all times
+  // solidify after hero - the pill stays visible at all times
   function onScroll(){
     var y = window.scrollY || 0;
     if(shell) shell.classList.toggle('scrolled', y > 24);
