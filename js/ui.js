@@ -33,15 +33,20 @@ function initNav(){
   var shell = document.querySelector('.nav-shell');
   if(burger && nav){
     burger.setAttribute('aria-expanded', 'false');
-    burger.addEventListener('click', function(e){ e.stopPropagation(); var open = nav.classList.toggle('open'); burger.setAttribute('aria-expanded', open ? 'true' : 'false'); });
+    function setMenu(open){
+      nav.classList.toggle('open', open);
+      burger.classList.toggle('active', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    burger.addEventListener('click', function(e){ e.stopPropagation(); setMenu(!nav.classList.contains('open')); });
     document.addEventListener('click', function(e){
-      if(nav.classList.contains('open') && !nav.contains(e.target) && !burger.contains(e.target)) nav.classList.remove('open');
+      if(nav.classList.contains('open') && !nav.contains(e.target) && !burger.contains(e.target)) setMenu(false);
     });
     document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape' && nav.classList.contains('open')){ nav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); burger.focus(); }
+      if(e.key === 'Escape' && nav.classList.contains('open')){ setMenu(false); burger.focus(); }
     });
-    nav.querySelectorAll('a').forEach(function(l){ l.addEventListener('click', function(){ nav.classList.remove('open'); }); });
-    window.addEventListener('resize', function(){ if(window.innerWidth > 900) nav.classList.remove('open'); });
+    nav.querySelectorAll('a').forEach(function(l){ l.addEventListener('click', function(){ setMenu(false); }); });
+    window.addEventListener('resize', function(){ if(window.innerWidth > 900) setMenu(false); });
   }
   // solidify after hero - the pill stays visible at all times
   function onScroll(){
