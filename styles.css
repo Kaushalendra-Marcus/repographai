@@ -53,12 +53,12 @@ a{color:inherit}
 .topbar a{color:var(--text);font-weight:600;text-decoration:none;border-bottom:1px solid var(--border2)}
 .topbar a:hover{border-color:var(--text)}
 
-/* ── Nav: flat bar ── */
-.nav-shell{position:sticky;top:0;z-index:100;background:rgba(10,10,11,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:transform .32s var(--ease),background .25s,border-color .25s}
-.nav-shell.hide{transform:translateY(-100%)}
-.nav-shell.scrolled{background:rgba(10,10,11,.92);border-bottom-color:var(--border2)}
-nav{max-width:1080px;margin:0 auto;--nav-h:62px}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:var(--nav-h);gap:16px}
+/* ── Nav: floating pill ── */
+.nav-shell{position:fixed;top:12px;left:0;right:0;z-index:100;display:flex;justify-content:center;pointer-events:none;padding:0 12px}
+nav{pointer-events:auto;width:min(1060px,100%);background:rgba(13,13,16,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--border2);border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,.5);transition:transform .35s var(--ease),background .25s,border-color .25s;--nav-h:60px}
+.nav-shell.hide nav{transform:translateY(-150%)}
+.nav-shell.scrolled nav{background:rgba(13,13,16,.92)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 10px 0 12px;height:var(--nav-h);gap:12px}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .nav-logo-icon{width:36px;height:36px;background:#2f7bff;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 16px rgba(47,123,255,.35),inset 0 1px 0 rgba(255,255,255,.2)}
 .nav-logo-icon::after{display:none}
@@ -365,7 +365,7 @@ footer{border-top:1px solid var(--border);padding:48px 0 28px;background:var(--b
   .foot-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:900px){
-  .nav-links{display:none;position:fixed;top:62px;left:12px;right:12px;background:#111113;border:1px solid var(--border2);border-radius:12px;padding:10px;flex-direction:column;align-items:stretch;z-index:99}
+  .nav-links{display:none;position:fixed;top:72px;left:12px;right:12px;background:#141417;border:1px solid var(--border2);border-radius:14px;padding:10px;flex-direction:column;align-items:stretch;z-index:99;box-shadow:0 24px 60px rgba(0,0,0,.6)}
   .nav-links.open{display:flex}
   .nav-links a{padding:12px;font-size:15px}
   .hamburger{display:flex}

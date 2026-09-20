@@ -43,16 +43,10 @@ function initNav(){
     nav.querySelectorAll('a').forEach(function(l){ l.addEventListener('click', function(){ nav.classList.remove('open'); }); });
     window.addEventListener('resize', function(){ if(window.innerWidth > 900) nav.classList.remove('open'); });
   }
-  // hide on scroll down, reveal on scroll up + solidify after hero
-  var lastY = window.scrollY || 0;
+  // solidify after hero — the pill stays visible at all times
   function onScroll(){
     var y = window.scrollY || 0;
-    if(shell){
-      shell.classList.toggle('scrolled', y > 24);
-      if(y > 200 && y > lastY + 4 && !(nav && nav.classList.contains('open'))) shell.classList.add('hide');
-      else if(y < lastY - 4 || y <= 200) shell.classList.remove('hide');
-    }
-    lastY = y;
+    if(shell) shell.classList.toggle('scrolled', y > 24);
   }
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
