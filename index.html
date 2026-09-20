@@ -360,37 +360,42 @@
             <h2 class="stitle reveal" id="v2-heading">v2.0 traces data<br /><span class="grad">file to file</span></h2>
             <p class="sbody reveal">Not just what a file imports — where each value travels. Every hop declares its input and output, so you can audit the whole path. <span class="vsoon">COMING SOON</span></p>
             <div class="vlist reveal">
-              <div class="vli"><div><h3 class="vli-t">FlowTracer hops</h3><p class="vli-b">Walks call edges across files, hop by hop.</p></div><span class="vfmt">in · edges.json → out · trace.json</span></div>
-              <div class="vli"><div><h3 class="vli-t">trace.json artifact</h3><p class="vli-b">The full path, saved per workspace. Diff it across refactors.</p></div><span class="vfmt">in · trace.json → out · flow view</span></div>
-              <div class="vli"><div><h3 class="vli-t">Flow view in-panel</h3><p class="vli-b">Click any hop to jump straight to the line.</p></div><span class="vfmt">in · hop → out · editor line</span></div>
+              <div class="vli"><div><h3 class="vli-t">FlowTracer hops</h3><p class="vli-b">Walks call edges across files, hop by hop.</p></div><span class="vfmt">{ in: edge, out: trace }</span></div>
+              <div class="vli"><div><h3 class="vli-t">trace.json artifact</h3><p class="vli-b">The full path, saved per workspace. Diff it across refactors.</p></div><span class="vfmt">{ type: "trace", hops: n }</span></div>
+              <div class="vli"><div><h3 class="vli-t">Flow view in-panel</h3><p class="vli-b">Click any hop to jump straight to the line.</p></div><span class="vfmt">{ hop → file, line }</span></div>
             </div>
             <div class="vacts reveal">
               <a class="btn-primary" href="https://github.com/Kaushalendra-Marcus/RepoGraph-AI" target="_blank" rel="noopener">Watch on GitHub</a>
               <a class="btn-secondary" href="https://marketplace.visualstudio.com/items?itemName=kaushalendra.repograph-ai" target="_blank" rel="noopener">Get v1.0 meanwhile</a>
             </div>
           </div>
-          <div class="vcode reveal reveal-d1" aria-label="trace.json preview">
-            <div class="tbar"><div class="td tr"></div><div class="td ty"></div><div class="td tg"></div><span class="ttitle">trace.json — preview</span></div>
+          <div class="vcode reveal reveal-d1" aria-label="trace record preview">
+            <div class="tbar"><div class="td tr"></div><div class="td ty"></div><div class="td tg"></div><span class="ttitle">trace.record — schema + sample</span></div>
             <div class="tbody">
-              <div><span class="tp">{</span></div>
-              <div><span class="to">&nbsp;&nbsp;"flow"</span><span class="tp">: </span><span class="ta">"auth.ts → session.ts"</span><span class="tp">,</span></div>
-              <div><span class="to">&nbsp;&nbsp;"hops"</span><span class="tp">: [</span></div>
-              <div><span class="to">&nbsp;&nbsp;&nbsp;&nbsp;{ </span><span class="to">"in"</span><span class="tp">: </span><span class="ta">"source"</span><span class="tp">, </span><span class="to">"out"</span><span class="tp">: </span><span class="ta">"imports[]"</span><span class="to"> },</span></div>
-              <div><span class="to">&nbsp;&nbsp;&nbsp;&nbsp;{ </span><span class="to">"in"</span><span class="tp">: </span><span class="ta">"imports[]"</span><span class="tp">, </span><span class="to">"out"</span><span class="tp">: </span><span class="ta">"call edge"</span><span class="to"> },</span></div>
-              <div><span class="to">&nbsp;&nbsp;&nbsp;&nbsp;{ </span><span class="to">"in"</span><span class="tp">: </span><span class="ta">"call edge"</span><span class="tp">, </span><span class="to">"out"</span><span class="tp">: </span><span class="tge">"trace ✓"</span><span class="to"> }</span></div>
-              <div><span class="tp">&nbsp;&nbsp;]</span></div>
+              <div><span class="tp">type</span><span class="tc"> Hop </span><span class="tp">= {</span></div>
+              <div><span class="to">&nbsp;&nbsp;kind</span><span class="tp">: </span><span class="ta">"import" | "call" | "return"</span><span class="tp">;</span></div>
+              <div><span class="to">&nbsp;&nbsp;from</span><span class="tp">: { </span><span class="to">file</span><span class="tp">: </span><span class="ta">string</span><span class="tp">; </span><span class="to">line</span><span class="tp">: </span><span class="ta">number</span><span class="tp">; </span><span class="to">symbol</span><span class="tp">: </span><span class="ta">string</span><span class="tp"> };</span></div>
+              <div><span class="to">&nbsp;&nbsp;to</span><span class="tp">: { </span><span class="to">file</span><span class="tp">: </span><span class="ta">string</span><span class="tp">; </span><span class="to">line</span><span class="tp">: </span><span class="ta">number</span><span class="tp">; </span><span class="to">symbol</span><span class="tp">: </span><span class="ta">string</span><span class="tp"> };</span></div>
+              <div><span class="to">&nbsp;&nbsp;via</span><span class="tp">: </span><span class="ta">"await" | "return" | "re-export"</span><span class="tp">;</span></div>
+              <div><span class="tp">}</span></div>
+              <div><span class="td2">&nbsp;</span></div>
+              <div><span class="tp">{</span><span class="td2"> // recorded hop</span></div>
+              <div><span class="to">&nbsp;&nbsp;kind</span><span class="tp">: </span><span class="ta">"call"</span><span class="tp">,</span></div>
+              <div><span class="to">&nbsp;&nbsp;from</span><span class="tp">: { </span><span class="to">file</span><span class="tp">: </span><span class="ta">"auth.ts"</span><span class="tp">, </span><span class="to">line</span><span class="tp">: </span><span class="ta">42</span><span class="tp">, </span><span class="to">symbol</span><span class="tp">: </span><span class="ta">"signIn"</span><span class="tp"> },</span></div>
+              <div><span class="to">&nbsp;&nbsp;to</span><span class="tp">: { </span><span class="to">file</span><span class="tp">: </span><span class="ta">"session.ts"</span><span class="tp">, </span><span class="to">line</span><span class="tp">: </span><span class="ta">17</span><span class="tp">, </span><span class="to">symbol</span><span class="tp">: </span><span class="ta">"create"</span><span class="tp"> },</span></div>
+              <div><span class="to">&nbsp;&nbsp;via</span><span class="tp">: </span><span class="tge">"await ✓"</span></div>
               <div><span class="tp">}</span></div>
             </div>
           </div>
         </div>
-        <div class="vflow reveal" aria-label="v2.0 file-to-file flow diagram">
+            <div class="vflow reveal" aria-label="v2.0 file-to-file flow diagram">
           <div class="vfile"><span class="vfile-n">auth.ts</span><span class="vfile-t">source file</span></div>
-          <div class="varr"><span class="vfmt">out · imports[]</span><i aria-hidden="true">→</i></div>
+          <div class="varr"><span class="vfmt">{ type: "imports" }</span><i aria-hidden="true">→</i></div>
           <div class="vfile"><span class="vfile-n">GraphBuilder</span><span class="vfile-t">extracts edges</span></div>
-          <div class="varr"><span class="vfmt">out · edges.json</span><i aria-hidden="true">→</i></div>
+          <div class="varr"><span class="vfmt">{ type: "edge", kind: "call" }</span><i aria-hidden="true">→</i></div>
           <div class="vfile"><span class="vfile-n">FlowTracer</span><span class="vfile-t">walks the hops</span></div>
-          <div class="varr"><span class="vfmt">out · trace.json</span><i aria-hidden="true">→</i></div>
-          <div class="vfile"><span class="vfile-n">Flow view</span><span class="vfile-t">in · trace.json</span></div>
+          <div class="varr"><span class="vfmt">{ type: "trace", hops: 3 }</span><i aria-hidden="true">→</i></div>
+          <div class="vfile"><span class="vfile-n">Flow view</span><span class="vfile-t">renders hops</span></div>
         </div>
       </div>
     </section>
