@@ -37,7 +37,7 @@
     <meta name="twitter:description" content="Free VS Code extension: turn any repo into a coding-agent graph with dependency maps, AI summaries & Q&A. Bring your own API key. Zero telemetry." />
     <meta name="twitter:image" content="https://repograph.kaushalendra.me/assets/og-image.png" />
     <meta name="twitter:image:alt" content="RepoGraph AI dependency graph and AI summary inside VS Code" />
-    <meta name="theme-color" content="#0a0a0b" />
+    <meta name="theme-color" content="#FAFAF8" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -92,10 +92,13 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
 
-  <body>
+  <body id="top">
 
     <!-- Backdrop -->
     <div class="bg-scene" aria-hidden="true">
+      <div class="orb orb-a"></div>
+      <div class="orb orb-b"></div>
+      <div class="orb orb-c"></div>
       <canvas id="graph-canvas"></canvas>
       <div class="bg-grid"></div>
       <div id="graph-tip"></div>
@@ -145,29 +148,43 @@
       </nav>
     </div>
 
-    <!-- HERO -->
+    <!-- HERO · split left / right -->
     <header class="hero" aria-label="Hero - RepoGraph AI introduction">
-      <div class="wrap">
-        <div class="hero-badge"><span class="pulse"></span> Free · Open Source · Zero telemetry</div>
-        <img class="hero-logo" src="assets/logo.png" alt="RepoGraph AI logo" width="124" height="124" fetchpriority="high" />
-        <h1 class="hero-title">Understand any codebase<br /><span class="grad">in minutes, not days</span></h1>
-        <p class="hero-sub">RepoGraph AI scans your workspace, maps every file into an <strong>interactive dependency graph</strong>, and gives you <strong>AI summaries + live Q&amp;A</strong> - inside VS Code, on your own key. A repo graph both you and your coding agent can read.</p>
-        <div class="hero-actions">
-          <a class="btn-primary" href="https://marketplace.visualstudio.com/items?itemName=kaushalendra.repograph-ai" target="_blank" rel="noopener">
-            Install from Marketplace
-          </a>
-          <a class="btn-secondary" href="https://github.com/Kaushalendra-Marcus/RepoGraph-AI" target="_blank" rel="noopener">
-            Star on GitHub
-          </a>
-        </div>
-        <div class="hero-meta">
-          <span class="meta-pill"><b>MIT</b>&nbsp;open source</span>
-          <span class="meta-pill"><b>20+</b>&nbsp;languages</span>
-          <span class="meta-pill"><b>5</b>&nbsp;AI providers</span>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="hero-badge"><img class="hero-mark" src="assets/logo.png" alt="" width="20" height="20" /> Free · Open source · VS Code extension <span class="stars">★ MIT</span></div>
+          <h1 class="hero-title">The codebase graph<br /><span class="grad">your agent can cite</span></h1>
+          <p class="hero-sub">RepoGraph AI turns any repo into a <strong>dependency graph with file:line evidence</strong> — interactive map, <strong>AI summaries + multi-turn Q&amp;A</strong> inside VS Code. No embeddings to babysit. Your key, your machine.</p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="https://marketplace.visualstudio.com/items?itemName=kaushalendra.repograph-ai" target="_blank" rel="noopener">
+              Try for free →
+            </a>
+            <a class="btn-secondary" href="https://github.com/Kaushalendra-Marcus/RepoGraph-AI" target="_blank" rel="noopener">
+              Star on GitHub
+            </a>
+          </div>
+          <div class="hero-fine">Free plan, no card · runs on-device · zero telemetry</div>
+          <div class="hero-search reveal">
+            <span class="hs-prompt">$</span>
+            <span class="hs-cmd">ext install kaushalendra.repograph-ai</span>
+            <button class="hs-btn" data-copy="ext install kaushalendra.repograph-ai">Copy</button>
+          </div>
+          <div class="queries" aria-hidden="true">
+            <span class="qchip">› Where is auth handled? <b>calls get_graph</b></span>
+            <span class="qchip">› What breaks if I touch billing? <b>calls get_risk</b></span>
+            <span class="qchip">› Summarize this folder <b>calls get_summary</b></span>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-pill"><b>MIT</b>&nbsp;open source</span>
+            <span class="meta-pill"><b>20+</b>&nbsp;languages</span>
+            <span class="meta-pill"><b>5</b>&nbsp;providers</span>
+            <span class="meta-pill"><b>0</b>&nbsp;telemetry</span>
+          </div>
         </div>
 
-        <div class="hero-visual">
-          <div class="hero-terminal" role="region" aria-label="Terminal demo">
+        <div class="hero-visual" data-parallax="0.06">
+          <div class="hero-terminal" data-tilt data-tilt-max="7" role="region" aria-label="Terminal demo">
+            <div class="tilt-glare"></div>
             <div class="tbar"><div class="td tr"></div><div class="td ty"></div><div class="td tg"></div><span class="ttitle">repograph - workspace analysis</span></div>
             <div class="tbody" id="terminalBody">
               <div class="tline" style="animation-delay:.2s"><span class="tp">$ </span><span class="tc">repograph.analyzeLocal()</span></div>
@@ -188,24 +205,24 @@
 
     <!-- PROVIDER MARQUEE -->
     <div class="marquee-strip" aria-hidden="true">
-      <div class="m-label">Works with your AI providers</div>
+      <div class="m-label">Works with the provider you already pay for</div>
       <div class="marquee" id="provMarquee">
-        <span class="m-chip">Groq · free tier</span>
-        <span class="m-chip">Ollama · 100% local</span>
-        <span class="m-chip">Gemini · free quota</span>
-        <span class="m-chip">Claude · best quality</span>
-        <span class="m-chip">OpenAI · reliable</span>
-        <span class="m-chip">Custom models</span>
+        <span class="m-chip"><i style="background:#059669"></i>Groq · free tier</span>
+        <span class="m-chip"><i style="background:#059669"></i>Ollama · 100% local</span>
+        <span class="m-chip"><i style="background:#059669"></i>Gemini · free quota</span>
+        <span class="m-chip"><i style="background:#059669"></i>Claude · best quality</span>
+        <span class="m-chip"><i style="background:#059669"></i>OpenAI · reliable</span>
+        <span class="m-chip"><i style="background:#059669"></i>Custom models</span>
       </div>
     </div>
 
     <!-- LIVE DEMO -->
     <section class="sec" id="demo">
       <div class="wrap center">
-        <div class="reveal"><span class="slabel">01 · Live demo</span></div>
+        <div class="reveal"><span class="slabel">Live demo</span></div>
         <h2 class="stitle reveal reveal-d1">See it <span class="grad">in action</span></h2>
         <p class="sbody reveal reveal-d2" style="margin:0 auto">Real recordings from VS Code - graph, summaries and Q&amp;A.</p>
-        <div class="mac-window reveal reveal-d2">
+        <div class="mac-window reveal reveal-d2" data-tilt data-tilt-max="5">
           <div class="mac-window-bar">
             <div class="mac-traffic-lights"><div class="mac-btn mac-close"></div><div class="mac-btn mac-minimize"></div><div class="mac-btn mac-maximize"></div></div>
             <div class="mac-window-title">RepoGraph AI - Demo</div>
@@ -230,51 +247,85 @@
 
     <!-- STATS -->
     <div class="stats" aria-label="Key statistics">
-      <div class="stats-grid wrap">
-        <div class="stat reveal"><div class="stat-n"><span data-count="20">0</span>+</div><div class="stat-l">Languages supported</div><div class="stat-s">TS · Python · Go · Rust…</div></div>
+      <div class="stats-grid">
+        <div class="stat reveal"><div class="stat-n"><span data-count="20">0</span>+</div><div class="stat-l">Languages mapped</div><div class="stat-s">TS · Python · Go · Rust…</div></div>
         <div class="stat reveal reveal-d1"><div class="stat-n"><span data-count="5">0</span></div><div class="stat-l">AI providers</div><div class="stat-s">Groq · Ollama · Gemini…</div></div>
-        <div class="stat reveal reveal-d2"><div class="stat-n">0</div><div class="stat-l">Data sent to our servers</div><div class="stat-s">No backend. No telemetry.</div></div>
-        <div class="stat reveal reveal-d3"><div class="stat-n">MIT</div><div class="stat-l">Open source forever</div><div class="stat-s">Auditable on GitHub</div></div>
+        <div class="stat reveal reveal-d2"><div class="stat-n">0</div><div class="stat-l">Servers that see code</div><div class="stat-s">On-device. No backend.</div></div>
+        <div class="stat reveal reveal-d3"><div class="stat-n">MIT</div><div class="stat-l">Open source</div><div class="stat-s">Auditable on GitHub</div></div>
       </div>
     </div>
 
     <!-- FEATURES BENTO -->
     <section class="sec sec-border" id="features" aria-labelledby="features-heading">
       <div class="wrap">
-        <div class="reveal"><span class="slabel">02 · Features</span></div>
-        <h2 class="stitle reveal" id="features-heading">Everything you need to navigate<br />an <span class="grad">unfamiliar codebase</span></h2>
-        <p class="sbody reveal">Six essentials. Nothing extra.</p>
+        <div class="reveal"><span class="slabel">How it works</span></div>
+        <h2 class="stitle reveal" id="features-heading">One map of the code.<br />Answers with <span class="grad">proof, not guesses</span></h2>
+        <p class="sbody reveal">Six essentials. Every answer traces a real path with file:line citations — no re-reading the repo four times.</p>
         <div class="bento">
           <div class="bcard reveal">
+            <span class="feat-tag">Graph</span>
             <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="5" cy="5" r="3"/><circle cx="19" cy="5" r="3"/><circle cx="12" cy="19" r="3"/><circle cx="5" cy="12" r="2"/><line x1="5" y1="8" x2="5" y2="10"/><line x1="8" y1="5" x2="16" y2="5"/><line x1="7" y1="12" x2="10" y2="17"/><line x1="19" y1="8" x2="14" y2="17"/></svg></div>
             <h3 class="feat-title">Dependency Graph</h3>
-            <p class="feat-body">Interactive canvas of every file and import. Click for details, double-click to open.</p>
+            <p class="feat-body">Interactive canvas of every file and import. Click for details, double-click to open. God-nodes surface the files everything depends on.</p>
           </div>
           <div class="bcard reveal reveal-d1">
-            <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="14" y2="12"/><line x1="7" y1="16" x2="11" y2="16"/></svg></div>
+            <span class="feat-tag">Summaries</span>
+            <div class="feat-icon light"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="14" y2="12"/><line x1="7" y1="16" x2="11" y2="16"/></svg></div>
             <h3 class="feat-title">AI File Summaries</h3>
-            <p class="feat-body">Plain-English explanations of what each file does, exports, and depends on.</p>
+            <p class="feat-body">Plain-English explanations of what each file does, exports, and depends on — generated on your key.</p>
           </div>
           <div class="bcard reveal reveal-d2">
+            <span class="feat-tag">Q&amp;A</span>
             <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
             <h3 class="feat-title">Codebase Q&amp;A</h3>
-            <p class="feat-body">Ask in plain English with full repo context and file references.</p>
+            <p class="feat-body">Ask in plain English with full graph context and file references. Multi-turn, with history.</p>
           </div>
           <div class="bcard reveal">
-            <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+            <span class="feat-tag">Providers</span>
+            <div class="feat-icon light"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
             <h3 class="feat-title">5 AI Providers</h3>
-            <p class="feat-body">Groq, Ollama, Gemini, Claude, OpenAI. Custom models. Switch anytime.</p>
+            <p class="feat-body">Groq, Ollama, Gemini, Claude, OpenAI. Custom models. Switch anytime without re-analyzing.</p>
           </div>
           <div class="bcard reveal reveal-d1">
+            <span class="feat-tag">History</span>
             <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
             <h3 class="feat-title">Analysis History</h3>
-            <p class="feat-body">Every analysis saved locally per workspace. Compare across refactors.</p>
+            <p class="feat-body">Every analysis saved locally per workspace. Diff understanding across refactors.</p>
           </div>
           <div class="bcard reveal reveal-d2">
-            <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <span class="feat-tag">Local-first</span>
+            <div class="feat-icon light"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
             <h3 class="feat-title">Smart Filtering</h3>
-            <p class="feat-body">Skips node_modules, dist, lockfiles and generated code automatically.</p>
+            <p class="feat-body">Skips node_modules, dist, lockfiles and generated code automatically. Parsing stays on your machine.</p>
           </div>
+        </div>
+
+        <!-- THREE JOBS -->
+        <div class="jobs">
+          <div class="job reveal">
+            <div class="job-head"><div class="job-n">01 · UNDERSTAND</div><div class="job-t">Ask anything, get sources</div><p class="job-b">Grounded answers with file:line citations your agent can reuse.</p></div>
+            <div class="job-code"><span style="color:#6EE7B7">›</span> Where is session refresh?<br /><span style="color:#57534E">→ lib/auth.ts:42 · session.ts:17</span><br /><span style="color:#6EE7B7">✓</span> high confidence · 2 sources</div>
+          </div>
+          <div class="job reveal reveal-d1">
+            <div class="job-head"><div class="job-n">02 · CHANGE SAFELY</div><div class="job-t">See what breaks first</div><p class="job-b">Follow every edge from a diff before it merges. Run the right tests.</p></div>
+            <div class="job-code"><span style="color:#A7F3D0">risk 6.1</span> · reaches 6 files<br /><span style="color:#57534E">→ run the 2 untested callers first</span></div>
+          </div>
+          <div class="job reveal reveal-d2">
+            <div class="job-head"><div class="job-n">03 · STAY CURRENT</div><div class="job-t">Docs that rebuild</div><p class="job-b">Repo overview + per-file docs refresh with each analysis. Nothing goes stale.</p></div>
+            <div class="job-code"><span style="color:#6EE7B7">●</span> 3 pages rebuilt · fresh<br /><span style="color:#57534E">overview · middleware · session</span></div>
+          </div>
+        </div>
+
+        <!-- COMPARE -->
+        <div class="cmp-wrap reveal">
+          <table class="cmp" aria-label="RepoGraph vs alternatives">
+            <thead><tr><th>Approach</th><th>Citations</th><th>Stays current</th><th>Private by default</th></tr></thead>
+            <tbody>
+              <tr><td><strong>RepoGraph AI</strong> · graph + summaries</td><td class="yes">✓ file:line paths</td><td class="yes">✓ re-analyze anytime</td><td class="yes">✓ on-device</td></tr>
+              <tr><td>Plain grep / go-to-definition</td><td class="no">— one hop only</td><td class="yes">✓ always live</td><td class="yes">✓ local</td></tr>
+              <tr><td>Vector RAG chunks</td><td class="no">~ fuzzy snippets</td><td class="no">— needs re-embed</td><td class="no">— usually cloud</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -282,7 +333,7 @@
     <!-- SCREENSHOTS -->
     <section class="sec sec-border" id="screenshots" aria-labelledby="screenshots-heading">
       <div class="wrap center">
-        <div class="reveal"><span class="slabel">03 · Screenshots</span></div>
+        <div class="reveal"><span class="slabel">Inside VS Code</span></div>
         <h2 class="stitle reveal" id="screenshots-heading">Inside <span class="grad">VS Code</span></h2>
         <div class="shots-tabs reveal" role="tablist" aria-label="Screenshot tabs" style="margin-top:28px">
           <div class="tab-indicator"></div>
@@ -290,7 +341,7 @@
           <button class="stab" onclick="showShot('summary', this)" role="tab" aria-selected="false">AI Summary</button>
           <button class="stab" onclick="showShot('qa', this)" role="tab" aria-selected="false">Q&amp;A</button>
         </div>
-        <div class="shot-wrap reveal" style="text-align:left">
+        <div class="shot-wrap reveal" style="text-align:left" data-tilt data-tilt-max="4">
           <div class="shot-bar"><div class="td tr"></div><div class="td ty"></div><div class="td tg"></div></div>
           <div class="shot-content">
             <div class="shot-pane active" id="shot-graph" role="tabpanel"><img class="shot-img" src="assets/screenshot-graph.png" alt="Interactive dependency graph inside VS Code" loading="lazy" width="1200" height="700" /></div>
@@ -306,7 +357,7 @@
       <div class="wrap">
         <div class="how-grid">
           <div>
-            <div class="reveal"><span class="slabel">04 · How it works</span></div>
+            <div class="reveal"><span class="slabel">Pipeline</span></div>
             <h2 class="stitle reveal" id="how-heading">Zero → understanding<br />in <span class="grad">four steps</span></h2>
             <p class="sbody reveal">The entire pipeline runs locally. The only external call is to the AI provider you choose.</p>
             <div class="steps" id="stepsList">
@@ -339,7 +390,7 @@
     <section class="sec sec-border" id="providers" aria-labelledby="providers-heading">
       <div class="wrap">
         <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px">
-          <div><div class="reveal"><span class="slabel">05 · AI Providers</span></div><h2 class="stitle reveal" id="providers-heading">Your key. <span class="grad">Your choice.</span></h2></div>
+          <div><div class="reveal"><span class="slabel">AI Providers</span></div><h2 class="stitle reveal" id="providers-heading">Your key. <span class="grad">Your choice.</span></h2></div>
           <p class="sbody reveal" style="max-width:340px">Start free with Groq or run offline with Ollama.</p>
         </div>
         <div class="ptable-wrapper reveal">
@@ -362,7 +413,7 @@
       <div class="wrap">
         <div class="vgrid">
           <div>
-            <div class="reveal"><span class="slabel">06 · Coming soon</span></div>
+            <div class="reveal"><span class="slabel">Coming soon · v2.0</span></div>
             <h2 class="stitle reveal" id="v2-heading">v2.0 traces data<br /><span class="grad">file to file</span></h2>
             <p class="sbody reveal">Not just what a file imports - where each value travels. Every hop declares its input and output, so you can audit the whole path. <span class="vsoon">COMING SOON</span></p>
             <div class="vlist reveal">
@@ -375,7 +426,7 @@
               <a class="btn-secondary" href="https://marketplace.visualstudio.com/items?itemName=kaushalendra.repograph-ai" target="_blank" rel="noopener">Get v1.0</a>
             </div>
           </div>
-          <div class="vcode reveal reveal-d1" aria-label="trace record preview">
+          <div class="vcode reveal reveal-d1" aria-label="trace record preview" data-tilt data-tilt-max="5">
             <div class="tbar"><div class="td tr"></div><div class="td ty"></div><div class="td tg"></div><span class="ttitle">trace.record - schema + sample</span></div>
             <div class="tbody">
               <div><span class="tp">type</span><span class="tc"> Hop </span><span class="tp">= {</span></div>
@@ -465,7 +516,7 @@
     <!-- LANGUAGES -->
     <section class="sec sec-border lang-sec" aria-labelledby="languages-heading">
       <div class="wrap center">
-        <div class="reveal"><span class="slabel">07 · Languages</span></div>
+        <div class="reveal"><span class="slabel">Languages</span></div>
         <h2 class="sr-only" id="languages-heading">Programming languages supported</h2>
         <h2 class="stitle reveal">Speaks <span class="grad">your stack</span></h2>
       </div>
@@ -480,7 +531,7 @@
       <div class="wrap">
         <div class="priv-grid">
           <div>
-            <div class="reveal"><span class="slabel">08 · Privacy</span></div>
+            <div class="reveal"><span class="slabel">Privacy</span></div>
             <h2 class="stitle reveal" id="privacy-heading">Your code never<br /><span class="grad">leaves your machine</span></h2>
             <p class="sbody reveal">No backend. No account. No tracking. The only network request is to the AI provider you configure.</p>
             <div class="priv-pts">
@@ -489,15 +540,15 @@
               <div class="priv-pt reveal reveal-d2"><div class="priv-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div><h3 class="priv-pt-title">Open source &amp; auditable</h3><p class="priv-pt-body">Every line public on GitHub. Read it, verify it, fork it.</p></div></div>
             </div>
           </div>
-          <div class="priv-box reveal reveal-d1" aria-label="Data flow diagram">
+          <div class="priv-box reveal reveal-d1" aria-label="Data flow diagram" data-tilt data-tilt-max="5">
             <div class="pbox-label">Data flow</div>
             <div class="dfrow"><div class="dfn dfn-local">Your workspace</div><div class="dfarr">→</div><div class="dfn dfn-vs">VS Code only</div></div>
             <div class="dfrow"><div class="dfn dfn-vs">Graph + summaries</div><div class="dfarr">→</div><div class="dfn dfn-vs">Local storage</div></div>
             <div class="dfrow"><div class="dfn dfn-local">File snippets</div><div class="dfarr">→</div><div class="dfn dfn-prov">AI provider only</div></div>
             <hr class="divl" />
-            <div class="dfrow"><div class="dfn dfn-no">Our servers</div><div style="font-size:11.5px;color:var(--text3);font-family:var(--fm)">✕ do not exist</div></div>
-            <div class="dfrow"><div class="dfn dfn-no">Analytics</div><div style="font-size:11.5px;color:var(--text3);font-family:var(--fm)">✕ none</div></div>
-            <div class="dfrow"><div class="dfn dfn-no">Account required</div><div style="font-size:11.5px;color:var(--text3);font-family:var(--fm)">✕ never</div></div>
+            <div class="dfrow"><div class="dfn dfn-no">Our servers</div><div style="font-size:11.5px;color:var(--faint);font-family:var(--fm)">✕ do not exist</div></div>
+            <div class="dfrow"><div class="dfn dfn-no">Analytics</div><div style="font-size:11.5px;color:var(--faint);font-family:var(--fm)">✕ none</div></div>
+            <div class="dfrow"><div class="dfn dfn-no">Account required</div><div style="font-size:11.5px;color:var(--faint);font-family:var(--fm)">✕ never</div></div>
           </div>
         </div>
       </div>
@@ -506,7 +557,7 @@
     <!-- INSTALL -->
     <section class="sec sec-border" id="install" aria-labelledby="install-heading">
       <div class="wrap">
-        <div class="reveal"><span class="slabel">09 · Installation</span></div>
+        <div class="reveal"><span class="slabel">Installation</span></div>
         <h2 class="stitle reveal" id="install-heading">Up and running in <span class="grad">3 steps</span></h2>
         <div class="inst-grid">
           <div class="icard reveal" data-step="01"><div class="icard-n">STEP 01</div><h3 class="icard-title">Install the extension</h3><p class="icard-body">Search “RepoGraph AI” in Extensions and click Install - or paste this in VS Code:</p><div class="code-snip"><span>ext install kaushalendra.repograph-ai</span><button class="copy-btn" data-copy="ext install kaushalendra.repograph-ai">⧉ Copy</button></div></div>
@@ -519,7 +570,7 @@
     <!-- AUTHOR -->
     <section class="sec sec-border" aria-labelledby="author-heading">
       <div class="wrap">
-        <div class="reveal"><span class="slabel">10 · Creator</span></div>
+        <div class="reveal"><span class="slabel">Creator</span></div>
         <h2 class="stitle reveal" id="author-heading">Built by a dev,<br />for <span class="grad">devs</span></h2>
         <div class="author-card reveal" itemscope itemtype="https://schema.org/Person">
           <img class="author-avatar" src="assets/publisher.jpeg" alt="Kaushalendra Singh" width="92" height="92" itemprop="image" />
@@ -539,7 +590,7 @@
     <!-- FAQ -->
     <section class="sec sec-border" id="faq" aria-labelledby="faq-heading">
       <div class="wrap">
-        <div class="center"><div class="reveal"><span class="slabel">11 · FAQ</span></div><h2 class="stitle reveal" id="faq-heading">Common <span class="grad">questions</span></h2></div>
+        <div class="center"><div class="reveal"><span class="slabel">FAQ</span></div><h2 class="stitle reveal" id="faq-heading">Common <span class="grad">questions</span></h2></div>
         <div class="faq-list">
           <div class="faq-item reveal"><button class="faq-q">Is RepoGraph AI really free?<span class="faq-chev">↓</span></button><div class="faq-a"><p>Yes - 100% free and MIT-licensed. Bring your own key from Groq (free tier) or Ollama (fully local). No subscription, no account, no paywall.</p></div></div>
           <div class="faq-item reveal"><button class="faq-q">Does my code get sent to a server?<span class="faq-chev">↓</span></button><div class="faq-a"><p>No. There is no backend. The only external call is to the AI provider you configure. Everything else stays on your machine.</p></div></div>
@@ -556,7 +607,7 @@
     <!-- CTA -->
     <section class="cta" aria-labelledby="cta-heading">
       <div class="wrap">
-        <div class="cta-panel reveal">
+        <div class="cta-panel reveal" data-tilt data-tilt-max="4">
           <div class="cta-grid-bg"></div>
           <h2 class="cta-title" id="cta-heading">Stop reading files.<br /><span class="grad">Start understanding code.</span></h2>
           <p class="cta-sub">Free · Open source · No account required</p>
@@ -578,16 +629,26 @@
             <a class="foot-logo" href="/"><div class="nav-logo-icon"><svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3.5 12c.015 0 .028-.004.042-.004l.94 4.226a2.497 2.497 0 1 0 3.345 3.173l7.182 1.197a2.491 2.491 0 1 0 3.527-2.36l1.902-8.238c.021 0 .04.006.062.006a2.5 2.5 0 1 0-2.03-3.95l-4.53-2.012a2.5 2.5 0 1 0-4.692.528L5.151 7.637A2.495 2.495 0 1 0 3.5 12zm1.018-.222a2.51 2.51 0 0 0 1.26-1.26l4.226.94c0 .014-.004.027-.004.042a2.484 2.484 0 0 0 .416 1.377l-3.54 3.54A2.483 2.483 0 0 0 5.5 16c-.014 0-.028.004-.042.004zm7.184-2.635a2.501 2.501 0 0 0-1.48 1.339l-4.226-.94c0-.014.004-.027.004-.042a2.472 2.472 0 0 0-.247-1.065l4.096-3.072a2.477 2.477 0 0 0 1.457.617zM14 11v1a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1zm1.173 8.605L7.99 18.408a2.483 2.483 0 0 0-.407-1.285l3.54-3.54a2.405 2.405 0 0 0 2.123.29l2.632 4.74a2.494 2.494 0 0 0-.706.992zM6 20H5a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1zm13 0v1a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1zm-1.438-1.994c-.02 0-.04-.006-.062-.006a2.466 2.466 0 0 0-.747.127l-2.632-4.74a2.411 2.411 0 0 0 .784-2.53l3.638-1.82a2.502 2.502 0 0 0 .92.731zM20 6h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zm-1.939.963a2.301 2.301 0 0 0 .034 1.18l-3.638 1.82a2.483 2.483 0 0 0-1.763-.943l-.396-3.163a2.499 2.499 0 0 0 1.231-.908zM10 4V3a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1zM2 9a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/></svg></div>RepoGraph AI</a>
             <p>Visual dependency graphs + AI summaries + codebase Q&amp;A, right inside VS Code. RepoGraph AI turns any repository into an AI graph for coding agents. Free forever.</p>
             <span class="foot-status"><span style="width:7px;height:7px;border-radius:50%;background:#34d399;display:inline-block"></span> All systems local · v1.0</span>
+            <div class="foot-socials">
+              <a class="fsoc" href="https://github.com/Kaushalendra-Marcus/RepoGraph-AI" target="_blank" rel="noopener">GitHub ↗</a>
+              <a class="fsoc" href="https://marketplace.visualstudio.com/items?itemName=kaushalendra.repograph-ai" target="_blank" rel="noopener">Marketplace ↗</a>
+              <a class="fsoc" href="mailto:yadavkausha4a5@gmail.com">Contact ↗</a>
+            </div>
           </div>
           <div class="foot-col"><div class="foot-h">Product</div><ul><li><a href="#features">Features</a></li><li><a href="#demo">Live demo</a></li><li><a href="#providers">Providers</a></li><li><a href="#install">Install</a></li></ul></div>
           <div class="foot-col"><div class="foot-h">Resources</div><ul><li><a href="https://marketplace.visualstudio.com/items?itemName=kaushalendra.repograph-ai" target="_blank" rel="noopener">Marketplace</a></li><li><a href="https://github.com/Kaushalendra-Marcus/RepoGraph-AI" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://github.com/Kaushalendra-Marcus/RepoGraph-AI/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li><li><a href="https://github.com/Kaushalendra-Marcus/RepoGraph-AI/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a></li></ul></div>
           <div class="foot-col"><div class="foot-h">Legal</div><ul><li><a href="https://github.com/Kaushalendra-Marcus/RepoGraph-AI/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></li><li><a href="#privacy">Privacy</a></li><li><a href="mailto:yadavkausha4a5@gmail.com">Contact</a></li></ul></div>
         </div>
-        <div class="foot-bottom"><div class="foot-copy">MIT © 2026 Kaushalendra Singh · Built for developers</div><div class="foot-copy">repograph.kaushalendra.me</div></div>
+        <div class="foot-giant" aria-hidden="true">
+          <div class="fg-cap">~/repograph-ai — <b>free · open-source · mit</b></div>
+          <div class="foot-wave" id="footWave"><span class="fl-letter" style="--i:0">R</span><span class="fl-letter" style="--i:1">e</span><span class="fl-letter" style="--i:2">p</span><span class="fl-letter" style="--i:3">o</span><span class="fl-letter" style="--i:4">G</span><span class="fl-letter" style="--i:5">r</span><span class="fl-letter" style="--i:6">a</span><span class="fl-letter" style="--i:7">p</span><span class="fl-letter" style="--i:8">h</span><span class="fl-space"></span><span class="fl-letter" style="--i:9">A</span><span class="fl-letter" style="--i:10">I</span></div>
+        </div>
+        <div class="foot-bottom"><div class="foot-copy">MIT © 2026 Kaushalendra Singh · Built for developers</div><div class="foot-copy">repograph.kaushalendra.me</div><a class="to-top" href="#top">↑ Back to top</a></div>
       </div>
     </footer>
 
     <script src="js/ui.js"></script>
     <script src="js/graph.js"></script>
+    <script src="js/3d.js"></script>
   </body>
 </html>

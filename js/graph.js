@@ -9,6 +9,7 @@ function initHeroCanvas(){
   var ctx = canvas.getContext('2d');
   var W, H, nodes = [], links = [];
   var mouse = {x:-9999, y:-9999};
+  var cam = {x:0, y:0, tx:0, ty:0};
   var hovered = -1, dragged = -1, downPos = null, t = 0;
   var N = window.innerWidth < 640 ? 34 : 68;
   var MOBILE = window.innerWidth < 640 || window.matchMedia('(pointer:coarse)').matches;
@@ -35,7 +36,7 @@ function initHeroCanvas(){
     nodes = []; links = [];
     for(var i=0;i<N;i++){
       var hub = i % 11 === 0; // a few bigger hub nodes, like god nodes
-      nodes.push({x:Math.random()*W, y:Math.random()*H*0.72, vx:(Math.random()-.5)*0.4*SPEED, vy:(Math.random()-.5)*0.4*SPEED, r:(hub?3.6:Math.random()*1.6+1.7), hub:hub, c:Math.random(), pinned:false});
+      nodes.push({x:Math.random()*W, y:Math.random()*H*0.72, vx:(Math.random()-.5)*0.4*SPEED, vy:(Math.random()-.5)*0.4*SPEED, r:(hub?3.6:Math.random()*1.6+1.7), hub:hub, c:Math.random(), pinned:false, z:Math.random(), vz:(Math.random()-.5)*0.0022*SPEED, ph:Math.random()*Math.PI*2});
     }
     // fixed link set so hover-highlighting shows a stable neighbourhood
     for(var a=0;a<N;a++){
@@ -95,6 +96,9 @@ function initHeroCanvas(){
     if(r.width === 0) return;
     var px = e.clientX-r.left, py = e.clientY-r.top;
     mouse.x = px; mouse.y = py;
+    // camera target for 3D parallax (-1..1)
+    cam.tx = (e.clientX / window.innerWidth - 0.5) * 2;
+    cam.ty = (e.clientY / window.innerHeight - 0.5) * 2;
     if(dragged >= 0){
       nodes[dragged].x = Math.max(0, Math.min(W, px));
       nodes[dragged].y = Math.max(0, Math.min(H, py));
@@ -131,6 +135,9 @@ function initHeroCanvas(){
     t += 0.016;
     ctx.clearRect(0,0,W,H);
     var i, j, l;
+    // smooth camera for 3D parallax
+    cam.x += (cam.tx - cam.x) * 0.045;
+    cam.y += (cam.ty - cam.y) * 0.045;
     // spring forces along links + mild global repulsion + damping (real force layout)
     for(l=0;l<links.length;l++){
       var sA=nodes[links[l][0]], sB=nodes[links[l][1]];
@@ -150,8 +157,14 @@ function initHeroCanvas(){
         }
       }
     }
+    // projected positions with depth (pseudo-3D)
+    var PX = new Array(nodes.length), PY = new Array(nodes.length), PS = new Array(nodes.length);
     for(i=0;i<nodes.length;i++){
       var n = nodes[i];
+      // depth drift — slow float between 0..1
+      n.z += n.vz + Math.sin(t*0.6 + n.ph)*0.0006;
+      if(n.z>1){ n.z=1; n.vz*=-1; }
+      if(n.z<0){ n.z=0; n.vz*=-1; }
       if(i!==dragged && !n.pinned){
         n.vx*=0.92; n.vy*=0.92;
         n.x += n.vx; n.y += n.vy;
@@ -162,36 +175,58 @@ function initHeroCanvas(){
         var dx=n.x-mouse.x, dy=n.y-mouse.y, dd=Math.sqrt(dx*dx+dy*dy);
         if(dd<HOVER_R && dd>1){ var f=(1-dd/HOVER_R)*1.6; n.x+=dx/dd*f; n.y+=dy/dd*f; }
       }
+      var depthScale = 0.55 + n.z*0.95;
+      PS[i] = depthScale;
+      PX[i] = n.x + cam.x * n.z * 34;
+      PY[i] = n.y + cam.y * n.z * 26 + Math.sin(t*0.8 + n.ph)*3*n.z;
     }
     var focus = dragged>=0 ? dragged : hovered;
     var dim = focus >= 0;
-    // edges
-    for(l=0;l<links.length;l++){
-      var A=nodes[links[l][0]], B=nodes[links[l][1]];
-      var hot = focus>=0 && (links[l][0]===focus || links[l][1]===focus);
-      ctx.strokeStyle = hot ? 'rgba(140,175,255,0.8)' : 'rgba(90,140,255,'+(dim?0.07:0.2)+')';
-      ctx.lineWidth = hot ? 1.5 : 1;
-      ctx.beginPath(); ctx.moveTo(A.x,A.y); ctx.lineTo(B.x,B.y); ctx.stroke();
+    // edges — sorted far → near so near edges draw on top
+    var order = links.slice().sort(function(p,q){
+      return ((nodes[p[0]].z+nodes[p[1]].z) - (nodes[q[0]].z+nodes[q[1]].z));
+    });
+    for(l=0;l<order.length;l++){
+      var li = order[l];
+      var A=nodes[li[0]], B=nodes[li[1]];
+      var ax = PX[li[0]], ay = PY[li[0]], bx = PX[li[1]], by = PY[li[1]];
+      var avgZ = (A.z + B.z) * 0.5;
+      var hot = focus>=0 && (li[0]===focus || li[1]===focus);
+      var baseA = dim ? 0.06 : 0.07 + avgZ*0.16;
+      ctx.strokeStyle = hot ? 'rgba(4,120,87,0.85)' : 'rgba(87,83,80,'+baseA.toFixed(3)+')';
+      ctx.lineWidth = hot ? 1.5 : (0.6 + avgZ*0.7);
+      ctx.beginPath(); ctx.moveTo(ax,ay); ctx.lineTo(bx,by); ctx.stroke();
     }
-    // nodes
-    for(i=0;i<nodes.length;i++){
+    // nodes — far → near
+    var norder = nodes.map(function(_,idx){ return idx; }).sort(function(p,q){ return nodes[p].z - nodes[q].z; });
+    for(var k=0;k<norder.length;k++){
+      i = norder[k];
       var p=nodes[i], hot2 = focus>=0 && inHood(i);
-      var col = p.c>0.6 ? '47,123,255' : (p.c>0.3 ? '14,165,233' : '34,211,238');
-      var R = p.r * (i===focus ? 1.9 : (hot2 ? 1.35 : 1));
-      ctx.globalAlpha = dim && !hot2 ? 0.28 : 1;
-      var g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,R*4);
+      var col = p.c>0.6 ? '5,150,105' : (p.c>0.3 ? '4,120,87' : '110,168,141');
+      var R = p.r * PS[i] * (i===focus ? 1.9 : (hot2 ? 1.35 : 1));
+      var fade = 0.35 + p.z*0.65;
+      ctx.globalAlpha = (dim && !hot2 ? 0.28 : 1) * fade;
+      var nx = PX[i], ny = PY[i];
+      var g = ctx.createRadialGradient(nx,ny,0,nx,ny,Math.max(R*4,1));
       g.addColorStop(0,'rgba('+col+','+(hot2?1:0.85)+')'); g.addColorStop(1,'rgba('+col+',0)');
-      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(p.x,p.y,R*4,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle = hot2 ? '#ffffff' : 'rgba(200,215,255,0.85)';
-      ctx.beginPath(); ctx.arc(p.x,p.y,R,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(nx,ny,R*4,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = hot2 ? '#1C1917' : 'rgba(68,64,60,0.9)';
+      ctx.beginPath(); ctx.arc(nx,ny,Math.max(R,0.6),0,Math.PI*2); ctx.fill();
+      // depth shadow — near nodes get a soft offset for lift
+      if(p.z > 0.62){
+        ctx.fillStyle = 'rgba(28,25,23,'+((p.z-0.62)*0.28).toFixed(3)+')';
+        ctx.beginPath(); ctx.arc(nx+1.5,ny+2.5,R*0.9,0,Math.PI*2); ctx.fill();
+        ctx.fillStyle = hot2 ? '#1C1917' : 'rgba(68,64,60,0.9)';
+        ctx.beginPath(); ctx.arc(nx,ny,Math.max(R,0.6),0,Math.PI*2); ctx.fill();
+      }
       if(i===focus){
         var pulse = 6 + Math.sin(t*4)*2; // breathing ring on the focused node
-        ctx.strokeStyle='rgba(255,255,255,0.7)'; ctx.lineWidth=1.2;
-        ctx.beginPath(); ctx.arc(p.x,p.y,R+pulse,0,Math.PI*2); ctx.stroke();
+        ctx.strokeStyle='rgba(4,120,87,0.7)'; ctx.lineWidth=1.2;
+        ctx.beginPath(); ctx.arc(nx,ny,R+pulse,0,Math.PI*2); ctx.stroke();
       }
       if(p.pinned && i!==focus){
-        ctx.strokeStyle='rgba(122,168,255,0.55)'; ctx.lineWidth=1;
-        ctx.beginPath(); ctx.arc(p.x,p.y,R+4,0,Math.PI*2); ctx.stroke();
+        ctx.strokeStyle='rgba(4,120,87,0.55)'; ctx.lineWidth=1;
+        ctx.beginPath(); ctx.arc(nx,ny,R+4,0,Math.PI*2); ctx.stroke();
       }
       ctx.globalAlpha = 1;
     }
