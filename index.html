@@ -99,9 +99,7 @@
       <div class="orb orb-a"></div>
       <div class="orb orb-b"></div>
       <div class="orb orb-c"></div>
-      <canvas id="graph-canvas"></canvas>
       <div class="bg-grid"></div>
-      <div id="graph-tip"></div>
     </div>
 
     <!-- TOPBAR -->
@@ -190,7 +188,15 @@
         </div>
 
         <div class="hero-visual" data-parallax="0.06">
-          <div class="hero-terminal" data-tilt data-tilt-max="7" role="region" aria-label="Terminal demo">
+          <div class="sphere-stage" role="img" aria-label="Interactive dependency sphere - drag to rotate, hover a node for details">
+            <canvas id="sphere-canvas"></canvas>
+          </div>
+          <div class="sphere-hint">drag to rotate · hover a node</div>
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="hero-term-row">
+          <div class="hero-terminal" data-tilt data-tilt-max="5" role="region" aria-label="Terminal demo">
             <div class="tilt-glare"></div>
             <div class="tbar"><div class="td tr"></div><div class="td ty"></div><div class="td tg"></div><span class="ttitle">repograph - workspace analysis</span></div>
             <div class="tbody" id="terminalBody">
@@ -208,6 +214,7 @@
           </div>
         </div>
       </div>
+      <div id="sphere-tip"></div>
     </header>
 
     <!-- PROVIDER MARQUEE -->
@@ -657,5 +664,6 @@
     <script src="js/ui.js?v=3"></script>
     <script src="js/graph.js?v=3"></script>
     <script src="js/3d.js?v=3"></script>
+    <script src="js/sphere.js?v=1"></script>
   </body>
 </html>

@@ -227,7 +227,48 @@ function initTyped(){
   timer = setTimeout(function(){ title.classList.add('typing'); deleting = true; tick(); }, 2600);
 }
 
+/* Gliding pill indicator — follows hover, settles on .active */
+function makeGlider(container, itemSel, glideCls){
+  if(!container) return null;
+  if(!window.matchMedia('(hover:hover)').matches) return null;
+  var glide = document.createElement('span');
+  glide.className = glideCls;
+  glide.setAttribute('aria-hidden', 'true');
+  container.appendChild(glide);
+  var hovered = null;
+  function place(el){
+    if(!el || !el.offsetWidth){ glide.style.opacity = '0'; return; }
+    glide.style.opacity = '1';
+    glide.style.left = el.offsetLeft + 'px';
+    glide.style.width = el.offsetWidth + 'px';
+  }
+  function toActive(){
+    if(hovered) return;
+    place(container.querySelector(itemSel + '.active'));
+  }
+  container.querySelectorAll(itemSel).forEach(function(el){
+    el.addEventListener('mouseenter', function(){ hovered = el; place(el); });
+    el.addEventListener('mouseleave', function(){ hovered = null; });
+  });
+  container.addEventListener('mouseleave', function(){ hovered = null; toActive(); });
+  // follow .active changes (scrollspy, clicks) with zero wiring
+  if('MutationObserver' in window){
+    var mo = new MutationObserver(function(){ toActive(); });
+    mo.observe(container, {attributes: true, subtree: true, attributeFilter: ['class']});
+  }
+  window.addEventListener('resize', toActive);
+  window.addEventListener('load', toActive);
+  setTimeout(toActive, 350);
+  toActive();
+  return {refresh: toActive};
+}
+
+function initGliders(){
+  makeGlider(document.getElementById('navlinks'), '.nav-links a', 'nav-glide');
+  makeGlider(document.querySelector('.hero-tabs'), '.htab', 'hero-glide');
+}
+
 document.addEventListener('DOMContentLoaded', function(){
-  initNav(); initReveal(); initCounters(); initCopy(); initFaq(); initHow(); initSlider(); initTabs(); initHeroTabs(); initTyped();
+  initNav(); initReveal(); initCounters(); initCopy(); initFaq(); initHow(); initSlider(); initTabs(); initHeroTabs(); initTyped(); initGliders();
 });
 })();
