@@ -175,7 +175,24 @@ function initSlider(){
   show(0);
 }
 
+/* Hero command widget tabs */
+function initHeroTabs(){
+  var tabs = document.querySelectorAll('.htab');
+  var cmd = document.getElementById('hsCmd');
+  var btn = document.querySelector('.hs-btn');
+  if(!tabs.length || !cmd) return;
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      tabs.forEach(function(o){ o.classList.remove('active'); o.setAttribute('aria-selected','false'); });
+      t.classList.add('active'); t.setAttribute('aria-selected','true');
+      var c = t.getAttribute('data-cmd') || '';
+      cmd.textContent = c;
+      if(btn) btn.setAttribute('data-copy', c);
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function(){
-  initNav(); initReveal(); initCounters(); initCopy(); initFaq(); initHow(); initSlider(); initTabs();
+  initNav(); initReveal(); initCounters(); initCopy(); initFaq(); initHow(); initSlider(); initTabs(); initHeroTabs();
 });
 })();

@@ -153,8 +153,8 @@
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <div class="hero-badge"><img class="hero-mark" src="assets/logo.png" alt="" width="20" height="20" /> Free · Open source · VS Code extension <span class="stars">★ MIT</span></div>
-          <h1 class="hero-title">The codebase graph<br /><span class="grad">your agent can cite</span></h1>
-          <p class="hero-sub">RepoGraph AI turns any repo into a <strong>dependency graph with file:line evidence</strong> — interactive map, <strong>AI summaries + multi-turn Q&amp;A</strong> inside VS Code. No embeddings to babysit. Your key, your machine.</p>
+          <h1 class="hero-title">Know every file.<br /><span class="grad">Cite every line.</span></h1>
+          <p class="hero-sub">RepoGraph AI turns any repo into a <strong>live dependency graph</strong> — every import traced, every answer backed by <strong>file:line evidence</strong>. AI summaries + Q&amp;A inside VS Code, on your own key.</p>
           <div class="hero-actions">
             <a class="btn-primary" href="https://marketplace.visualstudio.com/items?itemName=kaushalendra.repograph-ai" target="_blank" rel="noopener">
               Try for free →
@@ -165,9 +165,16 @@
           </div>
           <div class="hero-fine">Free plan, no card · runs on-device · zero telemetry</div>
           <div class="hero-search reveal">
-            <span class="hs-prompt">$</span>
-            <span class="hs-cmd">ext install kaushalendra.repograph-ai</span>
-            <button class="hs-btn" data-copy="ext install kaushalendra.repograph-ai">Copy</button>
+            <div class="hero-tabs" role="tablist" aria-label="Try a command">
+              <button class="htab active" data-cmd="ext install kaushalendra.repograph-ai" role="tab" aria-selected="true">Analyze</button>
+              <button class="htab" data-cmd="Ctrl+Shift+P → RepoGraph: Summarize" role="tab" aria-selected="false">Summarize</button>
+              <button class="htab" data-cmd="Ctrl+Shift+P → RepoGraph: Ask" role="tab" aria-selected="false">Ask</button>
+            </div>
+            <div class="hero-cmdrow">
+              <span class="hs-prompt">$</span>
+              <span class="hs-cmd" id="hsCmd">ext install kaushalendra.repograph-ai</span>
+              <button class="hs-btn" data-copy="ext install kaushalendra.repograph-ai">Copy</button>
+            </div>
           </div>
           <div class="queries" aria-hidden="true">
             <span class="qchip">› Where is auth handled? <b>calls get_graph</b></span>
@@ -573,7 +580,7 @@
         <div class="reveal"><span class="slabel">Creator</span></div>
         <h2 class="stitle reveal" id="author-heading">Built by a dev,<br />for <span class="grad">devs</span></h2>
         <div class="author-card reveal" itemscope itemtype="https://schema.org/Person">
-          <img class="author-avatar" src="assets/publisher.jpeg" alt="Kaushalendra Singh" width="92" height="92" itemprop="image" />
+          <img class="author-avatar" src="assets/publisher.png" alt="Kaushalendra Singh" width="92" height="92" itemprop="image" />
           <div style="flex:1;min-width:240px">
             <div class="author-name" itemprop="name">Kaushalendra Singh</div>
             <div class="author-role" itemprop="jobTitle">AI Engineer - building tools that make codebases legible</div>
