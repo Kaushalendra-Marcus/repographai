@@ -103,32 +103,52 @@ function initParallax(){
 
 function initFootWave(){
   var wrap = document.getElementById('footWave');
-  if(!wrap || coarse) return; // touch keeps the idle drift only
+  if(!wrap) return;
   var letters = Array.prototype.slice.call(wrap.querySelectorAll('.fl-letter'));
   if(!letters.length) return;
   var R = 220;
   var cur = letters.map(function(){ return 0; });
   var px = -9999, py = -9999, active = false, raf = null;
+  var ripples = []; // tap ripples for touch: {x, y, t0}
   function frame(){
+    var now = performance.now();
+    ripples = ripples.filter(function(rp){ return now - rp.t0 < 1600; });
     var settling = false;
     letters.forEach(function(el, k){
       var r = el.getBoundingClientRect();
       var dx = px - (r.left + r.width/2), dy = py - (r.top + r.height/2);
       var d = Math.sqrt(dx*dx + dy*dy);
       var t = active ? Math.max(0, 1 - d/R) : 0;
+      for(var i = 0; i < ripples.length; i++){
+        var age = (now - ripples[i].t0)/1000;
+        var rr = el.getBoundingClientRect();
+        var ddx = ripples[i].x - (rr.left + rr.width/2), ddy = ripples[i].y - (rr.top + rr.height/2);
+        var dd = Math.sqrt(ddx*ddx + ddy*ddy);
+        var rad = age * 520;
+        var band = Math.exp(-Math.pow(dd - rad, 2)/(2*70*70));
+        var amp = Math.max(0, 1 - age/1.4);
+        t = Math.max(t, band * amp);
+      }
       t = t*t*(3 - 2*t); // smoothstep falloff
       cur[k] += (t - cur[k]) * 0.2;
       if(Math.abs(t - cur[k]) > 0.001) settling = true;
       el.style.setProperty('--p', cur[k].toFixed(3));
     });
-    if(active || settling) raf = requestAnimationFrame(frame);
+    if(active || settling || ripples.length) raf = requestAnimationFrame(frame);
     else raf = null;
   }
   function kick(){ if(!raf) raf = requestAnimationFrame(frame); }
-  wrap.addEventListener('pointermove', function(e){
-    px = e.clientX; py = e.clientY; active = true; kick();
+  if(!coarse){
+    wrap.addEventListener('pointermove', function(e){
+      px = e.clientX; py = e.clientY; active = true; kick();
+    });
+    wrap.addEventListener('pointerleave', function(){ active = false; kick(); });
+  }
+  // touch: tap anywhere on the wordmark fires an outward ripple (page still scrolls normally)
+  wrap.addEventListener('pointerdown', function(e){
+    ripples.push({x: e.clientX, y: e.clientY, t0: performance.now()});
+    kick();
   });
-  wrap.addEventListener('pointerleave', function(){ active = false; kick(); });
 }
 
 document.addEventListener('DOMContentLoaded', function(){
