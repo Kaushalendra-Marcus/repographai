@@ -268,7 +268,21 @@ function initGliders(){
   makeGlider(document.querySelector('.hero-tabs'), '.htab', 'hero-glide');
 }
 
+/* Topbar dismiss — remembered across visits */
+function initTopbar(){
+  var bar = document.getElementById('topbar');
+  var btn = document.getElementById('topbarClose');
+  if(!bar || !btn) return;
+  try{
+    if(localStorage.getItem('rg-topbar-closed') === '1'){ bar.classList.add('hide'); return; }
+  }catch(e){}
+  btn.addEventListener('click', function(){
+    bar.classList.add('hide');
+    try{ localStorage.setItem('rg-topbar-closed', '1'); }catch(e){}
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function(){
-  initNav(); initReveal(); initCounters(); initCopy(); initFaq(); initHow(); initSlider(); initTabs(); initHeroTabs(); initTyped(); initGliders();
+  initNav(); initReveal(); initCounters(); initCopy(); initFaq(); initHow(); initSlider(); initTabs(); initHeroTabs(); initTyped(); initGliders(); initTopbar();
 });
 })();

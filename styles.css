@@ -67,6 +67,9 @@ a{color:inherit}
 .topbar-pill{font-family:var(--fm);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line2);padding:2px 9px;border-radius:99px;color:var(--ink);background:#fff;font-weight:600}
 .topbar a{color:var(--ink);font-weight:700;text-decoration:none;border-bottom:1px solid var(--line2)}
 .topbar a:hover{border-color:var(--ink)}
+.topbar-close{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;border:1px solid var(--line2);background:transparent;color:var(--muted);font-size:11px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color .2s,border-color .2s,transform .2s}
+.topbar-close:hover{color:var(--ink);border-color:var(--ink);transform:translateY(-50%) scale(1.08)}
+.topbar.hide{display:none}
 
 /* ── Nav ── */
 .nav-shell{position:sticky;top:12px;z-index:100;display:flex;justify-content:center;pointer-events:none;padding:0 12px;margin-top:12px}
