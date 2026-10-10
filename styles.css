@@ -97,7 +97,10 @@ nav{pointer-events:auto;width:min(1120px,100%);background:rgba(255,255,255,.86);
 .hero-copy{min-width:0}
 .hero-mark{width:20px;height:20px;border-radius:6px;flex-shrink:0}
 .hero-logo{display:none}
-.hero-title{font-family:var(--fd);font-size:clamp(42px,5.6vw,74px);font-weight:700;line-height:1.0;letter-spacing:-.05em;margin-bottom:20px;text-wrap:balance;color:var(--ink)}
+.hero-title{font-family:var(--fd);font-size:clamp(42px,5.6vw,74px);font-weight:700;line-height:1.0;letter-spacing:-.05em;margin-bottom:20px;text-wrap:balance;color:var(--ink);min-height:2em}
+/* typewriter caret — visible only while typing, no idle motion */
+.caret{display:inline-block;width:.5em;height:.92em;background:var(--accent);vertical-align:-.1em;margin-left:.06em;border-radius:2px;opacity:0;transition:opacity .2s}
+.hero-title.typing .caret{opacity:1}
 .hero-title .grad{background:linear-gradient(100deg,#065F46,#059669 60%,#10B981 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 .hero-sub{font-size:clamp(15px,1.6vw,17px);color:var(--muted);max-width:520px;margin:0 0 28px;line-height:1.7}
 .hero-sub strong{color:var(--ink);font-weight:650}

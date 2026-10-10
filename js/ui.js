@@ -192,7 +192,42 @@ function initHeroTabs(){
   });
 }
 
+/* Hero typewriter — rotates the promise line, caret only while typing */
+function initTyped(){
+  var line = document.getElementById('typedLine');
+  var title = document.getElementById('heroTitle');
+  if(!line || !title) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var phrases = ['Cite every line.', 'Trace every call.', 'Prove every diff.'];
+  var pi = 0, ci = phrases[0].length, deleting = false, timer = null;
+  function tick(){
+    if(document.hidden){ timer = setTimeout(tick, 800); return; }
+    var full = phrases[pi];
+    if(!deleting){
+      ci++;
+      line.textContent = full.slice(0, ci);
+      if(ci >= full.length){
+        title.classList.remove('typing');
+        timer = setTimeout(function(){ deleting = true; title.classList.add('typing'); tick(); }, 2300);
+        return;
+      }
+      timer = setTimeout(tick, 34 + Math.random()*46);
+    } else {
+      ci--;
+      line.textContent = full.slice(0, ci);
+      if(ci <= 0){
+        pi = (pi + 1) % phrases.length;
+        deleting = false;
+        timer = setTimeout(tick, 350);
+        return;
+      }
+      timer = setTimeout(tick, 20);
+    }
+  }
+  timer = setTimeout(function(){ title.classList.add('typing'); deleting = true; tick(); }, 2600);
+}
+
 document.addEventListener('DOMContentLoaded', function(){
-  initNav(); initReveal(); initCounters(); initCopy(); initFaq(); initHow(); initSlider(); initTabs(); initHeroTabs();
+  initNav(); initReveal(); initCounters(); initCopy(); initFaq(); initHow(); initSlider(); initTabs(); initHeroTabs(); initTyped();
 });
 })();
