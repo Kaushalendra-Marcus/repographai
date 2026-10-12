@@ -111,6 +111,8 @@ nav{pointer-events:auto;width:min(1120px,100%);background:rgba(255,255,255,.86);
 /* ── Hero · split left / right ── */
 .hero{padding:76px 0 60px;text-align:left;position:relative;z-index:1}
 .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center}
+.hero-grid>*{min-width:0}
+#sphere-canvas{min-width:0}
 .hero-copy{min-width:0}
 .hero-mark{width:20px;height:20px;border-radius:6px;flex-shrink:0}
 .hero-logo{display:none}
@@ -294,7 +296,8 @@ video::-webkit-media-controls{display:none!important}
 .job-code{background:#121210;border-top:1px solid var(--line);margin-top:18px;padding:16px 18px;font-family:var(--fm);font-size:12px;line-height:1.9;color:#D6D3D1;overflow-x:auto;white-space:nowrap}
 
 /* ── Screenshot tabs ── */
-.shots-tabs{position:relative;display:inline-flex;gap:2px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:4px;margin-bottom:22px;box-shadow:var(--shadow-sm)}
+.shots-tabs{position:relative;display:inline-flex;gap:2px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:4px;margin-bottom:22px;box-shadow:var(--shadow-sm);max-width:100%;overflow-x:auto;scrollbar-width:none}
+.shots-tabs::-webkit-scrollbar{display:none}
 .tab-indicator{position:absolute;top:4px;bottom:4px;left:4px;background:var(--ink);border-radius:8px;transition:width .45s cubic-bezier(.34,1.3,.4,1),transform .45s cubic-bezier(.34,1.3,.4,1);box-shadow:0 6px 18px rgba(28,25,23,.28);z-index:0}
 .stab{position:relative;z-index:1;padding:9px 20px;border-radius:8px;font-size:13.5px;font-weight:550;color:var(--muted);cursor:pointer;border:none;background:transparent;white-space:nowrap;font-family:var(--ff);transition:color .3s}
 .stab:hover{color:var(--ink)}.stab.active{color:#fff}
@@ -544,6 +547,12 @@ footer::before{content:'';position:absolute;inset:0;background:radial-gradient(7
   .foot-grid{grid-template-columns:1fr 1fr;gap:24px}
   .foot-brand{grid-column:1/-1}
   .foot-grid .foot-col:last-child{grid-column:1/-1}
+  .arow{gap:10px}
+  .arow>*{min-width:0}
+  .acell{padding:14px;gap:10px}
+  .aic{width:36px;height:36px;border-radius:10px}
+  .aic svg,.aic img{width:20px;height:20px}
+  .acell .logo-name{font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   footer{padding:44px 0 22px}
   .foot-bottom{flex-direction:column;align-items:flex-start;gap:10px}
   .foot-giant{margin-top:30px;padding:22px 0 4px}
