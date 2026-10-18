@@ -106,26 +106,61 @@ function initFootWave(){
   if(!wrap) return;
   var letters = Array.prototype.slice.call(wrap.querySelectorAll('.fl-letter'));
   if(!letters.length) return;
-  var R = 220;
+  var spaces = Array.prototype.slice.call(wrap.querySelectorAll('.fl-space'));
+  var geo = [];
+
+  // size the wordmark so it spans the viewport edge to edge (design: full-bleed)
+  function fit(){
+    wrap.style.fontSize = '100px';
+    var total = 0;
+    letters.forEach(function(el){ total += el.offsetWidth; });
+    spaces.forEach(function(el){ total += el.offsetWidth; });
+    var target = document.documentElement.clientWidth - 4;
+    if(total > 0 && target > 60) wrap.style.fontSize = (100 * target / total).toFixed(2) + 'px';
+    else wrap.style.fontSize = '';
+  }
+  // cache letter centres in document space once per layout change (no per-frame reflow)
+  function measure(){
+    var sx = window.scrollX || 0, sy = window.scrollY || 0;
+    geo = letters.map(function(el){
+      var r = el.getBoundingClientRect();
+      return {x: r.left + r.width/2 + sx, y: r.top + r.height/2 + sy};
+    });
+  }
+  var refitT = null;
+  function refit(){
+    if(refitT) clearTimeout(refitT);
+    refitT = setTimeout(function(){ fit(); measure(); }, 120);
+  }
+  fit(); measure();
+  window.addEventListener('resize', refit);
+  window.addEventListener('orientationchange', refit);
+  if(window.addEventListener) window.addEventListener('load', function(){ fit(); measure(); });
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ fit(); measure(); });
+
+  var R = 260;
   var cur = letters.map(function(){ return 0; });
-  var px = -9999, py = -9999, active = false, raf = null;
-  var ripples = []; // tap ripples for touch: {x, y, t0}
+  var cx = -9999, cy = -9999, px = -9999, py = -9999, active = false, raf = null;
+  var ripples = []; // tap ripples for touch: {x, y, t0} in document space
+  function syncPointer(){
+    px = cx + (window.scrollX || 0);
+    py = cy + (window.scrollY || 0);
+  }
   function frame(){
     var now = performance.now();
     ripples = ripples.filter(function(rp){ return now - rp.t0 < 1600; });
     var settling = false;
     letters.forEach(function(el, k){
-      var r = el.getBoundingClientRect();
-      var dx = px - (r.left + r.width/2), dy = py - (r.top + r.height/2);
+      var g = geo[k] || {x: px, y: py};
+      var dx = px - g.x, dy = py - g.y;
       var d = Math.sqrt(dx*dx + dy*dy);
       var t = active ? Math.max(0, 1 - d/R) : 0;
       for(var i = 0; i < ripples.length; i++){
         var age = (now - ripples[i].t0)/1000;
-        var rr = el.getBoundingClientRect();
-        var ddx = ripples[i].x - (rr.left + rr.width/2), ddy = ripples[i].y - (rr.top + rr.height/2);
+        var ddx = ripples[i].x - g.x, ddy = ripples[i].y - g.y;
         var dd = Math.sqrt(ddx*ddx + ddy*ddy);
-        var rad = age * 520;
-        var band = Math.exp(-Math.pow(dd - rad, 2)/(2*70*70));
+        var rad = age * 620;
+        var band = Math.exp(-Math.pow(dd - rad, 2)/(2*80*80));
         var amp = Math.max(0, 1 - age/1.4);
         t = Math.max(t, band * amp);
       }
@@ -140,13 +175,19 @@ function initFootWave(){
   function kick(){ if(!raf) raf = requestAnimationFrame(frame); }
   if(!coarse){
     wrap.addEventListener('pointermove', function(e){
-      px = e.clientX; py = e.clientY; active = true; kick();
+      cx = e.clientX; cy = e.clientY;
+      syncPointer(); active = true; kick();
     });
     wrap.addEventListener('pointerleave', function(){ active = false; kick(); });
   }
+  // while the page scrolls under a resting cursor, keep the wave glued to the pointer
+  window.addEventListener('scroll', function(){
+    if(!active) return;
+    syncPointer(); kick();
+  }, {passive:true});
   // touch: tap anywhere on the wordmark fires an outward ripple (page still scrolls normally)
   wrap.addEventListener('pointerdown', function(e){
-    ripples.push({x: e.clientX, y: e.clientY, t0: performance.now()});
+    ripples.push({x: e.pageX, y: e.pageY, t0: performance.now()});
     kick();
   });
 }
