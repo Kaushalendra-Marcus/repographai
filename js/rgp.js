@@ -210,6 +210,8 @@ v.addEventListener('play', function(){ syncPlayIcon(); barFlash(); });
 v.addEventListener('pause', function(){ syncPlayIcon(); barStay(); });
 v.addEventListener('ended', function(){ syncPlayIcon(); barStay(); syncProgress(); });
 v.addEventListener('timeupdate', syncProgress);
+v.addEventListener('seeking', syncProgress);
+v.addEventListener('seeked', syncProgress);
 v.addEventListener('progress', syncProgress);
 v.addEventListener('durationchange', syncProgress);
 v.addEventListener('loadedmetadata', function(){ setRate(storedRate(), false); buildMarks(); syncProgress(); });
