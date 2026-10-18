@@ -22,7 +22,20 @@ function initTabs(){
   var a = document.querySelector('.stab.active');
   if(a){ var ind = document.querySelector('.tab-indicator'); if(ind) ind.style.left = '4px'; moveTabIndicator(a); }
   var tabs = document.querySelector('.shots-tabs');
-  if(tabs) tabs.addEventListener('scroll', function(){ var x = document.querySelector('.stab.active'); if(x) moveTabIndicator(x); });
+  if(!tabs || tabs.dataset.bound) return; // bind listeners once (resize re-runs this)
+  tabs.dataset.bound = '1';
+  tabs.querySelectorAll('.stab[data-shot]').forEach(function(b){ b.setAttribute('aria-controls', 'shot-' + b.getAttribute('data-shot')); });
+  tabs.addEventListener('scroll', function(){ var x = document.querySelector('.stab.active'); if(x) moveTabIndicator(x); });
+  tabs.addEventListener('keydown', function(e){
+    if(e.key !== 'ArrowRight' && e.key !== 'ArrowLeft' && e.key !== 'Home' && e.key !== 'End') return;
+    var list = Array.prototype.slice.call(tabs.querySelectorAll('.stab'));
+    var i = list.indexOf(document.activeElement);
+    if(i < 0) return;
+    var j = e.key === 'Home' ? 0 : e.key === 'End' ? list.length - 1 : (e.key === 'ArrowRight' ? i + 1 : i - 1 + list.length) % list.length;
+    e.preventDefault();
+    list[j].focus();
+    list[j].click();
+  });
 }
 window.addEventListener('resize', initTabs);
 window.addEventListener('load', initTabs);
@@ -67,7 +80,12 @@ function initNav(){
       es.forEach(function(en){
         if(!en.isIntersecting) return;
         var id = '#' + en.target.id;
-        keys.forEach(function(k){ map[k].link.classList.toggle('active', k === id); });
+        keys.forEach(function(k){
+          var on = k === id;
+          map[k].link.classList.toggle('active', on);
+          if(on) map[k].link.setAttribute('aria-current', 'true');
+          else map[k].link.removeAttribute('aria-current');
+        });
       });
     }, {rootMargin:'-40% 0px -55% 0px'});
     keys.forEach(function(k){ spy.observe(map[k].sec); });
@@ -101,10 +119,17 @@ function initCounters(){
 
 /* Copy buttons */
 function initCopy(){
+  var live = document.getElementById('copyLive');
+  if(!live){
+    live = document.createElement('span');
+    live.id = 'copyLive'; live.className = 'sr-only';
+    live.setAttribute('aria-live', 'polite');
+    document.body.appendChild(live);
+  }
   document.querySelectorAll('[data-copy]').forEach(function(btn){
     btn.addEventListener('click', function(){
       var text = btn.getAttribute('data-copy')||'';
-      var done = function(){ var o = btn.textContent; btn.textContent = 'Copied'; setTimeout(function(){ btn.textContent = o; }, 1500); };
+      var done = function(){ var o = btn.textContent; btn.textContent = 'Copied'; live.textContent = 'Copied to clipboard: ' + text; setTimeout(function(){ btn.textContent = o; }, 1500); };
       if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done).catch(done);
       else { var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(ta); done(); }
     });
@@ -114,9 +139,11 @@ function initCopy(){
 /* FAQ accordion */
 function initFaq(){
   var items = document.querySelectorAll('.faq-item');
-  items.forEach(function(item){
+  items.forEach(function(item, i){
     var q = item.querySelector('.faq-q'), a = item.querySelector('.faq-a');
     if(!q || !a) return;
+    if(!a.id) a.id = 'faq-a' + (i + 1);
+    q.setAttribute('aria-controls', a.id);
     q.setAttribute('aria-expanded', 'false');
     q.addEventListener('click', function(){
       var open = item.classList.contains('open');
@@ -125,6 +152,15 @@ function initFaq(){
     });
   });
   if(items.length){ items[0].classList.add('open'); var f = items[0].querySelector('.faq-a'); if(f) f.style.maxHeight = f.scrollHeight + 'px'; items[0].querySelector('.faq-q').setAttribute('aria-expanded', 'true'); }
+  // px max-height goes stale when the window resizes while an answer is open
+  var frT = null;
+  window.addEventListener('resize', function(){
+    if(frT) clearTimeout(frT);
+    frT = setTimeout(function(){
+      var open = document.querySelector('.faq-item.open .faq-a');
+      if(open) open.style.maxHeight = open.scrollHeight + 'px';
+    }, 150);
+  });
 }
 
 /* How-it-works steps */
@@ -153,8 +189,8 @@ function initHeroTabs(){
   if(!tabs.length || !cmd) return;
   tabs.forEach(function(t){
     t.addEventListener('click', function(){
-      tabs.forEach(function(o){ o.classList.remove('active'); o.setAttribute('aria-selected','false'); });
-      t.classList.add('active'); t.setAttribute('aria-selected','true');
+      tabs.forEach(function(o){ o.classList.remove('active'); o.setAttribute('aria-pressed','false'); });
+      t.classList.add('active'); t.setAttribute('aria-pressed','true');
       var c = t.getAttribute('data-cmd') || '';
       cmd.textContent = c;
       if(btn) btn.setAttribute('data-copy', c);

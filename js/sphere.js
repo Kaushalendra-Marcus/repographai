@@ -22,6 +22,22 @@ function initSphere(){
   var tipDirty = false;
   var pulses = []; // one-shot tap rings {i, t0}
   var downAt = 0, startPos = null, lastPos = null;
+  var lastP = null;               // last frame's projection, reused by pointer handlers
+  var orderL = [], orderN = [];   // reusable sort-index buffers (no per-frame allocation)
+  var visible = true;             // hero not on screen → render loop parks
+  var GLOWS = {};
+  function glow(rgb){
+    if(GLOWS[rgb]) return GLOWS[rgb];
+    var c = document.createElement('canvas'); c.width = c.height = 128;
+    var g = c.getContext('2d');
+    var grad = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+    grad.addColorStop(0, 'rgba(' + rgb + ',1)');
+    grad.addColorStop(1, 'rgba(' + rgb + ',0)');
+    g.fillStyle = grad;
+    g.beginPath(); g.arc(64, 64, 64, 0, Math.PI*2); g.fill();
+    GLOWS[rgb] = c;
+    return c;
+  }
   var DIRS = ['lib','src','api','core','utils','graph','ai','store'];
   var NAMES = ['auth','graph','index','scan','cache','config','parser','query','agent','store','edge','node','prompt','model','router','worker','indexer','report'];
 
@@ -67,6 +83,8 @@ function initSphere(){
       }
     }
     if(hint) hint.textContent = N + ' nodes · drag to spin · hover a node';
+    orderL = links.map(function(_, i){ return i; });
+    orderN = nodes.map(function(_, i){ return i; });
   }
 
   function label(i){
@@ -124,7 +142,7 @@ function initSphere(){
     tip.style.left = mouse.cx+'px'; tip.style.top = mouse.cy+'px';
     tip.classList.add('show');
   }
-  function kick(){ if(!raf) raf = requestAnimationFrame(frame); }
+  function kick(){ if(!raf && visible) raf = requestAnimationFrame(frame); }
 
   function frame(){
     if(!reduceMotion){
@@ -139,6 +157,7 @@ function initSphere(){
       if(rotX < -1.2){ rotX = -1.2; vy = 0; }
     }
     var P = project();
+    lastP = P;
     // keep the hover glued to the node under the cursor while spinning
     if(!dragging && mouse.inside){
       var h = nearest(mouse.x, mouse.y, P);
@@ -166,12 +185,12 @@ function initSphere(){
     ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI*2); ctx.stroke();
     ctx.setLineDash([]);
     var dim = hovered >= 0;
-    // edges, far first
-    var order = links.slice().sort(function(p, q){
-      return ((P.z[p[0]]+P.z[p[1]]) - (P.z[q[0]]+P.z[q[1]]));
+    // edges, far first (reused index buffer, sorted in place)
+    orderL.sort(function(p, q){
+      return ((P.z[links[p][0]]+P.z[links[p][1]]) - (P.z[links[q][0]]+P.z[links[q][1]]));
     });
-    for(var l = 0; l < order.length; l++){
-      var li = order[l];
+    for(var l = 0; l < orderL.length; l++){
+      var li = links[orderL[l]];
       var hot = hovered >= 0 && (li[0] === hovered || li[1] === hovered);
       var avgZ = (P.z[li[0]] + P.z[li[1]]) * 0.5;
       var edgeA = 0.13 + avgZ * 0.12;
@@ -183,10 +202,10 @@ function initSphere(){
       ctx.lineTo(P.x[li[1]]+OX[li[1]], P.y[li[1]]+OY[li[1]]);
       ctx.stroke();
     }
-    // nodes, far first
-    var norder = nodes.map(function(_, idx){ return idx; }).sort(function(p, q){ return P.z[p] - P.z[q]; });
-    for(var k = 0; k < norder.length; k++){
-      var i = norder[k];
+    // nodes, far first (reused index buffer)
+    orderN.sort(function(p, q){ return P.z[p] - P.z[q]; });
+    for(var k = 0; k < orderN.length; k++){
+      var i = orderN[k];
       var p = nodes[i], hot2 = hovered >= 0 && inHood(i);
       var col = p.c > 0.6 ? '5,150,105' : (p.c > 0.3 ? '4,120,87' : '110,135,125');
       var boost = (i === hovered) ? 2.3 : (hot2 ? 1.6 : 1);
@@ -194,13 +213,10 @@ function initSphere(){
       var aFade = 0.45 + (P.s[i]-0.75)*1.1;
       if(aFade > 1) aFade = 1;
       if(aFade < 0.25) aFade = 0.25;
-      ctx.globalAlpha = (dim && !hot2 ? 0.3 : 1) * aFade;
+      ctx.globalAlpha = (dim && !hot2 ? 0.3 : 1) * aFade * (hot2 ? 1 : 0.8);
       var nx = P.x[i]+OX[i], ny = P.y[i]+OY[i];
-      var g = ctx.createRadialGradient(nx, ny, 0, nx, ny, Math.max(Rr*4, 1));
-      g.addColorStop(0, 'rgba('+col+','+(hot2 ? 1 : 0.8)+')');
-      g.addColorStop(1, 'rgba('+col+',0)');
-      ctx.fillStyle = g;
-      ctx.beginPath(); ctx.arc(nx, ny, Rr*4, 0, Math.PI*2); ctx.fill();
+      var rad = Math.max(Rr*4, 1);
+      ctx.drawImage(glow(col), nx - rad, ny - rad, rad*2, rad*2);
       ctx.fillStyle = hot2 ? '#1C1917' : 'rgba(68,64,60,0.9)';
       ctx.beginPath(); ctx.arc(nx, ny, Math.max(Rr, 0.7), 0, Math.PI*2); ctx.fill();
       if(i === hovered){
@@ -214,7 +230,7 @@ function initSphere(){
     var now = performance.now();
     pulses = pulses.filter(function(pu){ return now - pu.t0 < 650; });
     if(pulses.length){
-      var PP = project();
+      var PP = lastP || project();
       for(var u = 0; u < pulses.length; u++){
         var pu = pulses[u], el = (now - pu.t0) / 650;
         ctx.strokeStyle = 'rgba(4,120,87,'+(0.8*(1-el)).toFixed(3)+')';
@@ -223,8 +239,8 @@ function initSphere(){
       }
     }
     var rolling = !reduceMotion;
-    if(rolling || dragging || hovered >= 0 || pulses.length ||
-       Math.abs(vx) > 0.0004 || Math.abs(vy) > 0.0004){
+    if(visible && (rolling || dragging || hovered >= 0 || pulses.length ||
+       Math.abs(vx) > 0.0004 || Math.abs(vy) > 0.0004)){
       raf = requestAnimationFrame(frame);
     } else {
       raf = null;
@@ -245,7 +261,7 @@ function initSphere(){
     lastPos = [e.clientX, e.clientY];
     var pos = evtPos(e);
     mouse.x = pos[0]; mouse.y = pos[1]; mouse.cx = e.clientX; mouse.cy = e.clientY; mouse.inside = true;
-    hovered = nearest(pos[0], pos[1], project());
+    hovered = nearest(pos[0], pos[1], lastP || project());
     tipDirty = true;
     stage.classList.add('dragging');
     kick();
@@ -265,7 +281,7 @@ function initSphere(){
       tipDirty = true;
       kick();
     } else if(!dragging){
-      var h = nearest(pos[0], pos[1], project());
+      var h = nearest(pos[0], pos[1], lastP || project());
       if(h !== hovered){
         hovered = h;
         tipDirty = true;
@@ -297,6 +313,16 @@ function initSphere(){
     if(!dragging){ hovered = -1; tipDirty = true; kick(); }
   });
 
+  // park the render loop while the hero is off screen
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if(en.isIntersecting === visible) return;
+        visible = en.isIntersecting;
+        if(visible) kick();
+      });
+    }, {threshold:0}).observe(stage);
+  }
   window.addEventListener('resize', function(){
     var mob = window.innerWidth < 640;
     if(mob !== MOBILE){

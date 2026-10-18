@@ -43,6 +43,7 @@ var RATES = [0.75, 1, 1.25, 1.5, 2];
 var DEFAULT_RATE = 1.25;
 var STORE = 'rgWalkthroughRate';
 var coarse = window.matchMedia('(pointer: coarse)').matches;
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 var dragging = false;
 var idleTimer = null;
@@ -345,6 +346,7 @@ if('IntersectionObserver' in window){
     entries.forEach(function(en){
       var r = en.intersectionRatio;
       if(r >= 0.35){
+        if(reduceMotion) return; // never autoplay for reduced-motion users
         if(!started){ started = true; play(); }
         else if(autoPaused){ autoPaused = false; play(); }
       }else if(r < 0.25 && !v.paused && !v.ended){

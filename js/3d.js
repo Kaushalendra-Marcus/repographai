@@ -36,12 +36,14 @@ function initTilt(){
       ry += (try_ - ry) * 0.14;
       if(Math.abs(trx-rx)<0.01 && Math.abs(try_-ry)<0.01 && trx===0 && try_===0){
         el.style.transform = '';
+        el.classList.remove('tilting'); // drop the GPU layer again once settled
         return;
       }
       el.style.transform = 'perspective(950px) rotateX('+rx.toFixed(2)+'deg) rotateY('+ry.toFixed(2)+'deg) translateZ(0)';
       if(trx!==0 || try_!==0) raf = requestAnimationFrame(render);
     }
     function kick(){ if(!raf) raf = requestAnimationFrame(render); }
+    el.addEventListener('pointerenter', function(){ el.classList.add('tilting'); });
     el.addEventListener('pointermove', function(e){
       var r = el.getBoundingClientRect();
       var px = (e.clientX - r.left) / r.width - 0.5;
@@ -55,8 +57,8 @@ function initTilt(){
     el.addEventListener('pointerleave', function(){
       trx = 0; try_ = 0;
       kick();
-      // clear after settle
-      setTimeout(function(){ if(trx===0 && try_===0) el.style.transform=''; }, 400);
+      // clear after settle (render() also removes .tilting)
+      setTimeout(function(){ if(trx===0 && try_===0){ el.style.transform=''; el.classList.remove('tilting'); } }, 400);
     });
   });
 }
@@ -64,19 +66,8 @@ function initTilt(){
 function initParallax(){
   var pxEls = document.querySelectorAll('[data-parallax]');
   var orbs = document.querySelectorAll('.orb');
-  var canvas = document.getElementById('graph-canvas');
-  var mx = 0, my = 0, tmx = 0, tmy = 0, sy = 0;
-  window.addEventListener('pointermove', function(e){
-    tmx = (e.clientX / window.innerWidth - 0.5) * 2;
-    tmy = (e.clientY / window.innerHeight - 0.5) * 2;
-  }, {passive:true});
-  function onScroll(){ sy = window.scrollY || 0; }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
-  var heroVisual = document.querySelector('.hero-visual');
-  (function loop(){
-    mx += (tmx - mx) * 0.06;
-    my += (tmy - my) * 0.06;
+  var mx = 0, my = 0, tmx = 0, tmy = 0, sy = 0, raf = null;
+  function paint(){
     pxEls.forEach(function(el){
       var f = parseFloat(el.getAttribute('data-parallax') || '0.05');
       // combine mouse drift + gentle scroll lift; skip if element itself is tilted (tilt owns transform)
@@ -84,21 +75,32 @@ function initParallax(){
       var y = (-sy * f * 0.35);
       el.style.transform = 'translate3d('+(mx*f*36).toFixed(1)+'px,'+(my*f*28 + y).toFixed(1)+'px,0)';
     });
-    if(heroVisual && !coarse){
-      heroVisual.style.transform = '';
-    }
     orbs.forEach(function(o, idx){
       var depth = (idx+1) * 0.5;
-      // use transform so it composes with the CSS `translate` float animation
       o.style.transform = 'translate3d('+(mx*22*depth).toFixed(1)+'px,'+(my*18*depth - Math.min(sy*0.04*depth, 60)).toFixed(1)+'px,0)';
     });
-    if(canvas){
-      // fade the field as you scroll past hero so text stays legible
-      var fade = Math.max(0.12, 0.62 - sy/1600);
-      canvas.style.opacity = fade.toFixed(3);
-    }
-    requestAnimationFrame(loop);
-  })();
+  }
+  // settle-and-stop: only run frames while values are still easing (idle = zero work)
+  function render(){
+    raf = null;
+    mx += (tmx - mx) * 0.06;
+    my += (tmy - my) * 0.06;
+    paint();
+    if(Math.abs(tmx - mx) > 0.0008 || Math.abs(tmy - my) > 0.0008) raf = requestAnimationFrame(render);
+  }
+  function kick(){ if(!raf) raf = requestAnimationFrame(render); }
+  window.addEventListener('pointermove', function(e){
+    tmx = (e.clientX / window.innerWidth - 0.5) * 2;
+    tmy = (e.clientY / window.innerHeight - 0.5) * 2;
+    kick();
+  }, {passive:true});
+  window.addEventListener('scroll', function(){
+    sy = window.scrollY || 0;
+    paint(); // scroll offset applies instantly; no easing needed
+    kick();
+  }, {passive:true});
+  sy = window.scrollY || 0;
+  paint();
 }
 
 function initFootWave(){
@@ -135,7 +137,7 @@ function initFootWave(){
   fit(); measure();
   window.addEventListener('resize', refit);
   window.addEventListener('orientationchange', refit);
-  if(window.addEventListener) window.addEventListener('load', function(){ fit(); measure(); });
+  window.addEventListener('load', function(){ fit(); measure(); });
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ fit(); measure(); });
 
   var R = 260;
@@ -190,6 +192,15 @@ function initFootWave(){
     ripples.push({x: e.pageX, y: e.pageY, t0: performance.now()});
     kick();
   });
+  // the idle sheen sweep animates a custom property (style recalc per frame) —
+  // pause it whenever the footer is off screen
+  var w0 = wrap.getBoundingClientRect();
+  wrap.classList.toggle('is-off', w0.top > window.innerHeight + 220); // deterministic at boot
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(en){ wrap.classList.toggle('is-off', !en.isIntersecting); });
+    }, {rootMargin:'200px 0px'}).observe(wrap);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function(){
