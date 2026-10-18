@@ -23,8 +23,9 @@ var spdBtn = document.getElementById('rgpSpd');
 var spdVal = document.getElementById('rgpSpdVal');
 var menu = document.getElementById('rgpMenu');
 var fsBtn = document.getElementById('rgpFs');
-var chapNo = document.getElementById('rgpChapNo');
-var chapTitle = document.getElementById('rgpChapTitle');
+var cardEl = document.getElementById('rgpCard');
+var cardCap = document.getElementById('rgpCardCap');
+var cardTitle = document.getElementById('rgpCardTitle');
 var rail = document.getElementById('rgChapRail');
 var railBtns = rail ? Array.prototype.slice.call(rail.querySelectorAll('.chap')) : [];
 var railFills = railBtns.map(function(b){ return b.querySelector('.chap-rule i'); });
@@ -48,7 +49,8 @@ var idleTimer = null;
 var autoPaused = false;
 var started = false;
 var chapIdx = -1;
-var swapTimer = null;
+var cardShownFor = -1;
+var cardTimer = null;
 
 /* ── tiny helpers ── */
 function fmt(s){
@@ -111,15 +113,50 @@ function buildMarks(){
     marks.appendChild(s);
   }
 }
+/* in-video chapter title card — footer-wordmark styling, shown briefly at each chapter start */
+function buildCard(idx){
+  if(!cardEl) return;
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  if(cardCap) cardCap.textContent = pad(idx + 1) + ' / ' + pad(CH.length);
+  if(!cardTitle) return;
+  var text = (CH[idx].title || '').toUpperCase();
+  var frag = document.createDocumentFragment();
+  for(var k = 0; k < text.length; k++){
+    var c = text.charAt(k);
+    if(c === ' '){ frag.appendChild(document.createTextNode(' ')); continue; }
+    var s = document.createElement('span');
+    s.textContent = c;
+    s.style.setProperty('--i', k);
+    frag.appendChild(s);
+  }
+  cardTitle.textContent = '';
+  cardTitle.appendChild(frag);
+}
+function showCard(idx){
+  if(!cardEl) return;
+  buildCard(idx);
+  cardEl.classList.remove('is-on');
+  void cardEl.offsetWidth; /* restart the letter rise + sheen sweep */
+  cardEl.classList.add('is-on');
+  clearTimeout(cardTimer);
+  cardTimer = setTimeout(function(){ cardEl.classList.remove('is-on'); }, 3600);
+}
+function maybeCard(idx, force){
+  if(!cardEl) return;
+  if(!force && cardShownFor === idx) return;
+  cardShownFor = idx;
+  showCard(idx);
+}
+function hideCard(){
+  if(!cardEl) return;
+  clearTimeout(cardTimer);
+  cardEl.classList.remove('is-on');
+}
 function syncChapters(){
   var idx = chapterAt(v.currentTime);
   if(idx !== chapIdx){
     chapIdx = idx;
-    if(chapNo) chapNo.textContent = CH[idx].n;
-    if(chapTitle) chapTitle.textContent = CH[idx].title;
-    root.classList.add('chap-swap');
-    clearTimeout(swapTimer);
-    swapTimer = setTimeout(function(){ root.classList.remove('chap-swap'); }, 700);
+    if(!v.paused) maybeCard(idx);
   }
   var d = v.duration || 0;
   for(var k = 0; k < railBtns.length; k++){
@@ -138,10 +175,10 @@ if(rail){
       if(!(i >= 0) || i >= CH.length) i = 0;
       v.currentTime = CH[i].t + 0.001;
       if(v.paused || v.ended) play();
+      chapIdx = -1;
+      cardShownFor = -1;
       syncProgress();
       barStay();
-      chapIdx = -1;
-      syncChapters();
     });
   });
 }
@@ -206,8 +243,8 @@ v.addEventListener('click', function(){ toggle(); });
 if(bigPlay) bigPlay.addEventListener('click', function(){ closeMenu(); toggle(); });
 if(playBtn) playBtn.addEventListener('click', function(){ closeMenu(); toggle(); });
 
-v.addEventListener('play', function(){ syncPlayIcon(); barFlash(); });
-v.addEventListener('pause', function(){ syncPlayIcon(); barStay(); });
+v.addEventListener('play', function(){ syncPlayIcon(); barFlash(); maybeCard(chapterAt(v.currentTime)); });
+v.addEventListener('pause', function(){ syncPlayIcon(); barStay(); if(!v.ended) hideCard(); });
 v.addEventListener('ended', function(){ syncPlayIcon(); barStay(); syncProgress(); });
 v.addEventListener('timeupdate', syncProgress);
 v.addEventListener('seeking', syncProgress);
