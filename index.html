@@ -13,7 +13,7 @@
     <title>RepoGraph AI - AI Coding Agent Graph & VS Code Dependency Visualizer</title>
     <meta name="description" content="RepoGraph AI turns any repo into an AI coding-agent graph: visual dependency maps, AI summaries & Q&A in VS Code. Free, open source, your own key." />
     <meta name="keywords" content="VS Code extension, dependency graph, codebase visualizer, AI code understanding, repo graph, codebase explorer, file dependency map, code analysis tool, open source VS Code, Groq AI, Ollama VS Code, codebase Q&A, TypeScript dependency graph, code architecture visualization, ai graph, graph ai, repograph, repo graph ai, graph repo, repository graph, codebase graph, coding agent graph, graph for coding agent, ai coding agent, ai agent codebase" />
-    <meta name="author" content="Kaushalendra Singh" />
+    <meta name="author" content="Kaushalendra Yadav" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="googlebot" content="index, follow" />
     <link rel="canonical" href="https://repograph.kaushalendra.me/" />
@@ -61,7 +61,7 @@
             "isAccessibleForFree": true,
             "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
             "downloadUrl": "https://marketplace.visualstudio.com/items?itemName=kaushalendra.repograph-ai",
-            "author": { "@type": "Person", "name": "Kaushalendra Singh", "url": "https://github.com/Kaushalendra-Marcus" }
+            "author": { "@type": "Person", "name": "Kaushalendra Yadav", "url": "https://github.com/Kaushalendra-Marcus" }
           },
           {
             "@type": "WebSite",
@@ -73,15 +73,15 @@
           {
             "@type": "VideoObject",
             "@id": "https://repograph.kaushalendra.me/#walkthrough",
-            "name": "RepoGraph AI - full walkthrough",
-            "description": "Narrated walkthrough of RepoGraph AI inside VS Code: analyze a repository, explore the interactive dependency graph, read AI file summaries and ask the codebase questions.",
+            "name": "RepoGraph AI - 57-second walkthrough",
+            "description": "Walkthrough of RepoGraph AI inside VS Code: one-click workspace analysis, the interactive dependency graph, the generated data-flow map and the REPOGRAPH-CONTEXT.md file that AI coding agents read.",
             "thumbnailUrl": "https://repograph.kaushalendra.me/assets/walkthrough-poster.jpg",
             "uploadDate": "2026-10-18",
-            "duration": "PT1M57S",
+            "duration": "PT57S",
             "contentUrl": "https://repograph.kaushalendra.me/assets/walkthrough.mp4",
             "embedUrl": "https://repograph.kaushalendra.me/#demo",
             "isFamilyFriendly": true,
-            "creator": { "@type": "Person", "name": "Kaushalendra Singh", "url": "https://github.com/Kaushalendra-Marcus" }
+            "creator": { "@type": "Person", "name": "Kaushalendra Yadav", "url": "https://github.com/Kaushalendra-Marcus" }
           },
           {
             "@type": "FAQPage",
@@ -169,7 +169,7 @@
     <header class="hero" aria-label="Hero - RepoGraph AI introduction">
       <div class="wrap hero-grid">
         <div class="hero-copy">
-          <div class="hero-badge"><img class="hero-mark" src="assets/logo.png" alt="" width="20" height="20" /> Free · Open source · VS Code extension <span class="stars">★ MIT</span></div>
+          <div class="hero-badge">Free · Open source · VS Code extension</div>
           <h1 class="hero-title" id="heroTitle">Know every file.<br /><span class="grad"><span id="typedLine">Cite every line.</span><span class="caret" aria-hidden="true"></span></span></h1>
           <p class="hero-sub">RepoGraph AI turns any repo into a <strong>live dependency graph</strong> — every import traced, every answer backed by <strong>file:line evidence</strong>. Install once, use it in <strong>every project</strong>. New to a codebase? Understand it in minutes.</p>
           <div class="hero-actions">
@@ -254,7 +254,7 @@
       <div class="wrap center">
         <div class="reveal"><span class="slabel">Live demo</span></div>
         <h2 class="stitle reveal reveal-d1">See it <span class="grad">in action</span></h2>
-        <p class="sbody reveal reveal-d2" style="margin:0 auto">The full narrated walkthrough from inside VS Code - analysis, dependency graph, AI summaries and codebase Q&amp;A.</p>
+        <p class="sbody reveal reveal-d2" style="margin:0 auto">A 57-second walkthrough from inside VS Code - one-click analysis, the dependency graph, the data-flow map and the context file your AI agent gets.</p>
 
         <div class="mac-window film reveal reveal-d2">
           <div class="mac-window-bar">
@@ -264,17 +264,14 @@
           </div>
           <div class="mac-window-content">
             <div class="rgp" id="rgPlayer" tabindex="0" role="region" aria-label="RepoGraph AI walkthrough player">
-              <video id="walkthroughVideo" class="rgp-video" playsinline muted preload="auto" poster="assets/walkthrough-poster.jpg" width="1600" height="900">
+              <video id="walkthroughVideo" class="rgp-video" playsinline muted preload="auto" poster="assets/walkthrough-poster.jpg" width="1280" height="720">
                 <source src="assets/walkthrough.mp4" type="video/mp4" />
                 Your browser does not support embedded video. <a href="assets/walkthrough.mp4">Download the walkthrough</a>.
               </video>
 
               <span class="rgp-shade" aria-hidden="true"></span>
 
-              <button class="rgp-sound" id="rgpSound" type="button">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9.5l4.5 5M20.5 9.5l-4.5 5"/></svg>
-                Sound on
-              </button>
+              <span class="rgp-chap" id="rgpChap" aria-hidden="true"><b id="rgpChapNo">01</b><i id="rgpChapTitle">Analyze workspace</i></span>
 
               <button class="rgp-bigplay" id="rgpCover" type="button" aria-label="Play walkthrough">
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14Z"/></svg>
@@ -286,10 +283,11 @@
                   <svg class="rgp-ico-pause" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><path d="M7 5h3.2v14H7zM13.8 5H17v14h-3.2z"/></svg>
                 </button>
 
-                <span class="rgp-time"><b id="rgpCur">0:00</b><span class="rgp-slash">/</span><span id="rgpDur">1:57</span></span>
+                <span class="rgp-time"><b id="rgpCur">0:00</b><span class="rgp-slash">/</span><span id="rgpDur">0:57</span></span>
 
-                <div class="rgp-track" id="rgpTrack" role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="117" aria-valuenow="0" aria-valuetext="0:00">
+                <div class="rgp-track" id="rgpTrack" role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="57" aria-valuenow="0" aria-valuetext="0:00">
                   <span class="rgp-rail"></span>
+                  <span class="rgp-marks" id="rgpMarks" aria-hidden="true"></span>
                   <span class="rgp-buf" id="rgpBuf"></span>
                   <span class="rgp-fill" id="rgpFill"></span>
                   <span class="rgp-knob" id="rgpKnob"></span>
@@ -307,11 +305,6 @@
                   </div>
                 </div>
 
-                <button class="rgp-ic" id="rgpMute" type="button" aria-label="Unmute">
-                  <svg class="rgp-ico-vol" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a8.5 8.5 0 0 1 0 12"/></svg>
-                  <svg class="rgp-ico-mute" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9.5l4.5 5M20.5 9.5l-4.5 5"/></svg>
-                </button>
-                <input class="rgp-vol" id="rgpVol" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume" />
                 <button class="rgp-ic" id="rgpFs" type="button" aria-label="Fullscreen">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
                 </button>
@@ -319,7 +312,36 @@
             </div>
           </div>
         </div>
-        <div class="film-meta reveal"><span class="film-dot" aria-hidden="true"></span>1:57 narrated &middot; analyze &rarr; graph &rarr; AI summary &rarr; Q&amp;A</div>
+        <div class="film-meta reveal"><span class="film-dot" aria-hidden="true"></span>0:57 &middot; five chapters &middot; analyze &rarr; graph &rarr; flow &rarr; agent context file</div>
+
+        <div class="chap-cap reveal">Jump to a chapter</div>
+        <div class="chap-rail reveal" id="rgChapRail" aria-label="Walkthrough chapters">
+          <button class="chap" type="button" data-chap="0" aria-label="Chapter 01, Analyze workspace">
+            <span class="chap-top"><span class="chap-n">01</span><span class="chap-time">0:00</span></span>
+            <span class="chap-t">Analyze workspace</span>
+            <span class="chap-rule" aria-hidden="true"><i></i></span>
+          </button>
+          <button class="chap" type="button" data-chap="1" aria-label="Chapter 02, Dependency graph">
+            <span class="chap-top"><span class="chap-n">02</span><span class="chap-time">0:06</span></span>
+            <span class="chap-t">Dependency graph</span>
+            <span class="chap-rule" aria-hidden="true"><i></i></span>
+          </button>
+          <button class="chap" type="button" data-chap="2" aria-label="Chapter 03, Data flow">
+            <span class="chap-top"><span class="chap-n">03</span><span class="chap-time">0:30</span></span>
+            <span class="chap-t">Data flow</span>
+            <span class="chap-rule" aria-hidden="true"><i></i></span>
+          </button>
+          <button class="chap" type="button" data-chap="3" aria-label="Chapter 04, Agent context file">
+            <span class="chap-top"><span class="chap-n">04</span><span class="chap-time">0:40</span></span>
+            <span class="chap-t">Agent context file</span>
+            <span class="chap-rule" aria-hidden="true"><i></i></span>
+          </button>
+          <button class="chap" type="button" data-chap="4" aria-label="Chapter 05, Your own AI provider">
+            <span class="chap-top"><span class="chap-n">05</span><span class="chap-time">0:51</span></span>
+            <span class="chap-t">Your own AI provider</span>
+            <span class="chap-rule" aria-hidden="true"><i></i></span>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -727,9 +749,9 @@
         <div class="reveal"><span class="slabel">Creator</span></div>
         <h2 class="stitle reveal" id="author-heading">Built by a dev,<br />for <span class="grad">devs</span></h2>
         <div class="author-card reveal" itemscope itemtype="https://schema.org/Person">
-          <img class="author-avatar" src="assets/publisher.png" alt="Kaushalendra Singh" width="92" height="92" itemprop="image" />
+          <img class="author-avatar" src="assets/publisher.png" alt="Kaushalendra Yadav" width="92" height="92" itemprop="image" />
           <div style="flex:1;min-width:240px">
-            <div class="author-name" itemprop="name">Kaushalendra Singh</div>
+            <div class="author-name" itemprop="name">Kaushalendra Yadav</div>
             <div class="author-role" itemprop="jobTitle">AI Engineer - building tools that make codebases legible</div>
             <div class="author-links">
               <a class="author-link" href="https://github.com/Kaushalendra-Marcus" target="_blank" rel="noopener">GitHub</a>
@@ -794,11 +816,11 @@
           <div class="foot-col"><div class="foot-h">Resources</div><ul><li><a href="https://marketplace.visualstudio.com/items?itemName=kaushalendra.repograph-ai" target="_blank" rel="noopener">Marketplace</a></li><li><a href="https://github.com/Kaushalendra-Marcus/RepoGraph-AI" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://github.com/Kaushalendra-Marcus/RepoGraph-AI/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li><li><a href="https://github.com/Kaushalendra-Marcus/RepoGraph-AI/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a></li></ul></div>
           <div class="foot-col"><div class="foot-h">Legal</div><ul><li><a href="https://github.com/Kaushalendra-Marcus/RepoGraph-AI/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></li><li><a href="#privacy">Privacy</a></li><li><a href="mailto:yadavkausha4a5@gmail.com">Contact</a></li></ul></div>
         </div>
+        <div class="foot-bottom"><div class="foot-copy">MIT © 2026 Kaushalendra Yadav · Built for developers</div><div class="foot-copy">repograph.kaushalendra.me</div><a class="to-top" href="#top">↑ Back to top</a></div>
         <div class="foot-giant" aria-hidden="true">
           <div class="fg-cap">~/repograph-ai — <b>free · open-source · mit</b></div>
-          <div class="foot-wave" id="footWave"><span class="fl-letter" style="--i:0">R</span><span class="fl-letter" style="--i:1">e</span><span class="fl-letter" style="--i:2">p</span><span class="fl-letter" style="--i:3">o</span><span class="fl-letter" style="--i:4">G</span><span class="fl-letter" style="--i:5">r</span><span class="fl-letter" style="--i:6">a</span><span class="fl-letter" style="--i:7">p</span><span class="fl-letter" style="--i:8">h</span><span class="fl-space"></span><span class="fl-letter" style="--i:9">A</span><span class="fl-letter" style="--i:10">I</span></div>
+          <div class="foot-wave reveal" id="footWave"><span class="fl-letter" style="--i:0">R</span><span class="fl-letter" style="--i:1">e</span><span class="fl-letter" style="--i:2">p</span><span class="fl-letter" style="--i:3">o</span><span class="fl-letter" style="--i:4">G</span><span class="fl-letter" style="--i:5">r</span><span class="fl-letter" style="--i:6">a</span><span class="fl-letter" style="--i:7">p</span><span class="fl-letter" style="--i:8">h</span><span class="fl-space"></span><span class="fl-letter" style="--i:9">A</span><span class="fl-letter" style="--i:10">I</span></div>
         </div>
-        <div class="foot-bottom"><div class="foot-copy">MIT © 2026 Kaushalendra Singh · Built for developers</div><div class="foot-copy">repograph.kaushalendra.me</div><a class="to-top" href="#top">↑ Back to top</a></div>
       </div>
     </footer>
 
