@@ -28,6 +28,11 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="RepoGraph AI - Visual dependency graph with AI summaries for VS Code" />
+    <meta property="og:video" content="https://repograph.kaushalendra.me/assets/walkthrough.mp4" />
+    <meta property="og:video:secure_url" content="https://repograph.kaushalendra.me/assets/walkthrough.mp4" />
+    <meta property="og:video:type" content="video/mp4" />
+    <meta property="og:video:width" content="1280" />
+    <meta property="og:video:height" content="720" />
     <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@kaushalxcode" />
@@ -64,6 +69,19 @@
             "url": "https://repograph.kaushalendra.me/",
             "name": "RepoGraph AI",
             "inLanguage": "en-US"
+          },
+          {
+            "@type": "VideoObject",
+            "@id": "https://repograph.kaushalendra.me/#walkthrough",
+            "name": "RepoGraph AI - full walkthrough",
+            "description": "Narrated walkthrough of RepoGraph AI inside VS Code: analyze a repository, explore the interactive dependency graph, read AI file summaries and ask the codebase questions.",
+            "thumbnailUrl": "https://repograph.kaushalendra.me/assets/walkthrough-poster.jpg",
+            "uploadDate": "2026-10-18",
+            "duration": "PT1M57S",
+            "contentUrl": "https://repograph.kaushalendra.me/assets/walkthrough.mp4",
+            "embedUrl": "https://repograph.kaushalendra.me/#demo",
+            "isFamilyFriendly": true,
+            "creator": { "@type": "Person", "name": "Kaushalendra Singh", "url": "https://github.com/Kaushalendra-Marcus" }
           },
           {
             "@type": "FAQPage",
@@ -236,7 +254,25 @@
       <div class="wrap center">
         <div class="reveal"><span class="slabel">Live demo</span></div>
         <h2 class="stitle reveal reveal-d1">See it <span class="grad">in action</span></h2>
-        <p class="sbody reveal reveal-d2" style="margin:0 auto">Real recordings from VS Code - graph, summaries and Q&amp;A.</p>
+        <p class="sbody reveal reveal-d2" style="margin:0 auto">The full narrated walkthrough from inside VS Code - then quick clips of the graph, summaries and Q&amp;A.</p>
+
+        <div class="mac-window film reveal reveal-d2" data-tilt data-tilt-max="4">
+          <div class="mac-window-bar">
+            <div class="mac-traffic-lights"><div class="mac-btn mac-close"></div><div class="mac-btn mac-minimize"></div><div class="mac-btn mac-maximize"></div></div>
+            <div class="mac-window-title">RepoGraph AI - full walkthrough</div>
+            <div class="mac-window-spacer"></div>
+          </div>
+          <div class="mac-window-content">
+            <video id="walkthroughVideo" class="film-video" controls playsinline preload="metadata" poster="assets/walkthrough-poster.jpg" width="1600" height="900">
+              <source src="assets/walkthrough.mp4" type="video/mp4" />
+              Your browser does not support embedded video. <a href="assets/walkthrough.mp4">Download the walkthrough</a>.
+            </video>
+          </div>
+        </div>
+        <div class="film-meta reveal"><span class="film-dot" aria-hidden="true"></span>1:57 narrated &middot; analyze &rarr; graph &rarr; AI summary &rarr; Q&amp;A</div>
+
+        <div class="roles-head clips-head reveal"><span class="roles-title">Quick clips</span><span class="roles-line"></span></div>
+
         <div class="mac-window reveal reveal-d2" data-tilt data-tilt-max="5">
           <div class="mac-window-bar">
             <div class="mac-traffic-lights"><div class="mac-btn mac-close"></div><div class="mac-btn mac-minimize"></div><div class="mac-btn mac-maximize"></div></div>
