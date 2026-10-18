@@ -301,11 +301,11 @@ nav{pointer-events:auto;width:min(1120px,100%);background:rgba(255,255,255,.86);
 .rgp.is-playing .rgp-bigplay{opacity:0;visibility:hidden;pointer-events:none}
 
 /* in-video chapter title card — footer wordmark styling, brief */
-.rgp-card{position:absolute;inset:0;z-index:3;display:grid;place-content:center;justify-items:center;gap:13px;padding:0 8%;text-align:center;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .6s var(--ease),visibility .6s}
+.rgp-card{position:absolute;inset:0;z-index:3;display:grid;place-content:center;justify-items:center;gap:16px;padding:0 6%;text-align:center;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .6s var(--ease),visibility .6s}
 .rgp-card::before{content:'';position:absolute;inset:0;background:radial-gradient(58% 46% at 50% 50%,rgba(9,9,10,.5),rgba(9,9,10,0) 72%)}
 .rgp-card.is-on{opacity:1;visibility:visible}
-.rgp-card-cap{position:relative;font-family:var(--fm);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#34D399}
-.rgp-card-title{position:relative;display:block;font-family:var(--fd);font-weight:700;font-size:clamp(24px,4.3vw,52px);line-height:1.05;letter-spacing:-.015em;white-space:pre-wrap}
+.rgp-card-cap{position:relative;font-family:var(--fm);font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#34D399}
+.rgp-card-title{position:relative;display:block;font-family:var(--fd);font-weight:700;font-size:clamp(30px,5.6vw,68px);line-height:1.04;letter-spacing:-.02em;white-space:pre-wrap}
 .rgp-card-title span{display:inline-block;color:transparent;-webkit-text-fill-color:transparent;background-image:linear-gradient(100deg,transparent calc(var(--sheen) - 6%),rgba(255,255,255,.62) var(--sheen),transparent calc(var(--sheen) + 6%)),repeating-linear-gradient(to bottom,rgba(234,232,228,.95) 0 1px,rgba(234,232,228,0) 1px 2.4px),linear-gradient(180deg,rgba(5,150,105,.32),rgba(110,231,183,.16));background-size:100% 100%;-webkit-background-clip:text;background-clip:text;animation:cardLetter .62s var(--ease) both,sheenSweep 3s linear 1 both;animation-delay:calc(var(--i) * .045s),calc(.32s + var(--i) * .045s)}
 @keyframes cardLetter{from{opacity:0;transform:translateY(.42em)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.rgp-card-title span{animation:none}}
@@ -657,9 +657,9 @@ footer::before{content:'';position:absolute;inset:0;background:radial-gradient(7
   .rgp-ic{height:29px;min-width:29px;padding:0 6px;font-size:10.5px}
   .rgp-time{font-size:10px;gap:3px}
   .rgp-bigplay{width:58px;height:58px;margin:-29px 0 0 -29px}
-  .rgp-card{gap:9px;padding:0 6%}
-  .rgp-card-title{font-size:clamp(17px,5.4vw,26px)}
-  .rgp-card-cap{font-size:9.5px;letter-spacing:.22em}
+  .rgp-card{gap:11px;padding:0 5%}
+  .rgp-card-title{font-size:clamp(20px,6.6vw,30px)}
+  .rgp-card-cap{font-size:10.5px;letter-spacing:.22em}
   .chap-rail{grid-template-columns:repeat(2,1fr);gap:8px}
   .chap{padding:11px 12px 10px}
   .chap-t{font-size:12.5px}
