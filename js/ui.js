@@ -145,36 +145,6 @@ function initHow(){
   set(0); restart();
 }
 
-/* Demo slider */
-function initSlider(){
-  var slides = document.querySelectorAll('.slide-item');
-  var dots = document.querySelectorAll('.apple-dot');
-  var prev = document.getElementById('applePrev'), next = document.getElementById('appleNext');
-  if(!slides.length) return;
-  var cur = 0, timer = null;
-  var durs = {0:6200, 1:1800, 2:14400, 3:null};
-  var vid = document.getElementById('appleSpeedVideo');
-  if(vid){ vid.playbackRate = 1.8; vid.addEventListener('loadedmetadata', function(){ vid.playbackRate = 1.8; }); }
-  function show(i){
-    if(i < 0) i = slides.length-1;
-    if(i >= slides.length) i = 0;
-    if(timer) clearTimeout(timer);
-    slides.forEach(function(s,k){
-      s.classList.remove('active');
-      if(k !== i){ var v = s.querySelector('video'); if(v){ v.pause(); try{ v.currentTime = 0; }catch(e){} } }
-    });
-    slides[i].classList.add('active'); cur = i;
-    dots.forEach(function(d,k){ d.classList.toggle('active', k===i); });
-    var c = slides[i];
-    if(c.dataset.type === 'video'){ var v = c.querySelector('video'); if(v){ try{ v.currentTime = 0; }catch(e){} v.play().catch(function(){}); v.onended = function(){ show(cur+1); }; } }
-    else if(durs[i]){ var g = c.querySelector('img'); if(g){ var src = g.src; g.src=''; g.src=src; } timer = setTimeout(function(){ show(cur+1); }, durs[i]); }
-  }
-  if(prev) prev.addEventListener('click', function(){ show(cur-1); });
-  if(next) next.addEventListener('click', function(){ show(cur+1); });
-  dots.forEach(function(d,k){ d.addEventListener('click', function(){ show(k); }); });
-  show(0);
-}
-
 /* Hero command widget tabs */
 function initHeroTabs(){
   var tabs = document.querySelectorAll('.htab');
@@ -283,6 +253,6 @@ function initTopbar(){
 }
 
 document.addEventListener('DOMContentLoaded', function(){
-  initNav(); initReveal(); initCounters(); initCopy(); initFaq(); initHow(); initSlider(); initTabs(); initHeroTabs(); initTyped(); initGliders(); initTopbar();
+  initNav(); initReveal(); initCounters(); initCopy(); initFaq(); initHow(); initTabs(); initHeroTabs(); initTyped(); initGliders(); initTopbar();
 });
 })();

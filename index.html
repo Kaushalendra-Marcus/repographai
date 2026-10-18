@@ -254,45 +254,72 @@
       <div class="wrap center">
         <div class="reveal"><span class="slabel">Live demo</span></div>
         <h2 class="stitle reveal reveal-d1">See it <span class="grad">in action</span></h2>
-        <p class="sbody reveal reveal-d2" style="margin:0 auto">The full narrated walkthrough from inside VS Code - then quick clips of the graph, summaries and Q&amp;A.</p>
+        <p class="sbody reveal reveal-d2" style="margin:0 auto">The full narrated walkthrough from inside VS Code - analysis, dependency graph, AI summaries and codebase Q&amp;A.</p>
 
-        <div class="mac-window film reveal reveal-d2" data-tilt data-tilt-max="4">
+        <div class="mac-window film reveal reveal-d2">
           <div class="mac-window-bar">
             <div class="mac-traffic-lights"><div class="mac-btn mac-close"></div><div class="mac-btn mac-minimize"></div><div class="mac-btn mac-maximize"></div></div>
             <div class="mac-window-title">RepoGraph AI - full walkthrough</div>
             <div class="mac-window-spacer"></div>
           </div>
           <div class="mac-window-content">
-            <video id="walkthroughVideo" class="film-video" controls playsinline preload="metadata" poster="assets/walkthrough-poster.jpg" width="1600" height="900">
-              <source src="assets/walkthrough.mp4" type="video/mp4" />
-              Your browser does not support embedded video. <a href="assets/walkthrough.mp4">Download the walkthrough</a>.
-            </video>
-          </div>
-        </div>
-        <div class="film-meta reveal"><span class="film-dot" aria-hidden="true"></span>1:57 narrated &middot; analyze &rarr; graph &rarr; AI summary &rarr; Q&amp;A</div>
+            <div class="rgp" id="rgPlayer" tabindex="0" role="region" aria-label="RepoGraph AI walkthrough player">
+              <video id="walkthroughVideo" class="rgp-video" playsinline muted preload="auto" poster="assets/walkthrough-poster.jpg" width="1600" height="900">
+                <source src="assets/walkthrough.mp4" type="video/mp4" />
+                Your browser does not support embedded video. <a href="assets/walkthrough.mp4">Download the walkthrough</a>.
+              </video>
 
-        <div class="roles-head clips-head reveal"><span class="roles-title">Quick clips</span><span class="roles-line"></span></div>
+              <span class="rgp-shade" aria-hidden="true"></span>
 
-        <div class="mac-window reveal reveal-d2" data-tilt data-tilt-max="5">
-          <div class="mac-window-bar">
-            <div class="mac-traffic-lights"><div class="mac-btn mac-close"></div><div class="mac-btn mac-minimize"></div><div class="mac-btn mac-maximize"></div></div>
-            <div class="mac-window-title">RepoGraph AI - Demo</div>
-            <div class="mac-window-spacer"></div>
-          </div>
-          <div class="mac-window-content">
-            <div class="apple-slider-container">
-              <div class="apple-slider" id="appleSlider">
-                <div class="slide-item active" data-type="gif"><img src="assets/1.gif" alt="Dependency graph" class="slide-media-gif" /></div>
-                <div class="slide-item" data-type="gif"><img src="assets/2.gif" alt="AI summaries" class="slide-media-gif" /></div>
-                <div class="slide-item" data-type="gif"><img src="assets/3.gif" alt="Q&A panel" class="slide-media-gif" /></div>
-                <div class="slide-item" data-type="video"><video id="appleSpeedVideo" class="slide-media-vid" muted playsinline preload="metadata" disablePictureInPicture loop><source src="assets/4.webm" type="video/webm" /></video></div>
+              <button class="rgp-sound" id="rgpSound" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9.5l4.5 5M20.5 9.5l-4.5 5"/></svg>
+                Sound on
+              </button>
+
+              <button class="rgp-bigplay" id="rgpCover" type="button" aria-label="Play walkthrough">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14Z"/></svg>
+              </button>
+
+              <div class="rgp-bar" id="rgpBar">
+                <button class="rgp-ic" id="rgpPlay" type="button" aria-label="Play">
+                  <svg class="rgp-ico-play" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14Z"/></svg>
+                  <svg class="rgp-ico-pause" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><path d="M7 5h3.2v14H7zM13.8 5H17v14h-3.2z"/></svg>
+                </button>
+
+                <span class="rgp-time"><b id="rgpCur">0:00</b><span class="rgp-slash">/</span><span id="rgpDur">1:57</span></span>
+
+                <div class="rgp-track" id="rgpTrack" role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="117" aria-valuenow="0" aria-valuetext="0:00">
+                  <span class="rgp-rail"></span>
+                  <span class="rgp-buf" id="rgpBuf"></span>
+                  <span class="rgp-fill" id="rgpFill"></span>
+                  <span class="rgp-knob" id="rgpKnob"></span>
+                  <span class="rgp-tip" id="rgpTip" aria-hidden="true">0:00</span>
+                </div>
+
+                <div class="rgp-spd">
+                  <button class="rgp-ic rgp-spd-btn" id="rgpSpd" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Playback speed"><span id="rgpSpdVal">1.25&times;</span></button>
+                  <div class="rgp-menu" id="rgpMenu" role="menu" hidden>
+                    <button type="button" role="menuitemradio" data-rate="0.75" aria-checked="false">0.75&times;</button>
+                    <button type="button" role="menuitemradio" data-rate="1" aria-checked="false">1&times;</button>
+                    <button type="button" role="menuitemradio" data-rate="1.25" aria-checked="true">1.25&times;</button>
+                    <button type="button" role="menuitemradio" data-rate="1.5" aria-checked="false">1.5&times;</button>
+                    <button type="button" role="menuitemradio" data-rate="2" aria-checked="false">2&times;</button>
+                  </div>
+                </div>
+
+                <button class="rgp-ic" id="rgpMute" type="button" aria-label="Unmute">
+                  <svg class="rgp-ico-vol" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a8.5 8.5 0 0 1 0 12"/></svg>
+                  <svg class="rgp-ico-mute" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M16 9.5l4.5 5M20.5 9.5l-4.5 5"/></svg>
+                </button>
+                <input class="rgp-vol" id="rgpVol" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume" />
+                <button class="rgp-ic" id="rgpFs" type="button" aria-label="Fullscreen">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+                </button>
               </div>
-              <button class="apple-nav prev" id="applePrev" aria-label="Previous"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
-              <button class="apple-nav next" id="appleNext" aria-label="Next"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
-              <div class="apple-dots" id="appleDots"><span class="apple-dot active"></span><span class="apple-dot"></span><span class="apple-dot"></span><span class="apple-dot"></span></div>
             </div>
           </div>
         </div>
+        <div class="film-meta reveal"><span class="film-dot" aria-hidden="true"></span>1:57 narrated &middot; analyze &rarr; graph &rarr; AI summary &rarr; Q&amp;A</div>
       </div>
     </section>
 
@@ -779,5 +806,6 @@
     <script src="js/graph.js?v=3"></script>
     <script src="js/3d.js?v=3"></script>
     <script src="js/sphere.js?v=1"></script>
+    <script src="js/rgp.js?v=1"></script>
   </body>
 </html>
