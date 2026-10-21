@@ -13,15 +13,8 @@ function ensureGlare(el){
   el.appendChild(g);
 }
 
-// auto-enhance cards that deserve depth but weren't tagged in HTML
-function autoTag(){
-  document.querySelectorAll('.bcard, .icard, .author-card').forEach(function(el){
-    if(!el.hasAttribute('data-tilt')){
-      el.setAttribute('data-tilt','');
-      el.setAttribute('data-tilt-max','6');
-    }
-  });
-}
+// the redesign is intentionally flat — keep tilt opt-in via data-tilt
+function autoTag(){}
 
 function initTilt(){
   if(coarse) return; // no tilt on touch — keeps scroll smooth
@@ -111,13 +104,13 @@ function initFootWave(){
   var spaces = Array.prototype.slice.call(wrap.querySelectorAll('.fl-space'));
   var geo = [];
 
-  // size the wordmark so it spans the viewport edge to edge (design: full-bleed)
+  // size the wordmark to the footer's content width so no letters clip
   function fit(){
     wrap.style.fontSize = '100px';
     var total = 0;
     letters.forEach(function(el){ total += el.offsetWidth; });
     spaces.forEach(function(el){ total += el.offsetWidth; });
-    var target = document.documentElement.clientWidth - 4;
+    var target = (wrap.clientWidth || wrap.getBoundingClientRect().width) - 2;
     if(total > 0 && target > 60) wrap.style.fontSize = (100 * target / total).toFixed(2) + 'px';
     else wrap.style.fontSize = '';
   }

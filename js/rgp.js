@@ -52,6 +52,7 @@ var started = false;
 var chapIdx = -1;
 var cardShownFor = -1;
 var cardTimer = null;
+var progressRaf = 0;
 
 /* ── tiny helpers ── */
 function fmt(s){
@@ -213,6 +214,19 @@ function syncProgress(){
   syncChapters();
 }
 
+/* frame-rate progress: timeupdate only fires ~4x/s, which makes the fill step */
+function tickProgress(){
+  progressRaf = 0;
+  syncProgress();
+  if(!v.paused && !v.ended) progressRaf = requestAnimationFrame(tickProgress);
+}
+function startProgress(){
+  if(!progressRaf && !v.paused && !v.ended) progressRaf = requestAnimationFrame(tickProgress);
+}
+function stopProgress(){
+  if(progressRaf){ cancelAnimationFrame(progressRaf); progressRaf = 0; }
+}
+
 /* ── actions ── */
 function play(){
   if(v.ended) v.currentTime = 0;
@@ -244,9 +258,10 @@ v.addEventListener('click', function(){ toggle(); });
 if(bigPlay) bigPlay.addEventListener('click', function(){ closeMenu(); toggle(); });
 if(playBtn) playBtn.addEventListener('click', function(){ closeMenu(); toggle(); });
 
-v.addEventListener('play', function(){ syncPlayIcon(); barFlash(); maybeCard(chapterAt(v.currentTime)); });
-v.addEventListener('pause', function(){ syncPlayIcon(); barStay(); if(!v.ended) hideCard(); });
-v.addEventListener('ended', function(){ syncPlayIcon(); barStay(); syncProgress(); });
+v.addEventListener('play', function(){ syncPlayIcon(); startProgress(); barFlash(); maybeCard(chapterAt(v.currentTime)); });
+v.addEventListener('pause', function(){ stopProgress(); syncPlayIcon(); syncProgress(); barStay(); if(!v.ended) hideCard(); });
+v.addEventListener('playing', startProgress);
+v.addEventListener('ended', function(){ stopProgress(); syncPlayIcon(); syncProgress(); barStay(); });
 v.addEventListener('timeupdate', syncProgress);
 v.addEventListener('seeking', syncProgress);
 v.addEventListener('seeked', syncProgress);
@@ -362,5 +377,6 @@ setRate(storedRate(), false);
 buildMarks();
 syncPlayIcon();
 syncProgress();
+if(!v.paused && !v.ended) startProgress();
 if(coarse || v.paused) barStay(); else barFlash();
 })();
