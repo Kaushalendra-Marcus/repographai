@@ -3,12 +3,16 @@
 "use strict";
 
 /* ── Screenshot tabs (used by inline onclick handlers) ── */
+function setShotTitle(btn){
+  var title = document.querySelector('.shot-title');
+  if(title) title.textContent = (btn && btn.dataset.title) ? btn.dataset.title : 'RepoGraph · workspace';
+}
 window.showShot = function(name, btn){
   document.querySelectorAll('.shot-pane').forEach(function(p){ p.classList.remove('active'); });
   document.querySelectorAll('.stab').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
   var pane = document.getElementById('shot-' + name);
   if(pane) pane.classList.add('active');
-  if(btn){ btn.classList.add('active'); btn.setAttribute('aria-selected','true'); moveTabIndicator(btn); }
+  if(btn){ btn.classList.add('active'); btn.setAttribute('aria-selected','true'); moveTabIndicator(btn); setShotTitle(btn); }
 };
 function moveTabIndicator(btn){
   var ind = document.querySelector('.tab-indicator');
@@ -20,7 +24,7 @@ function moveTabIndicator(btn){
 }
 function initTabs(){
   var active = document.querySelector('.stab.active');
-  if(active) moveTabIndicator(active);
+  if(active){ moveTabIndicator(active); setShotTitle(active); }
   var tabs = document.querySelector('.shots-tabs');
   if(!tabs || tabs.dataset.bound) return;
   tabs.dataset.bound = '1';

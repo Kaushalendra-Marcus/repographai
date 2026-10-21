@@ -107,7 +107,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="msapplication-TileColor" content="#4F6BFF" />
-    <link rel="stylesheet" href="styles.css?v=8" />
+    <link rel="stylesheet" href="styles.css?v=10" />
   </head>
 
   <body id="top">
@@ -304,20 +304,17 @@
                         <span class="iso-kicker">CITED ANSWERS</span>
                         <span class="iso-meta">MULTI-TURN</span>
                       </div>
-                      <div class="iso-figure">
-                        <span class="iso-big">100<span class="iso-big-pct">%</span></span>
-                        <span class="iso-big-l">answers cited</span>
-                        <span class="iso-delta">0 guesses</span>
+                      <div class="iso-qa">
+                        <p class="iso-question"><span>Q</span> Where is auth handled?</p>
+                        <p class="iso-answer"><span>A</span> Session checks live in <code>lib/auth.ts</code>.</p>
                       </div>
-                      <p class="iso-question"><span>Q</span> Where is auth handled?</p>
                       <div class="iso-evidence">
                         <div class="iso-cite"><span class="iso-cite-n">01</span><code>lib/auth.ts<b>:42</b></code><span class="iso-cite-ok">✓</span></div>
                         <div class="iso-cite"><span class="iso-cite-n">02</span><code>middleware.ts<b>:18</b></code><span class="iso-cite-ok">✓</span></div>
-                        <div class="iso-cite"><span class="iso-cite-n">03</span><code>app/api/ask.ts<b>:27</b></code><span class="iso-cite-ok">✓</span></div>
                       </div>
                       <div class="iso-foot">
                         <span class="iso-chip">FILE : LINE</span>
-                        <span class="iso-note">4 sources · 0 guesses</span>
+                        <span class="iso-note">2 sources · 0 guesses</span>
                       </div>
                     </div>
                   </div>
@@ -997,27 +994,38 @@
               <span class="dim">Your repo,</span>
               <span class="accent">finally legible.</span>
             </h2>
-            <p class="lede">No browser tab, no new app. The whole graph lives exactly where you already work.</p>
+            <p class="lede">No browser tab, no new app. The graph, the flow, and your AI provider settings live exactly where you already work.</p>
           </header>
 
           <div class="shots-tabs reveal" role="tablist" aria-label="Screenshot tabs">
             <div class="tab-indicator"></div>
-            <button class="stab active" id="stab-graph" data-shot="graph" onclick="showShot('graph', this)" role="tab" aria-selected="true">Dependency Graph</button>
-            <button class="stab" id="stab-summary" data-shot="summary" onclick="showShot('summary', this)" role="tab" aria-selected="false">AI Summary</button>
-            <button class="stab" id="stab-qa" data-shot="qa" onclick="showShot('qa', this)" role="tab" aria-selected="false">Q&amp;A</button>
+            <button class="stab active" id="stab-graph" data-shot="graph" data-title="RepoGraph · 3D graph" onclick="showShot('graph', this)" role="tab" aria-selected="true">3D Graph</button>
+            <button class="stab" id="stab-full" data-shot="full" data-title="RepoGraph · 2D graph" onclick="showShot('full', this)" role="tab" aria-selected="false">2D Graph</button>
+            <button class="stab" id="stab-settings" data-shot="settings" data-title="RepoGraph · AI providers" onclick="showShot('settings', this)" role="tab" aria-selected="false">AI Providers</button>
           </div>
 
           <div class="shot-stage reveal">
             <div class="shot-halo" aria-hidden="true"></div>
             <div class="shot-wrap">
-              <div class="shot-bar"><div class="td tr"></div><div class="td ty"></div><div class="td tg"></div><span class="shot-title">Repograph · workspace</span></div>
+              <div class="shot-bar"><div class="td tr"></div><div class="td ty"></div><div class="td tg"></div><span class="shot-title">RepoGraph · 3D graph</span></div>
               <div class="shot-content">
-                <div class="shot-pane active" id="shot-graph" role="tabpanel" aria-labelledby="stab-graph"><img class="shot-img" src="assets/screenshot-graph.webp" alt="Interactive dependency graph inside VS Code" loading="lazy" decoding="async" width="1200" height="816" /></div>
-                <div class="shot-pane" id="shot-summary" role="tabpanel" aria-labelledby="stab-summary"><img class="shot-img" src="assets/screenshot-summary.webp" alt="AI summary panel with tech stack and architecture" loading="lazy" decoding="async" width="1200" height="812" /></div>
-                <div class="shot-pane" id="shot-qa" role="tabpanel" aria-labelledby="stab-qa"><img class="shot-img" src="assets/screenshot-qa.webp" alt="Q&A panel answering where authentication is handled" loading="lazy" decoding="async" width="1200" height="814" /></div>
+                <div class="shot-pane active" id="shot-graph" role="tabpanel" aria-labelledby="stab-graph"><img class="shot-img shot-img--contain" src="assets/buildifylabs-dependency-graph.png" alt="3D dependency graph of a TypeScript frontend, with imports between pages, stores and components" loading="lazy" decoding="async" width="1112" height="1172" /></div>
+                <div class="shot-pane" id="shot-full" role="tabpanel" aria-labelledby="stab-full"><img class="shot-img shot-img--top" src="assets/buildifylabs-dependency-graph2d.png" alt="Full dependency graph of a Python service, from entry points and routes to tests and models" loading="lazy" decoding="async" width="1913" height="3643" /></div>
+                <div class="shot-pane" id="shot-settings" role="tabpanel" aria-labelledby="stab-settings"><img class="shot-img shot-img--contain" src="assets/repograph-settings.png" alt="RepoGraph AI provider settings with Groq, Ollama, Gemini, Claude and OpenAI" loading="lazy" decoding="async" width="1329" height="817" /></div>
               </div>
             </div>
           </div>
+
+          <a class="flow-band reveal" href="assets/complete_data_flow.svg" target="_blank" rel="noopener" aria-label="Open the complete RepoGraph data flow in a new tab">
+            <span class="flow-band-head">
+              <span class="flow-band-kicker">Complete data flow</span>
+              <span class="flow-band-meta">53 nodes · routes → middleware → modules</span>
+              <span class="flow-band-open">Open full flow <span aria-hidden="true">↗</span></span>
+            </span>
+            <span class="flow-band-canvas">
+              <img src="assets/complete_data_flow.svg" alt="Complete data flow of routes, middleware and modules across a FastAPI codebase" loading="lazy" decoding="async" />
+            </span>
+          </a>
         </div>
       </section>
 
@@ -1511,7 +1519,7 @@
       </div>
     </footer>
 
-    <script src="js/ui.js?v=4"></script>
+    <script src="js/ui.js?v=6"></script>
     <script src="js/3d.js?v=4"></script>
     <script src="js/solar.js?v=1"></script>
     <script src="js/rgp.js?v=3"></script>
