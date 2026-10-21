@@ -10,3 +10,6 @@ Crawl-delay: 5
 
 # Sitemap location
 Sitemap: https://repograph.kaushalendra.me/sitemap.xml
+
+# LLM / AI-agent context
+# https://repograph.kaushalendra.me/llms.txt
