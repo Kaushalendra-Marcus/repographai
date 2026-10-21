@@ -1201,13 +1201,3 @@ footer::before{content:'';position:absolute;left:50%;top:-200px;transform:transl
   .hero-fine{font-size:8.5px}
   .cta-title{font-size:33px}
 }
-
-/* ═══ MOMENTS STRIP — "the moment you open a repo you've never seen" ═══ */
-.moments{background:linear-gradient(180deg,#cfdaf2 0%,#dbe5f7 58%,#dbe5f7 100%);overflow:clip}
-.moments-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.moment{position:relative;padding:28px 26px 30px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.5);backdrop-filter:blur(6px);overflow:hidden}
-.moment::after{content:'';position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,rgba(79,107,255,.6),transparent);opacity:.8}
-.m-tag{display:block;font-family:var(--fm);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
-.moment h3{font-size:18px;font-weight:500;letter-spacing:-.02em;line-height:1.3;margin-bottom:10px;color:var(--text)}
-.moment p{font-size:13.5px;line-height:1.7;color:var(--body)}
-@media(max-width:960px){.moments-grid{grid-template-columns:1fr}}
