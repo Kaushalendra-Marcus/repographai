@@ -194,8 +194,10 @@ ul{list-style:none}
 
 /* plate surface */
 .iso-top{position:absolute;inset:0;border-radius:var(--r);overflow:hidden;border:1px solid rgba(218,228,255,.34);background:linear-gradient(138deg,rgba(255,255,255,.2) 0%,rgba(255,255,255,.08) 35%,rgba(124,148,255,.16) 70%,rgba(255,255,255,.05) 100%);backdrop-filter:blur(16px) saturate(1.18);-webkit-backdrop-filter:blur(16px) saturate(1.18);box-shadow:0 26px 56px rgba(4,8,36,.4),inset 0 1px 0 rgba(255,255,255,.45),inset 0 0 0 1px rgba(255,255,255,.04);transition:box-shadow .55s var(--ease),border-color .45s,background .45s}
+/* the answer layer is the lightest glass — it is the outcome, not the source */
+.iso-layer--evidence .iso-top{border-color:rgba(213,235,255,.44);background:linear-gradient(138deg,rgba(255,255,255,.28) 0%,rgba(219,238,255,.11) 34%,rgba(126,201,255,.14) 68%,rgba(255,255,255,.07) 100%);box-shadow:0 26px 60px rgba(4,8,36,.42),0 0 44px rgba(96,150,255,.16),inset 0 1px 0 rgba(255,255,255,.5),inset 0 0 0 1px rgba(214,236,255,.06)}
 .iso-top::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(112deg,rgba(255,255,255,.28) 0%,rgba(255,255,255,.04) 22%,transparent 46%,rgba(126,150,255,.08) 100%);pointer-events:none}
-.iso-layer--base .iso-top{border-color:rgba(228,236,255,.56);background:radial-gradient(120% 92% at 18% 0%,rgba(219,228,255,.55),rgba(219,228,255,0) 56%),linear-gradient(145deg,rgba(122,147,255,.72) 0%,rgba(77,105,255,.66) 38%,rgba(40,62,205,.76) 72%,rgba(21,34,122,.86) 100%);backdrop-filter:blur(4px) saturate(1.1);-webkit-backdrop-filter:blur(4px) saturate(1.1);box-shadow:0 30px 60px rgba(3,7,34,.48),inset 0 1px 0 rgba(255,255,255,.55),inset 0 0 0 1px rgba(255,255,255,.07)}
+.iso-layer--base .iso-top{border-color:rgba(228,236,255,.56);background:radial-gradient(120% 92% at 18% 0%,rgba(219,228,255,.34),rgba(219,228,255,0) 56%),linear-gradient(145deg,rgba(122,147,255,.72) 0%,rgba(74,102,252,.68) 38%,rgba(36,57,196,.8) 72%,rgba(16,27,104,.9) 100%);backdrop-filter:blur(4px) saturate(1.1);-webkit-backdrop-filter:blur(4px) saturate(1.1);box-shadow:0 30px 60px rgba(3,7,34,.48),inset 0 1px 0 rgba(255,255,255,.55),inset 0 0 0 1px rgba(255,255,255,.07)}
 
 /* hover — lift on Z, widen + glow the cast shadow */
 .iso-layer:hover,.iso-layer:focus-within{transform:translate(-50%,-50%) translate3d(var(--tx),var(--ty),calc(var(--z) + 22px))}
@@ -217,12 +219,12 @@ ul{list-style:none}
 .iso-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:34px 34px;mask-image:radial-gradient(120% 100% at 50% 46%,#000 35%,transparent 100%);-webkit-mask-image:radial-gradient(120% 100% at 50% 46%,#000 35%,transparent 100%);pointer-events:none}
 
 /* base: graph */
-.iso-graph{flex:1;width:100%;min-height:0;margin:10px 0 8px;overflow:visible}
-.iso-graph-grid path{fill:none;stroke:rgba(225,235,255,.13);stroke-width:.8;stroke-dasharray:2 7}
-.iso-graph-wires path{fill:none;stroke:rgba(244,248,255,.72);stroke-width:1.15;stroke-linecap:round}
-.iso-graph-halo{fill:rgba(196,212,255,.55);filter:url(#isoNodeGlow)}
-.iso-graph-nodes{fill:#f7f9ff}
-.iso-graph-labels text{font-family:var(--fm);font-size:8.6px;letter-spacing:.02em;fill:rgba(244,248,255,.82)}
+.iso-graph{width:100%;min-height:0;margin:auto 0 4px;overflow:visible;filter:drop-shadow(0 1px 4px rgba(6,11,52,.55))}
+.iso-graph-grid path{fill:none;stroke:rgba(225,235,255,.14);stroke-width:.8;stroke-dasharray:2 7}
+.iso-graph-wires path{fill:none;stroke:rgba(250,252,255,.85);stroke-width:1.25;stroke-linecap:round}
+.iso-graph-halo{fill:rgba(206,220,255,.6);filter:url(#isoNodeGlow)}
+.iso-graph-nodes{fill:#fff}
+.iso-graph-labels text{font-family:var(--fm);font-size:8.8px;letter-spacing:.02em;fill:rgba(248,251,255,.92)}
 .iso-graph-nodes circle:nth-child(2){fill:#fff}
 
 /* context rows */
