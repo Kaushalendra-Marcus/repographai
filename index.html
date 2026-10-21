@@ -91,7 +91,7 @@
               { "@type": "Question", "name": "Which AI providers are supported?", "acceptedAnswer": { "@type": "Answer", "text": "Groq, Ollama, Gemini, Claude and OpenAI — with custom model names. Switch providers anytime without re-analyzing." } },
               { "@type": "Question", "name": "How large a codebase can it handle?", "acceptedAnswer": { "@type": "Answer", "text": "Files are processed in batches with generated code skipped. Most repos of 50–500 files finish in under a minute." } },
               { "@type": "Question", "name": "What is an AI coding agent graph?", "acceptedAnswer": { "@type": "Answer", "text": "An AI coding agent graph is a machine-readable map of a repository: files as nodes, imports and calls as typed edges. RepoGraph AI builds exactly this graph for any repo, so both you and an AI coding agent can navigate, summarize, and question the codebase with full structural context." } },
-              { "@type": "Question", "name": "Can coding agents use my RepoGraph repo graph?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. One click exports REPOGRAPH-CONTEXT.md — a compact context file with an approximate token count and file-and-line references that coding agents read directly. Built for Copilot, Cursor, Claude Code, Codex, OpenCode, Windsurf and Cline." } },
+              { "@type": "Question", "name": "Can coding agents use my RepoGraph repo graph?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. One click exports REPOGRAPH-CONTEXT.md — a compact context file with an approximate token count, up to 40% context savings, and file-and-line references that coding agents read directly. Built for Copilot, Cursor, Claude Code, Codex, OpenCode, Windsurf and Cline." } },
               { "@type": "Question", "name": "I'm new to a project. Where do I start?", "acceptedAnswer": { "@type": "Answer", "text": "Analyze the workspace once: the dependency graph shows you what connects to what, the repo overview explains the architecture, and Q&A answers \"where is X handled?\" with file references. Most developers go from zero to productive in a single sitting." } },
               { "@type": "Question", "name": "How is RepoGraph different from other repo graph tools?", "acceptedAnswer": { "@type": "Answer", "text": "Most repo graph tools only draw static pictures. RepoGraph AI combines a live dependency graph, per-file AI summaries, multi-turn codebase Q&A, five AI providers, and zero telemetry — free and open source, entirely inside VS Code." } },
               { "@type": "Question", "name": "Which languages are supported?", "acceptedAnswer": { "@type": "Answer", "text": "20+: TypeScript, JavaScript, Python, Go, Rust, Java, Kotlin, C/C++, C#, Ruby, PHP, Swift, Vue, Svelte, Astro, GraphQL, Prisma, SQL, Shell." } }
@@ -184,7 +184,7 @@
               <span>Understand it in minutes.</span>
             </h1>
 
-            <p class="hero-sub">Every repo you inherit or join. Every unfamiliar call path. Every <em>"where is this handled?"</em> — mapped as a <strong>live dependency graph</strong> and answered with <strong>file:line proof</strong>, right inside VS Code. Install once, use it in <strong>every project</strong>.</p>
+            <p class="hero-sub">Every repo you inherit or join. Every unfamiliar call path. Every <em>"where is this handled?"</em> — mapped as a <strong>live dependency graph</strong> and answered with <strong>file:line proof</strong>. And your AI agent gets a one-file brief that <strong>cuts its context tokens by up to 40%</strong>. Right inside VS Code — install once, use it in <strong>every project</strong>.</p>
 
             <div class="hero-actions">
               <a class="btn-split" href="https://marketplace.visualstudio.com/items?itemName=kaushalendra.repograph-ai" target="_blank" rel="noopener">
@@ -287,7 +287,7 @@
                       </div>
                       <div class="iso-foot">
                         <span class="iso-chip">AGENT CONTEXT</span>
-                        <span class="iso-note">4,182 tokens</span>
+                        <span class="iso-note">4,182 tokens · -40% vs re-scan</span>
                       </div>
                     </div>
                   </div>
@@ -388,7 +388,7 @@
             <article class="moment">
               <span class="m-tag">Working with AI</span>
               <h3>Your agent keeps guessing</h3>
-              <p>One click exports REPOGRAPH-CONTEXT.md — a compact brief with real file:line references, so Copilot, Cursor, Claude Code or Codex edits on facts, not vibes.</p>
+              <p>One click exports REPOGRAPH-CONTEXT.md — a compact brief with real file:line references, so Copilot, Cursor, Claude Code or Codex edits on facts, not vibes — with up to 40% fewer context tokens.</p>
             </article>
           </div>
         </div>
@@ -1484,7 +1484,7 @@
               <div class="faq-item reveal"><button class="faq-q" type="button">Which AI providers are supported?<span class="faq-chev" aria-hidden="true">↓</span></button><div class="faq-a"><p>Groq, Ollama, Gemini, Claude and OpenAI — with custom model names. Switch providers anytime without re-analyzing.</p></div></div>
               <div class="faq-item reveal"><button class="faq-q" type="button">How large a codebase can it handle?<span class="faq-chev" aria-hidden="true">↓</span></button><div class="faq-a"><p>Files are processed in batches with generated code skipped. Most repos of 50–500 files finish in under a minute.</p></div></div>
               <div class="faq-item reveal"><button class="faq-q" type="button">What is an AI coding agent graph?<span class="faq-chev" aria-hidden="true">↓</span></button><div class="faq-a"><p>An AI coding agent graph is a machine-readable map of a repository: files as nodes, imports and calls as typed edges. RepoGraph AI builds exactly this graph for any repo, so both you and an AI coding agent can navigate, summarize, and question the codebase with full structural context.</p></div></div>
-              <div class="faq-item reveal"><button class="faq-q" type="button">Can coding agents use my RepoGraph repo graph?<span class="faq-chev" aria-hidden="true">↓</span></button><div class="faq-a"><p>Yes. One click exports REPOGRAPH-CONTEXT.md — a compact context file with an approximate token count and file-and-line references that coding agents read directly. Built for Copilot, Cursor, Claude Code, Codex, OpenCode, Windsurf and Cline. Or hand them the exported .mmd, .svg or .json instead of re-reading files.</p></div></div>
+              <div class="faq-item reveal"><button class="faq-q" type="button">Can coding agents use my RepoGraph repo graph?<span class="faq-chev" aria-hidden="true">↓</span></button><div class="faq-a"><p>Yes. One click exports REPOGRAPH-CONTEXT.md — a compact context file with an approximate token count, up to 40% context savings, and file-and-line references that coding agents read directly. Built for Copilot, Cursor, Claude Code, Codex, OpenCode, Windsurf and Cline. Or hand them the exported .mmd, .svg or .json instead of re-reading files.</p></div></div>
               <div class="faq-item reveal"><button class="faq-q" type="button">I'm new to a project. Where do I start?<span class="faq-chev" aria-hidden="true">↓</span></button><div class="faq-a"><p>Analyze the workspace once: the dependency graph shows you what connects to what, the repo overview explains the architecture, and Q&amp;A answers "where is X handled?" with file references. Most developers go from zero to productive in a single sitting.</p></div></div>
               <div class="faq-item reveal"><button class="faq-q" type="button">How is RepoGraph different from other repo graph tools?<span class="faq-chev" aria-hidden="true">↓</span></button><div class="faq-a"><p>Most repo graph tools only draw static pictures. RepoGraph AI combines a live dependency graph, per-file AI summaries, multi-turn codebase Q&amp;A, five AI providers, and zero telemetry — free and open source, entirely inside VS Code.</p></div></div>
               <div class="faq-item reveal"><button class="faq-q" type="button">Which languages are supported?<span class="faq-chev" aria-hidden="true">↓</span></button><div class="faq-a"><p>20+: TypeScript, JavaScript, Python, Go, Rust, Java, Kotlin, C/C++, C#, Ruby, PHP, Swift, Vue, Svelte, Astro, GraphQL, Prisma, SQL, Shell.</p></div></div>
