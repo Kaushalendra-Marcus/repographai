@@ -107,7 +107,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="msapplication-TileColor" content="#4F6BFF" />
-    <link rel="stylesheet" href="styles.css?v=7" />
+    <link rel="stylesheet" href="styles.css?v=8" />
   </head>
 
   <body id="top">
@@ -222,9 +222,11 @@
 
                       <svg class="iso-graph" viewBox="0 0 420 268" aria-hidden="true">
                         <defs>
-                          <filter id="isoNodeGlow" x="-300%" y="-300%" width="700%" height="700%">
-                            <feGaussianBlur stdDeviation="4"/>
-                          </filter>
+                          <radialGradient id="isoNodeHalo">
+                            <stop offset="0" stop-color="#e8efff" stop-opacity=".8"/>
+                            <stop offset=".45" stop-color="#a9c0ff" stop-opacity=".34"/>
+                            <stop offset="1" stop-color="#7f9cff" stop-opacity="0"/>
+                          </radialGradient>
                         </defs>
                         <g transform="translate(-14 22)">
                           <g class="iso-graph-grid">
