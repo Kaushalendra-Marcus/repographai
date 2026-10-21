@@ -205,7 +205,7 @@
           </div>
 
           <div class="hero-visual">
-            <div class="iso-stage" role="img" aria-label="Three stacked isometric glass plates: a dependency graph base, an agent context layer, and an alert trends layer, connected by dashed tracking lines.">
+            <div class="iso-stage" role="img" aria-label="Three stacked isometric glass plates: a dependency graph base, an agent context layer, and a cited-answer evidence layer, connected by dashed tracking lines.">
               <div class="iso-aura" aria-hidden="true"></div>
 
               <div class="iso-scene">
@@ -259,7 +259,7 @@
 
                       <div class="iso-foot">
                         <span class="iso-chip">DEPENDENCY GRAPH</span>
-                        <span class="iso-note">auth.ts → graph.ts <b>· 6 hops</b></span>
+                        <span class="iso-note">142 files <b>· 312 edges</b></span>
                       </div>
                     </div>
                   </div>
@@ -291,38 +291,29 @@
                   <span class="iso-track br" aria-hidden="true"></span>
                 </div>
 
-                <!-- 03 · GLASS TRENDS PLATE -->
-                <div class="iso-layer iso-layer--trend">
+                <!-- 03 · GLASS ANSWER / EVIDENCE PLATE -->
+                <div class="iso-layer iso-layer--evidence">
                   <span class="iso-extrude" aria-hidden="true"></span>
                   <div class="iso-top">
                     <div class="iso-ui">
                       <div class="iso-head">
-                        <span class="iso-kicker">ALERT TRENDS</span>
-                        <span class="iso-meta">LAST 7 DAYS</span>
+                        <span class="iso-kicker">ANSWER / EVIDENCE</span>
+                        <span class="iso-meta">MULTI-TURN</span>
                       </div>
                       <div class="iso-figure">
-                        <span class="iso-big">24</span>
-                        <span class="iso-big-l">open signals</span>
-                        <span class="iso-delta">↗ 12.4%</span>
+                        <span class="iso-big">100<span class="iso-big-pct">%</span></span>
+                        <span class="iso-big-l">answers cited</span>
+                        <span class="iso-delta">0 guesses</span>
                       </div>
-                      <svg class="iso-chart" viewBox="0 0 360 116" preserveAspectRatio="none" aria-hidden="true">
-                        <defs>
-                          <linearGradient id="isoChartFill" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0" stop-color="#b9c7ff" stop-opacity=".42"/>
-                            <stop offset="1" stop-color="#7d98ff" stop-opacity="0"/>
-                          </linearGradient>
-                        </defs>
-                        <g class="iso-chart-grid">
-                          <path d="M0 24H360M0 58H360M0 92H360"/>
-                          <path d="M60 6V108M150 6V108M240 6V108M330 6V108" stroke-dasharray="2 6"/>
-                        </g>
-                        <path class="iso-chart-area" d="M0 92C24 90 34 72 58 76S98 96 122 84 158 42 182 48 216 74 242 62s40-34 64-30 32 22 54 18V116H0Z"/>
-                        <path class="iso-chart-line" d="M0 92C24 90 34 72 58 76S98 96 122 84 158 42 182 48 216 74 242 62s40-34 64-30 32 22 54 18"/>
-                        <circle class="iso-chart-dot" cx="360" cy="50" r="3.4"/>
-                      </svg>
+                      <p class="iso-question"><span>Q</span> Where is auth handled?</p>
+                      <div class="iso-evidence">
+                        <div class="iso-cite"><span class="iso-cite-n">01</span><code>lib/auth.ts<b>:42</b></code><span class="iso-cite-ok">✓</span></div>
+                        <div class="iso-cite"><span class="iso-cite-n">02</span><code>middleware.ts<b>:18</b></code><span class="iso-cite-ok">✓</span></div>
+                        <div class="iso-cite"><span class="iso-cite-n">03</span><code>app/api/ask.ts<b>:27</b></code><span class="iso-cite-ok">✓</span></div>
+                      </div>
                       <div class="iso-foot">
-                        <span class="iso-chip">RISK SIGNALS</span>
-                        <span class="iso-note">graph · auth · api</span>
+                        <span class="iso-chip">FILE : LINE</span>
+                        <span class="iso-note">4 sources · 0 guesses</span>
                       </div>
                     </div>
                   </div>
@@ -335,12 +326,6 @@
 
               <div class="iso-hint" aria-hidden="true"><span>3 layers</span><b>hover to lift</b></div>
               <div class="iso-groundline" aria-hidden="true"></div>
-            </div>
-
-            <div class="hero-stat" aria-hidden="true">
-              <div class="hs-head"><i class="dot"></i>Analysis complete</div>
-              <div class="hs-n">142 <span>files</span> <b>·</b> 312 <span>edges</span></div>
-              <div class="hs-sub">Most connected <b>lib/auth.ts</b> — in 18 / out 6</div>
             </div>
 
             <div class="hero-command">
