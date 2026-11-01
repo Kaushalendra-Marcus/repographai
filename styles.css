@@ -1269,3 +1269,8 @@ footer::before{content:'';position:absolute;left:50%;top:-200px;transform:transl
   .xerj-list li{font-size:14px}
   .xerj-code pre{font-size:10.5px;padding:44px 14px 14px}
 }
+
+/* Product Hunt pill (hero) */
+.hero-ph-row{margin-top:10px}
+.hero-ph .v2-tag{background:#ff6154;border-color:#ff6154;color:#fff}
+.hero-ph:hover .v2-tag{background:#ff7a6e;border-color:#ff7a6e}
