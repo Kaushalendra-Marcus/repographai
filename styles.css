@@ -1201,3 +1201,71 @@ footer::before{content:'';position:absolute;left:50%;top:-200px;transform:transl
   .hero-fine{font-size:8.5px}
   .cta-title{font-size:33px}
 }
+
+/* ═══════════ XERJ CORPUS HUB ═══════════ */
+.xerj{background:var(--paper-3);border-top:1px solid var(--line)}
+.xerj-grid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:72px;align-items:center}
+.xerj-copy .lede{margin-top:26px;max-width:540px}
+.xerj-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:1px;margin-top:34px;border:1px solid var(--line);border-radius:8px;background:var(--line);overflow:hidden;max-width:560px}
+.xerj-stat{background:var(--white);padding:15px 14px}
+.xerj-stat b{display:block;font-size:26px;font-weight:500;line-height:1.1;letter-spacing:-.04em;color:var(--text)}
+.xerj-stat span{display:block;margin-top:5px;font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.xerj-commit{margin-top:18px;font-size:13.5px;line-height:1.6;color:var(--body);max-width:560px}
+.xerj-commit a{text-decoration:none}
+.xerj-commit code{font-family:var(--fm);font-size:12px;color:var(--blue-deep);background:var(--blue-soft);border-radius:4px;padding:2px 6px}
+.xerj-commit a:hover code{background:#dbe2ff}
+.xerj-commit span{display:block;margin-top:3px;font-family:var(--fm);font-size:10.5px;letter-spacing:.02em;color:var(--faint)}
+.xerj-acts{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:30px}
+.xerj-frame{display:block;text-decoration:none;border:1px solid var(--line-2);border-radius:12px;background:var(--white);overflow:hidden;box-shadow:var(--shadow-md);transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.xerj-frame:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.xerj-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.xerj-bar i{width:9px;height:9px;border-radius:50%;background:#cfcfdc;flex-shrink:0}
+.xerj-url{margin-left:10px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--fm);font-size:10.5px;letter-spacing:.01em;color:var(--faint)}
+.xerj-frame img{display:block;width:100%;height:auto}
+.xerj-more{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:20px;margin-top:64px}
+.xerj-card{border:1px solid var(--line);border-radius:10px;background:var(--white);padding:30px;box-shadow:var(--shadow-xs);min-width:0}
+.xerj-tag{display:block;margin-bottom:14px;font-family:var(--fm);font-size:9.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
+.xerj-card h3{font-size:19px;font-weight:500;letter-spacing:-.03em;line-height:1.3;color:var(--text)}
+.xerj-list{margin-top:18px;display:grid;gap:11px}
+.xerj-list li{position:relative;padding-left:22px;font-size:14.5px;line-height:1.6;color:var(--body)}
+.xerj-list li::before{content:'\2192';position:absolute;left:0;top:0;color:var(--blue);font-size:13px}
+.xerj-list b{font-weight:500;color:var(--text)}
+.xerj-details{margin-top:24px;border-top:1px solid var(--line);padding-top:18px}
+.xerj-details summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:9px;font-family:var(--fm);font-size:11.5px;letter-spacing:.02em;color:var(--text)}
+.xerj-details summary::-webkit-details-marker{display:none}
+.xerj-details summary::after{content:'\2193';color:var(--blue);font-size:13px;transition:transform .25s var(--ease)}
+.xerj-details[open] summary::after{transform:rotate(180deg)}
+.xerj-details>p{margin-top:14px;font-size:13.5px;line-height:1.6;color:var(--body)}
+.xerj-code{position:relative;margin-top:14px;border-radius:8px;background:#0d0e17;border:1px solid rgba(255,255,255,.08)}
+.xerj-code pre{margin:0;padding:18px 18px 18px;overflow-x:auto;font-family:var(--fm);font-size:11.5px;line-height:1.75;color:#c9cde0;white-space:pre}
+.xerj-code code{font-family:inherit}
+.xerj-code .copy-btn{position:absolute;top:10px;right:10px;z-index:2;height:28px;padding:0 10px;border:1px solid rgba(255,255,255,.18);border-radius:4px;background:rgba(13,14,23,.92);color:#e8e8f2;font-family:var(--fm);font-size:10.5px;cursor:pointer;transition:background .2s,border-color .2s}
+.xerj-code .copy-btn:hover{background:#1b1d2e;border-color:rgba(255,255,255,.32)}
+.xerj-code--short pre{padding-top:44px}
+.xerj-badge-demo{margin-top:18px;min-height:28px}
+.xerj-badge-demo a{display:inline-block}
+.xerj-badge-demo img{height:28px;width:auto}
+.xerj-fine{margin-top:16px;font-family:var(--fm);font-size:10.5px;letter-spacing:.02em;color:var(--faint)}
+.xerj-copy,.xerj-frame{min-width:0}
+.xerj-code pre{padding-top:44px}
+@media (max-width:1080px){
+  .xerj-grid{grid-template-columns:minmax(0,1fr);gap:44px}
+  .xerj-more{grid-template-columns:minmax(0,1fr)}
+  .xerj-copy .lede,.xerj-stats,.xerj-commit{max-width:none}
+}
+@media (max-width:640px){
+  .xerj .display{font-size:clamp(34px,10.5vw,46px)}
+  .xerj-copy .lede{margin-top:20px}
+  .xerj-stats{margin-top:26px;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .xerj-stat{padding:13px 10px}
+  .xerj-stat b{font-size:21px}
+  .xerj-stat span{font-size:8px;letter-spacing:.07em}
+  .xerj-acts{margin-top:24px}
+  .xerj-acts>a{flex:1 1 auto;justify-content:center;text-align:center}
+  .xerj-url{font-size:9.5px}
+  .xerj-more{margin-top:40px;gap:16px}
+  .xerj-card{padding:20px}
+  .xerj-card h3{font-size:17px}
+  .xerj-list li{font-size:14px}
+  .xerj-code pre{font-size:10.5px;padding:44px 14px 14px}
+}

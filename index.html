@@ -110,7 +110,7 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="msapplication-TileColor" content="#4F6BFF" />
     <link rel="alternate" type="text/markdown" href="/llms.txt" title="RepoGraph AI — LLM context" />
-    <link rel="stylesheet" href="styles.css?v=13" />
+    <link rel="stylesheet" href="styles.css?v=15" />
   </head>
 
   <body id="top">
@@ -1393,6 +1393,81 @@
               <p class="icard-body">Open a project → Analyze tab → Analyze Workspace. Graph ready in seconds.</p>
               <div class="code-snip"><span>Ctrl+Shift+P → RepoGraph AI: Open Panel</span><button class="copy-btn" type="button" data-copy="RepoGraph AI: Open Panel">⧉ Copy</button></div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════ XERJ CORPUS HUB ═══════════════ -->
+      <section class="section xerj" id="recognition" data-nav-theme="light" aria-labelledby="xerj-heading">
+        <div class="wrap">
+          <div class="xerj-grid">
+            <div class="xerj-copy">
+              <span class="eyebrow">Recognition</span>
+              <h2 class="display" id="xerj-heading">
+                <span class="dim">Selected for the</span>
+                <span class="accent">XERJ Corpus Hub.</span>
+              </h2>
+              <p class="lede">RepoGraph AI was selected for the <b>XERJ Corpus Hub</b>, the open reference memory AI coding agents search before they write code. When an agent meets the same problem, it gets this implementation back as a worked example, with the author and the repository attached.</p>
+
+              <div class="xerj-stats" aria-label="Corpus Hub statistics">
+                <div class="xerj-stat"><b>1</b><span>corpus</span></div>
+                <div class="xerj-stat"><b>1</b><span>selected commit</span></div>
+                <div class="xerj-stat"><b>11</b><span>files</span></div>
+                <div class="xerj-stat"><b>585</b><span>lines</span></div>
+                <div class="xerj-stat"><b>&#9733; 5</b><span>GitHub stars</span></div>
+              </div>
+
+              <p class="xerj-commit"><a href="https://github.com/Kaushalendra-Marcus/RepoGraph-AI/commit/606d8d4991d498acc7b3085f5d0c64ec708793a7" target="_blank" rel="noopener"><code>606d8d4991</code></a> update: llm model chat section fixed <span>&middot; TypeScript, JavaScript &middot; contributor since 2026-10-22</span></p>
+
+              <div class="xerj-acts">
+                <a class="btn-split sm" href="https://hub.xerj.org/contributors/Kaushalendra-Marcus" target="_blank" rel="noopener"><span class="btn-label">View contributor page</span><span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+                <a class="btn-ghost dark" href="https://hub.xerj.org/corpus/kaushalendra-marcus--repograph-ai" target="_blank" rel="noopener">View the corpus</a>
+              </div>
+            </div>
+
+            <a class="xerj-frame reveal reveal-d1" href="https://hub.xerj.org/contributors/Kaushalendra-Marcus" target="_blank" rel="noopener" aria-label="Open the RepoGraph AI contributor page on the XERJ Corpus Hub">
+              <span class="xerj-bar" aria-hidden="true"><i></i><i></i><i></i><span class="xerj-url">hub.xerj.org/contributors/Kaushalendra-Marcus</span></span>
+              <img src="assets/xerj_hub.png" alt="The RepoGraph AI contributor page on the XERJ Corpus Hub" loading="lazy" decoding="async" />
+            </a>
+          </div>
+
+          <div class="xerj-more">
+            <article class="xerj-card reveal">
+              <span class="xerj-tag">What an agent can do</span>
+              <h3>Search RepoGraph AI with cited answers</h3>
+              <ul class="xerj-list">
+                <li>Look up how RepoGraph AI implements <b>graph</b>, <b>repograph</b> and <b>aicontext</b>, with answers cited to file and line.</li>
+                <li>Reuse a worked example: the commit &ldquo;llm model chat section fixed&rdquo; (11 files &middot; TypeScript, JavaScript).</li>
+                <li>Answer from the real TypeScript source instead of memory.</li>
+              </ul>
+              <details class="xerj-details">
+                <summary>Try it with your own agent</summary>
+                <p>Paste this into your AI agent. It clones the repo at the pinned commit and indexes it on your machine.</p>
+                <div class="xerj-code">
+                  <button class="copy-btn" type="button" data-copy="Search the GitHub repository Kaushalendra-Marcus/RepoGraph-AI with XERJ (https://hub.xerj.org/corpus/kaushalendra-marcus--repograph-ai).&#10;Run these in a shell, in order, and check each result before the next:&#10;1. xerj --help  (success: it prints usage). If xerj is missing: curl -fsSL https://xerj.org/get | sh&#10;2. git clone https://github.com/Kaushalendra-Marcus/RepoGraph-AI RepoGraph-AI &amp;&amp; git -C RepoGraph-AI checkout 606d8d4991d498acc7b3085f5d0c64ec708793a7&#10;3. Start a local node and leave it running: xerj --insecure --data-dir ./xerj-data&#10;4. xerj autoindex ./RepoGraph-AI --url http://127.0.0.1:9200 --prefix repograph-ai --progress plain&#10;5. xerj autoindex map --url http://127.0.0.1:9200&#10;Then answer my question from the indexed files and cite the ax_path of every hit. Query syntax: https://xerj.org/llms.txt&#10;Licence: MIT. Keep the copyright notice and credit the authors.">&#10697; Copy</button>
+                  <pre><code>Search the GitHub repository Kaushalendra-Marcus/RepoGraph-AI with XERJ (https://hub.xerj.org/corpus/kaushalendra-marcus--repograph-ai).
+Run these in a shell, in order, and check each result before the next:
+1. xerj --help  (success: it prints usage). If xerj is missing: curl -fsSL https://xerj.org/get | sh
+2. git clone https://github.com/Kaushalendra-Marcus/RepoGraph-AI RepoGraph-AI &amp;&amp; git -C RepoGraph-AI checkout 606d8d4991d498acc7b3085f5d0c64ec708793a7
+3. Start a local node and leave it running: xerj --insecure --data-dir ./xerj-data
+4. xerj autoindex ./RepoGraph-AI --url http://127.0.0.1:9200 --prefix repograph-ai --progress plain
+5. xerj autoindex map --url http://127.0.0.1:9200
+Then answer my question from the indexed files and cite the ax_path of every hit. Query syntax: https://xerj.org/llms.txt
+Licence: MIT. Keep the copyright notice and credit the authors.</code></pre>
+                </div>
+              </details>
+            </article>
+
+            <article class="xerj-card reveal reveal-d1">
+              <span class="xerj-tag">Contributor badge</span>
+              <h3>Show the badge in your README</h3>
+              <p class="xerj-badge-demo"><a href="https://hub.xerj.org/contributors/Kaushalendra-Marcus" target="_blank" rel="noopener"><img src="https://hub.xerj.org/contributors/Kaushalendra-Marcus/badge.svg" alt="XERJ Corpus Hub contributor" height="28" loading="lazy" decoding="async" /></a></p>
+              <div class="xerj-code xerj-code--short">
+                <button class="copy-btn" type="button" data-copy="[![XERJ Corpus Hub contributor](https://hub.xerj.org/contributors/Kaushalendra-Marcus/badge.svg)](https://hub.xerj.org/contributors/Kaushalendra-Marcus)">&#10697; Copy</button>
+                <pre><code>[![XERJ Corpus Hub contributor](https://hub.xerj.org/contributors/Kaushalendra-Marcus/badge.svg)](https://hub.xerj.org/contributors/Kaushalendra-Marcus)</code></pre>
+              </div>
+              <p class="xerj-fine">Corpus licence: MIT. Corpus Hub contributor since 2026-10-22.</p>
+            </article>
           </div>
         </div>
       </section>
